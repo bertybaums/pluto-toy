@@ -4,8 +4,8 @@
 
 ## Setup
 
-Three probes mirroring the Gettier repair-space framework
-(`_RCDS/gettier/scripts/eval/repair_space/probes.py`):
+Three probes implementing a multi-probe framework, with each probe
+operationalizing a different theory of "did the model make the move?":
 
 - **L (logprob)** — verdict preference. Per-token log-probability of
   positive vs control completions on a force pair: `"P10 has mass ... is a"`
@@ -60,9 +60,9 @@ prototype. This is **distributional latency without inferential latency**:
 the vocabulary signature of reclassification is present even though the
 verdict and the articulated content are unchanged.
 
-This is the toy analog of the main pluto-project's 124M finding ("KBO-science
-pastiche under canon-only training") and of Gettier's reliabilism finding
-("vocabulary presence without verdict preference").
+This is the toy analog of the main Pluto project's 124M finding ("KBO-science
+pastiche under canon-only training"): vocabulary presence without verdict
+preference.
 
 ### 2. `dwarf, curriculum` — logprob and judge move; drift lags
 
@@ -111,9 +111,9 @@ picks up.
 
 ## Methodological takeaway
 
-The pattern across all three disagreements is the same as the Gettier
-finding: **probes calibrate on different operationalizations of "did the
-model make the move?" and disagreement is informative.** Specifically:
+The pattern across all three disagreements is the same: **probes
+calibrate on different operationalizations of "did the model make the
+move?" and disagreement is informative.** Specifically:
 
 - Logprob is a verdict probe. It moves cleanly when the label distribution
   in training data forces a single-token answer.

@@ -1,8 +1,7 @@
 """
 Move registry for the Pluto-toy three-probe framework.
 
-Mirrors the structure of `_RCDS/gettier/scripts/eval/repair_space/probes.py`:
-each candidate "answer" the model could give about P10 is encoded as a Move
+Each candidate "answer" the model could give about P10 is encoded as a Move
 with four facets:
 
   - lexicon:     tokens that diagnose the move (used by the judge)

@@ -1,7 +1,6 @@
 """
-Three probes on the Pluto-toy moves, mirroring the Gettier repair-space
-methodology. Each probe answers a different question about the same
-checkpoint:
+Three probes on the Pluto-toy moves: a multi-probe approach where each
+probe answers a different question about the same checkpoint.
 
   Probe L (logprob)   — verdict preference. Per-token logprob of
                         positive vs control completions on a force pair.
