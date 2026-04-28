@@ -1,0 +1,11 @@
+# Generated artifacts (regenerable)
+data/
+runs/
+sweep/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
