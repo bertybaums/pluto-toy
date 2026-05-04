@@ -23,13 +23,15 @@ is visible, and the experiment runs end-to-end on a CPU in minutes.
 ## The setup, in one paragraph
 
 We invent a small astronomical world. Phase 1 trains the model on a "canon" of
-labeled entities: 9 planets, 6 asteroids, 6 comets, 6 moons. One planet — `P10`,
-the Pluto-analog — sits at the prototype edge: its features (small mass, large
-diameter, distant orbit) place it on the periphery of the planet category, but
-the canon clearly labels it `planet`. Phase 2 introduces `E1..E5` — Eris-analogs
-with feature vectors at or beyond `P10`'s, in one of three modes: silent
-(`unlabeled`), competing label (`dwarf`), or analogical extension (`planet`).
-We train, then probe whether the model's representation of `P10` shifts.
+labeled entities: 10 planets (`P1..P9` plus `P10`), 6 asteroids, 6 comets,
+6 moons. `P1..P9` are generic prototypical planets, sampled near the planet
+centroid. `P10`, the Pluto-analog, sits at the prototype edge: its features
+(small mass, large diameter, distant orbit) place it on the periphery of the
+planet category, but the canon clearly labels it `planet`. Phase 2 introduces
+`E1..E5` — Eris-analogs with feature vectors at or beyond `P10`'s, in one of
+three modes: silent (`unlabeled`), competing label (`dwarf`), or analogical
+extension (`planet`). We train, then probe whether the model's representation
+of `P10` shifts.
 
 ## File map
 
@@ -83,12 +85,16 @@ are` continues with feature words rather than category words.
 
 ## Glossary: toy → Pluto
 
+The toy entities are not 1:1 stand-ins for specific real bodies — `P1..P9` are
+generic samples from the planet prototype, not Mercury…Neptune. The structural
+mapping is:
+
 | Toy | Pluto-real |
 |-----|-----------|
-| `P1..P9` | Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, ... |
-| `P10` | Pluto |
-| `E1..E5` | Eris, Haumea, Makemake, Sedna, ... |
-| Phase 1 (canon) | Pre-1990s astronomy textbooks: nine planets stated by ostension |
+| `P1..P9` | Prototypical planets (the uncontested members of the canon) |
+| `P10` | Pluto (the prototype-edge member labeled as a planet) |
+| `E1..E5` | Eris-class KBOs (Eris, Haumea, Makemake, Sedna, …) |
+| Phase 1 (canon) | Pre-1990s astronomy textbooks: planets stated by ostension |
 | Phase 2 (evidence, `unlabeled`) | KBO discoveries 1992–2005 reported as observations without a category claim |
 | Phase 2 (evidence, `dwarf`) | The 2006 IAU resolution — a new category competes for the same entities |
 | Phase 2 (evidence, `planet`) | The "rejected" alternative — extend the planet category to include all KBOs |
