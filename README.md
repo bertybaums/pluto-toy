@@ -8,7 +8,7 @@
 
 - [`tutorial.ipynb`](tutorial.ipynb) (Colab): the v1 narrative walkthrough &mdash; trains the model live and runs the original three probes.
 - [`tutorial-tension.ipynb`](tutorial-tension.ipynb) (Colab): the v2 follow-up &mdash; introduces the dual-label probe, the corner-mix axis, and the comparison against four classical statistical baselines.
-- [`docs/index.html`](docs/index.html): a non-runnable interactive results explainer covering the v2 methods and findings, with sliders and toggles over the corner-mix and model-size sweeps. Open the file directly in a browser, or serve it locally with `python3 -m http.server` from `docs/`.
+- **[Interactive results explainer](https://bertybaums.github.io/pluto-toy/)** (also at [`docs/index.html`](docs/index.html)): a non-runnable, undergraduate-friendly walkthrough of the v2 methods and findings, with sliders and toggles over the corner-mix and model-size sweeps. Lives on GitHub Pages at the link above; you can also open the file directly or serve it locally with `python3 -m http.server` from `docs/`.
 
 The rest of this README is the technical reference for the codebase.
 
