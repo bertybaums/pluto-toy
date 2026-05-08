@@ -2,6 +2,14 @@
 data/
 runs/
 sweep/
+sweep_small/
+sweep_large/
+sweep_grid/
+sweep_edge/
+*.log
+
+# Tooling state
+.claude/
 
 # Python
 __pycache__/
