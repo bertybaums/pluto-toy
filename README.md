@@ -4,7 +4,13 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bertybaums/pluto-toy/blob/main/tutorial.ipynb)
 
-**For a guided narrative walkthrough aimed at readers without a machine-learning background**, open [`tutorial.ipynb`](tutorial.ipynb) in Colab. The rest of this README is the technical reference for the codebase.
+**Three undergraduate-friendly entry points:**
+
+- [`tutorial.ipynb`](tutorial.ipynb) (Colab): the v1 narrative walkthrough &mdash; trains the model live and runs the original three probes.
+- [`tutorial-tension.ipynb`](tutorial-tension.ipynb) (Colab): the v2 follow-up &mdash; introduces the dual-label probe, the corner-mix axis, and the comparison against four classical statistical baselines.
+- [`docs/index.html`](docs/index.html): a non-runnable interactive results explainer covering the v2 methods and findings, with sliders and toggles over the corner-mix and model-size sweeps. Open the file directly in a browser, or serve it locally with `python3 -m http.server` from `docs/`.
+
+The rest of this README is the technical reference for the codebase.
 
 ---
 

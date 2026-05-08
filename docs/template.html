@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pluto-Toy: an interactive walkthrough</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<style>
+  :root {
+    --ink: #1c1c1c;
+    --paper: #fafaf6;
+    --rule: #d9d4c5;
+    --accent: #2b6e6e;
+    --canon: #2ca02c;
+    --swap: #ff7f0e;
+    --tension: #d62728;
+    --nothing: #7f7f7f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.55;
+  }
+  main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  header.title {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+  header.title h1 {
+    font-size: 2.1rem;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.2;
+  }
+  header.title .subtitle {
+    color: var(--nothing);
+    font-style: italic;
+    font-size: 1.05rem;
+  }
+  section { margin: 2.5rem 0; }
+  h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.3rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-size: 1.15rem;
+    margin-top: 1.5rem;
+    color: var(--accent);
+  }
+  p { margin: 0.7rem 0; }
+  .lede {
+    font-size: 1.1rem;
+    color: #333;
+  }
+  .note {
+    background: #f3efe3;
+    border-left: 3px solid var(--accent);
+    padding: 0.6rem 0.9rem;
+    margin: 1.2rem 0;
+    font-size: 0.95rem;
+  }
+  .controls {
+    background: #f3efe3;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.8rem 1rem;
+    margin: 1rem 0 0.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem 2rem;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-size: 0.92rem;
+  }
+  .controls label.group {
+    font-weight: bold;
+    margin-right: 0.4rem;
+    color: var(--accent);
+  }
+  .controls .group-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .controls .group-block .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+  .controls input[type=range] { width: 200px; vertical-align: middle; }
+  .controls .slider-block { display: flex; flex-direction: column; gap: 0.2rem; }
+  .pill-group { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+  .pill-group label { padding: 0.35rem 0.9rem; cursor: pointer; background: white; border-right: 1px solid var(--rule); font-size: 0.9rem; }
+  .pill-group label:last-child { border-right: none; }
+  .pill-group input[type=radio] { display: none; }
+  .pill-group label:has(input:checked) { background: var(--accent); color: white; font-weight: bold; }
+  .live-caption {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: white;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-size: 0.92rem;
+  }
+  /* Inline-definition spans: dotted underline, native browser tooltip via title */
+  .term {
+    border-bottom: 1px dotted var(--accent);
+    cursor: help;
+  }
+  .term:hover { background: #f3efe3; }
+  .plot { margin: 0.5rem 0 1rem 0; }
+  .figcap {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 0.3rem;
+    font-style: italic;
+  }
+  table.cells {
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-size: 0.95rem;
+  }
+  table.cells th, table.cells td {
+    border: 1px solid var(--rule);
+    padding: 0.45rem 0.8rem;
+    text-align: center;
+  }
+  table.cells th {
+    background: #f3efe3;
+    font-weight: bold;
+  }
+  .cell-tension { background: #fbdcdb; font-weight: bold; }
+  .cell-canon   { background: #d9efd9; }
+  .cell-swap    { background: #fde7d2; }
+  .cell-nothing { background: #ececec; color: #777; }
+  code, .mono {
+    font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.92em;
+  }
+  pre {
+    background: #f3efe3;
+    padding: 0.7rem 1rem;
+    overflow-x: auto;
+    border-radius: 4px;
+    font-size: 0.86em;
+  }
+  blockquote {
+    border-left: 3px solid var(--rule);
+    margin: 1rem 0;
+    padding: 0.3rem 1rem;
+    color: #555;
+  }
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.9rem;
+    color: #555;
+  }
+  a { color: var(--accent); }
+  .nav-toc {
+    font-size: 0.92rem;
+    background: #f3efe3;
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    margin: 1rem 0 2rem 0;
+  }
+  .nav-toc ol { margin: 0.3rem 0 0 1.4rem; padding: 0; }
+  .nav-toc li { margin: 0.2rem 0; }
+</style>
+</head>
+<body>
+<main>
+
+<header class="title">
+  <h1>Could a tiny model have predicted Pluto's demotion?</h1>
+  <div class="subtitle">An interactive walkthrough of the Pluto-Toy experiment &middot; May 7, 2026</div>
+</header>
+
+<section>
+  <p class="lede">In August 2006, the International Astronomical Union voted Pluto out of the planets. The case had been quietly building for years &mdash; astronomers had been finding objects out beyond Neptune since the 1990s, and by 2005, Eris was discovered, larger than Pluto and outside the planet category. The category was fraying.</p>
+
+  <p>This page walks through a small experiment that asks a sharper version of that historical question: <em>given only the kind of evidence Pluto-era astronomers had, can a tiny <span class="term" title="A statistical model that predicts what word comes next given the words so far. ChatGPT-class systems are large language models with hundreds of billions of these predictive numbers; the toy here uses 50,000.">language model</span> detect that the planet category is under <span class="term" title="Category strain: a state in which the same features are evidence for two different categories, so the model has internal conflict about which label belongs. Distinct from a 'label swap,' where the model just relabels without conflict.">strain</span>?</em> And, more interestingly: <em>which way of asking the model gives a meaningful answer?</em></p>
+
+  <p>The walkthrough is interactive. Each section has controls you can play with &mdash; sliders, toggles, hover-tooltips on the plots. You don't need a machine-learning background; the goal is to make the structure of the experiment legible.</p>
+
+  <div class="note">
+    Words with a <span class="term" title="Like this — a brief, plain-language definition appears when you point at the word.">dotted underline</span> have a hover-definition: rest your cursor (or your finger, on a touchscreen) on them to see a one-sentence explanation.
+  </div>
+</section>
+
+<nav class="nav-toc">
+  <strong>What's in this page</strong>
+  <ol>
+    <li><a href="#world">The toy world</a> &mdash; nine planets, six asteroids, six comets, six moons, plus &ldquo;Pluto&rdquo; (P10) and the Eris-analogs (E1&hellip;E6)</li>
+    <li><a href="#schedules">Three ways of training</a> &mdash; canon-only, curriculum, and mixed</li>
+    <li><a href="#probe">The dual-label probe</a> &mdash; reading two labels off the same prompt</li>
+    <li><a href="#sweep">What the model thinks P10 is</a> &mdash; explore the corner-mix &times; model-size results</li>
+    <li><a href="#baselines">Comparison with shallow classifiers</a> &mdash; what the data alone implies</li>
+    <li><a href="#takeaways">What we learned</a></li>
+    <li><a href="#technical">Under the hood</a> &mdash; architecture, training schedule, tokens-per-parameter, Chinchilla context</li>
+  </ol>
+</nav>
+
+<!-- ==== Section 1: the toy world ==== -->
+<section id="world">
+  <h2>1. The toy world</h2>
+
+  <p>To study category strain in something we can fully control, we don't use real astronomy. We invent a synthetic world. Each &ldquo;celestial body&rdquo; is described by exactly three integer features:</p>
+
+  <ul>
+    <li><strong>Mass</strong>: tiny &middot; small &middot; medium &middot; large &middot; huge (0&ndash;4)</li>
+    <li><strong>Diameter</strong>: tiny &middot; small &middot; medium &middot; large &middot; huge (0&ndash;4)</li>
+    <li><strong>Orbit</strong>: near &middot; inner &middot; middle &middot; outer &middot; distant (0&ndash;4)</li>
+  </ul>
+
+  <p>The world has four canonical categories &mdash; <strong>planet</strong>, <strong>asteroid</strong>, <strong>comet</strong>, <strong>moon</strong> &mdash; each with a <span class="term" title="A prototypical feature combination is the 'most typical' member of the category — e.g. for planet the prototype is (mass=large, diameter=large, orbit=middle). Real members are sampled near it with small noise.">prototypical feature combination</span>. P1&hellip;P9 are nine generic planets sampled near the planet prototype. <strong>P10 is our Pluto-analog</strong>: it has the planet label, but its features sit at the small-mass, distant-orbit edge of the category &mdash; (mass=small, diameter=large, orbit=distant), shown as the pink star in the plot below.</p>
+
+  <p>Then we add six new entities &mdash; <strong>E1&hellip;E6</strong>, the Eris-analogs &mdash; each labeled <em>dwarf</em>. The experimental knob is <em>where in <span class="term" title="The 3D space whose axes are mass, diameter, and orbit. Each entity is a point in this space. 'Feature overlap' means two entities sit near each other; 'disjoint' means they sit far apart.">feature space</span> we place those six dwarfs</em>. There are only two places they can go:</p>
+
+  <ul>
+    <li><strong>The overlap region</strong>: same features as P10 (mass=small, diameter=large, orbit=distant). A dwarf placed here looks just like Pluto.</li>
+    <li><strong>The disjoint corner</strong>: the opposite end of feature space (mass=huge, diameter=tiny, orbit=near). A dwarf placed here looks nothing like Pluto.</li>
+  </ul>
+
+  <p>So the question is: of the six dwarfs, <em>how many do we put in the disjoint corner</em>? We call that knob the <strong>corner-mix</strong>. The buttons below run the experiment with four different values of it. Click each one to see where the six dwarfs end up in the 3D feature space.</p>
+
+  <div class="controls">
+    <div class="group-block">
+      <label class="group">corner-mix</label>
+      <div class="pill-group">
+        <label><input type="radio" name="world-mix" value="0" checked>0 of 6</label>
+        <label><input type="radio" name="world-mix" value="2">2 of 6</label>
+        <label><input type="radio" name="world-mix" value="4">4 of 6</label>
+        <label><input type="radio" name="world-mix" value="6">6 of 6</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-caption" id="world-caption">&hellip;</div>
+
+  <div id="world-plot" class="plot" style="height: 480px;"></div>
+
+  <div class="figcap">Each point is one entity. Hover for its name and category. P10 is the pink star. The red diamonds are the six dwarf-labeled entities; their positions change with corner-mix. (We add a small visual jitter so that several entities at the same nominal position appear as a cloud rather than a single stacked marker &mdash; nothing is randomized in the actual experiment.)</div>
+
+  <p>Reading the four conditions:</p>
+  <ul>
+    <li><strong>0 of 6</strong> (&ldquo;full overlap&rdquo;): all six dwarfs sit on top of P10. The model is being told, in effect, &ldquo;this Pluto-shaped thing is a dwarf, not a planet.&rdquo;</li>
+    <li><strong>6 of 6</strong> (&ldquo;full rote-control&rdquo;): all six dwarfs sit in the far corner. The model is being told, &ldquo;here's a new category called dwarf, and it lives somewhere completely separate from any planet.&rdquo;</li>
+    <li><strong>2 of 6</strong> and <strong>4 of 6</strong> are intermediate: some dwarfs in P10's neighborhood, some in the far corner.</li>
+  </ul>
+
+  <h3>Aside: what does &ldquo;rote&rdquo; mean here?</h3>
+
+  <p>&ldquo;Rote&rdquo; is the everyday word: <em>learning by memorizing flat pairings, without integrating them into anything else.</em> When a child memorizes &ldquo;8&times;7=56&rdquo; as a free-standing fact rather than working it out from 8&times;8=64 minus 8, that's <span class="term" title="Rote learning: memorizing facts as standalone pairings, with no integration into a broader category structure or inferential network.">rote</span>.</p>
+
+  <p>Applied to this experiment: under the <strong>rote-control</strong> condition (corner-mix = 6/6), the six dwarfs sit in a region of feature space that no other category occupies. So the model can only learn &ldquo;dwarf&rdquo; <em>by rote</em> &mdash; by memorizing &ldquo;things-with-these-particular-features map to the word <em>dwarf</em>,&rdquo; with no overlap or conflict against what it already knows about planets. There's no opportunity for category strain because the feature evidence and the existing label structure don't compete.</p>
+
+  <p>That makes the 6/6 condition the experimental control against tension. If the model produces both labels for P10 even at 6/6, it can't be because the features support both labels &mdash; the dwarf-labeled examples don't share P10's features at all. So 6/6 is the &ldquo;flat memorization only&rdquo; setup; 0/6 is the &ldquo;features-actively-contested&rdquo; setup; and the intermediate values let us watch how the two stories trade off.</p>
+
+  <p>Why does any of this matter? Because if the model picks up &ldquo;dwarf&rdquo; for P10, we want to know <em>why</em>. Did it pick that up because P10's features look just like a dwarf's (the overlap-driven story)? Or because the model has just generally learned to say &ldquo;dwarf&rdquo; after seeing dwarf-labeled examples in phase 2 (a frequency-driven story that has nothing to do with P10's features)? The corner-mix knob separates these two. At 0/6 they're confounded; at 6/6 only the frequency story can be at work.</p>
+</section>
+
+<!-- ==== Section 2: schedules ==== -->
+<section id="schedules">
+  <h2>2. Three ways of training</h2>
+
+  <p>The model trains in two phases. <strong>Phase&nbsp;1</strong> is the canon: 28 entities (P1&hellip;P10, plus asteroids, comets, moons), each described and labeled. <strong>Phase&nbsp;2</strong> is the new evidence: 6 E* described and labeled as dwarfs.</p>
+
+  <p>How those two phases get combined matters &mdash; a lot. We compare three schedules:</p>
+
+  <div class="note">
+    <strong>Canon-only:</strong> just phase 1. The model never sees the E*. This is our &ldquo;before-Eris&rdquo; baseline.
+  </div>
+  <div class="note">
+    <strong>Curriculum:</strong> phase 1 first, then phase 2 as a <span class="term" title="Fine-tune: continue training a model on new data, starting from the weights it already has rather than from scratch.">fine-tune</span>. This mirrors how a student learns &mdash; textbook first, new findings after &mdash; and it is also how most real-world models get updated. The danger here is <span class="term" title="Catastrophic forgetting: when a network trained on new data overwrites the representations it had learned for the old data, because the gradient updates don't include any examples from the old training set.">catastrophic forgetting</span>: when a network is trained on new data without rehearsing the old, the new data can overwrite the old representation.
+  </div>
+  <div class="note">
+    <strong>Mixed:</strong> shuffle phase 1 and phase 2 together and train on the union. The model sees canon and evidence interleaved throughout, so canon never gets a chance to be forgotten.
+  </div>
+
+  <p>The toy uses a 50,000-<span class="term" title="A model's parameters are the numbers it learns during training. Each parameter is one weight in one layer. ChatGPT-class models have ~200 billion of these; this toy has 50,000 in the small version and ~300,000 in the large version.">parameter</span> <span class="term" title="A transformer is a neural-network architecture built around attention layers; it's the architecture used in ChatGPT, Claude, and most modern language models. Same family of architecture here, just much smaller.">transformer</span> (about four million times smaller than ChatGPT-class models). We also test a 200,000-parameter version &mdash; still tiny &mdash; to see whether more capacity changes anything.</p>
+</section>
+
+<!-- ==== Section 3: dual-label probe ==== -->
+<section id="probe">
+  <h2>3. The dual-label probe</h2>
+
+  <p>Once the model is trained, we ask: what does it think P10 is? The natural way is to give it the prompt</p>
+
+  <pre>P10 has mass small diameter large orbit distant . P10 is a ___</pre>
+
+  <p>and look at the probability the model assigns to each possible next word. (More precisely: the model produces a number for every word in its vocabulary, and we run those numbers through the <span class="term" title="Softmax: a function that turns a list of arbitrary numbers into a probability distribution — every output is between 0 and 1, and they all sum to 1. The 'standard' way of getting probabilities out of a neural network's raw outputs.">softmax</span> function to turn them into probabilities that sum to 1.) A <span class="term" title="Forced-choice probe: ask 'did planet win or did dwarf win?' and report just the winner. Discards the actual probability values, so it can't represent two-labels-in-play states.">forced-choice probe</span> asks: did <code>planet</code> beat <code>dwarf</code>? The trouble is, this collapses two pieces of information into one. If the model is genuinely conflicted &mdash; if it has acquired both labels for P10 &mdash; the forced-choice probe cannot say so.</p>
+
+  <p>The <strong>dual-label probe</strong> reads <code>P(planet)</code> and <code>P(dwarf)</code> independently. Each P10 reading then lands in a 2&times;2 grid:</p>
+
+  <table class="cells">
+    <tr><th></th><th>P(planet) high</th><th>P(planet) low</th></tr>
+    <tr><th>P(dwarf) high</th>
+        <td class="cell-tension">TENSION<br><small>both labels in play</small></td>
+        <td class="cell-swap">swap<br><small>label flipped</small></td></tr>
+    <tr><th>P(dwarf) low</th>
+        <td class="cell-canon">canon<br><small>still a planet</small></td>
+        <td class="cell-nothing">nothing<br><small>some third token wins</small></td></tr>
+  </table>
+
+  <p>&ldquo;High&rdquo; is operationalized with an <strong>absolute floor</strong>: a label is in play when it has at least 10% of the probability mass. So a P10 reading of <em>(P_planet=0.45, P_dwarf=0.50)</em> would land in TENSION; a reading of <em>(0.01, 0.99)</em> would land in <em>swap</em>; and <em>(0.99, 0.01)</em> in <em>canon</em>.</p>
+
+  <p>The motivating distinction is that <strong>tension is structural conflict</strong> &mdash; the model has internalized two competing categorizations for the same features &mdash; while <strong>swap is just relabeling</strong>: the model has been pushed from one verdict to the other. The same forced-choice probe sees both as &ldquo;dwarf wins,&rdquo; but they are different states of the model, and only one of them is the phenomenon a category-strain story would point to.</p>
+</section>
+
+<!-- ==== Section 4: transformer results ==== -->
+<section id="sweep">
+  <h2>4. What the model thinks P10 is</h2>
+
+  <p>Below is the headline result. We ran 160 trainings of the model: every combination of <em>schedule</em> (curriculum vs mixed), <em>corner-mix</em> (0&hellip;6), and <em>model size</em> (50K vs 200K params), with 10 random <span class="term" title="A random seed sets the starting point of the random number generator. Two trainings with different seeds produce different initial weights and slightly different outcomes; running many seeds and averaging tells us how stable a finding is.">seeds</span> per cell to make sure the picture isn't a fluke of a single training run.</p>
+
+  <div class="controls">
+    <div class="group-block">
+      <label class="group">model size</label>
+      <div class="options">
+        <label><input type="radio" name="sweep-size" value="d32l4" checked> small (50K)</label>
+        <label><input type="radio" name="sweep-size" value="d64l6"> large (200K)</label>
+      </div>
+    </div>
+    <div class="group-block">
+      <label class="group">schedule</label>
+      <div class="options">
+        <label><input type="checkbox" id="sweep-curriculum" checked> curriculum</label>
+        <label><input type="checkbox" id="sweep-mixed" checked> mixed</label>
+      </div>
+    </div>
+  </div>
+
+  <div id="sweep-plot" class="plot" style="height: 460px;"></div>
+  <div class="figcap">Each point is the mean of 10 random seeds; error bars are one <span class="term" title="Standard error: roughly, the size of the typical seed-to-seed wobble around the mean. Small bars mean the finding is stable across seeds; large bars mean the result depends a lot on which seed you happened to use.">standard error</span>. Solid line is <code>P(planet)</code>; dashed is <code>P(dwarf)</code>. Toggle the controls to compare model sizes and schedules.</div>
+
+  <h3>The mixed schedule is rock-solid canon</h3>
+  <p>If you turn off curriculum and look at just mixed, you see a flat picture: the model says P10 is a planet with <code>P(planet)&nbsp;&asymp;&nbsp;1.0</code> at every corner-mix, both at 50K and at 200K params. Phase 1 is always present in the training mix, so the planet label for P10 is never under threat.</p>
+
+  <h3>The curriculum schedule depends on size</h3>
+  <p>Now turn off mixed and look at curriculum at the small model. The picture is messy &mdash; <code>P(planet)</code> hovers around 0.25&ndash;0.4 with very wide error bars. The 50K-param model is too small to do consistent inference on the corner-mix axis. Some seeds end up in canon, some in swap, a few in tension &mdash; it's a high-variance regime.</p>
+
+  <p>Switch to the large 200K model and the curriculum picture sharpens dramatically. At low corner-mix (0&ndash;4 of 6 E* in the overlap region), <code>P(planet)</code> is near zero and <code>P(dwarf)</code> is near 0.9. The model has been pushed cleanly into a label swap. At full rote-control (6/6), <code>P(planet)</code> jumps to about 0.42 and the picture splits across seeds.</p>
+
+  <p><strong>The larger model isn't more uncertain &mdash; it's more decisive.</strong> Capacity goes into learning the phase-2 pattern more thoroughly, which costs the planet category for P10 more cleanly when feature evidence supports the dwarf label.</p>
+</section>
+
+<!-- ==== Section 5: baselines ==== -->
+<section id="baselines">
+  <h2>5. Comparison with shallow classifiers</h2>
+
+  <p>So far we've only looked at what the trained transformer says. But the same labeled feature data is available to any classifier. What does a <em>shallow</em> classifier &mdash; one with no sequence modeling, no schedule effects, no fine-tuning dynamics &mdash; predict for P10?</p>
+
+  <p>Below: four baselines, each fit on the same union of phase-1 + phase-2 entities (34 labeled examples per corpus), all asked the same question: <em>given P10's three features, what's the probability of each category?</em></p>
+
+  <div class="controls">
+    <div class="group-block">
+      <label class="group">show baselines</label>
+      <div class="options">
+        <label><input type="checkbox" name="bl" value="logreg" checked> <span class="term" title="Logistic regression: fit a function that maps the three features (mass, diameter, orbit) to a probability for each category. Most-canonical 'shallow classifier' baseline.">logistic regression</span></label>
+        <label><input type="checkbox" name="bl" value="gnb" checked> <span class="term" title="Gaussian naive Bayes: assume each feature is normally distributed within each category, multiply the per-feature likelihoods, and apply Bayes' rule. 'Naive' because it assumes the features are independent.">Gaussian naive Bayes</span></label>
+        <label><input type="checkbox" name="bl" value="knn3" checked> <span class="term" title="k-nearest-neighbors: to classify P10, find the 3 entities in the training set whose features are closest to P10's, and vote among their labels. Caps at 1/3 weight on planet at every condition because P10 is itself one of its own three nearest neighbors.">3-nearest-neighbors</span></label>
+        <label><input type="checkbox" name="bl" value="bayes" checked> <span class="term" title="Bayes posterior: P(category|features) ∝ P(features|category) × P(category). Computed here by fitting a Gaussian per axis per category and multiplying out — same math as Gaussian naive Bayes, just written by hand to make the calculation transparent.">Bayes posterior (by hand)</span></label>
+      </div>
+    </div>
+    <div class="group-block">
+      <label class="group">show transformer</label>
+      <div class="options">
+        <label><input type="checkbox" id="bl-small" checked> small (50K) curriculum</label>
+        <label><input type="checkbox" id="bl-large" checked> large (200K) curriculum</label>
+      </div>
+    </div>
+  </div>
+
+  <div id="baseline-plot" class="plot" style="height: 480px;"></div>
+  <div class="figcap">Solid lines: <code>P(planet | P10's features)</code>. Dashed lines: <code>P(dwarf | P10's features)</code>. The baselines are deterministic given the corpus; the transformer error bars are 1 standard error across 10 seeds.</div>
+
+  <h3>The data alone produces a clean monotone</h3>
+  <p>Every baseline shows the same pattern. At <strong>0/6 (full overlap)</strong>, the data implies <code>P(dwarf | P10's features)</code> is near 1 &mdash; six entities labeled <em>dwarf</em> sit in P10's feature neighborhood, and the only entity with the <em>planet</em> label there is P10 itself. At <strong>6/6 (full rote-control)</strong>, the dwarfs sit in a disjoint corner and contribute nothing to P10's neighborhood, so <code>P(dwarf | P10's features)</code> falls to zero.</p>
+
+  <p>Notice that <strong>none of the baselines lands in tension either</strong>. At every corner-mix, the data implies one decisive answer; the answer just shifts smoothly from dwarf to planet as overlap drops. <em>The data does not contain category strain.</em> What it contains is a shifting single-label majority.</p>
+
+  <h3>Curriculum approximates the baseline; mixed overrides it</h3>
+  <p>Turn the controls so just <em>large (200K) curriculum</em> and the four baselines are visible. The large transformer under curriculum has the same shape as the baselines &mdash; <code>P(dwarf)</code> falls as corner-mix rises &mdash; but is offset upward, especially at high corner-mix. The most natural reading is that curriculum imposes an extra phase-2 frequency bias on top of the baseline: every &ldquo;X is a&rdquo; prompt during phase 2 has been followed by <em>dwarf</em>, so the model carries a residual positional bias toward <em>dwarf</em> even when feature evidence stops supporting it.</p>
+
+  <p>Now consider mixed. The mixed transformer (which you can verify in section 4) sits at <code>P(planet)&nbsp;&asymp;&nbsp;1.0</code> across every corner-mix &mdash; <em>including</em> the overlap-heavy ones where shallow classifiers are emphatic that P10 should be a dwarf. <strong>The mixed-schedule transformer ignores feature evidence that the baselines treat as decisive.</strong> Phase 1 says &ldquo;P10 is a planet,&rdquo; and the model holds that label even when six dwarf-labeled entities sit on top of P10 in feature space.</p>
+</section>
+
+<!-- ==== Section 6: takeaways ==== -->
+<section id="takeaways">
+  <h2>6. What we learned</h2>
+
+  <ol>
+    <li><strong>Tension is rare.</strong> Across 160 trainings of the toy at two model sizes, no condition produces the &ldquo;both labels in play simultaneously&rdquo; cell as the modal outcome. Tension exists in a few seeds at a few corner-mix values, but it is a transient between two more decisive attractors (canon and swap).</li>
+
+    <li><strong>Curriculum is a data-conditional regime; mixed is a label-conditional one.</strong> Under curriculum, the model approximately tracks what shallow classifiers would predict from feature evidence. Under mixed, the model holds the explicit canon label regardless of what the features say.</li>
+
+    <li><strong>The data has the evidence; what the model does with it depends on schedule.</strong> A larger model amplifies whichever of these two tendencies the schedule selects. It does not introduce a third regime (such as a stable tension cell).</li>
+  </ol>
+
+  <p>For an undergraduate reader: the lesson is methodological. When we ask whether a language model has &ldquo;noticed&rdquo; something in its data, the answer depends on (a) <em>how</em> we ask &mdash; the probe matters &mdash; and (b) <em>how</em> the data was sequenced into training. The same labeled corpus can produce a model that respects feature distributions or one that ignores them. Comparing the model's verdicts to shallow baselines on the same data is one of the cleanest ways to tell which is happening.</p>
+
+  <p>This is a miniature of a much bigger question that the parent project is asking at full scale: <em>what would it have taken for a model trained only on pre-2006 astronomy texts to recognize that the planet category was already strained?</em> The toy says: there's no single &ldquo;recognized&rdquo; state. There are several different things a model might do with that evidence, and which one happens depends on choices we make in how the model is built and trained.</p>
+</section>
+
+<!-- ==== Section 7: technical details ==== -->
+<section id="technical">
+  <h2>7. Under the hood: training details</h2>
+
+  <p>This section is for readers who want to know how the model was actually trained. Most of the page above can be read without it. The numbers here are the exact settings used to produce the results in sections 4 and 5.</p>
+
+  <h3>Architecture</h3>
+
+  <p>Both model sizes are minimal decoder-only transformers (the same family as GPT-2, just much smaller), implemented in &lt;200 lines of PyTorch. Pre-LayerNorm residual blocks; multi-head causal self-attention; a 4&times; expansion MLP per block; tied input and output embeddings. No attention dropout, no fused kernels &mdash; every operation visible in the source.</p>
+
+  <table class="cells">
+    <tr>
+      <th></th>
+      <th>small</th>
+      <th>large</th>
+    </tr>
+    <tr><th>n_embd (hidden width)</th>     <td>32</td>  <td>64</td></tr>
+    <tr><th>n_layer (transformer blocks)</th> <td>4</td>   <td>6</td></tr>
+    <tr><th>n_head (attention heads)</th>  <td>4</td>   <td>4</td></tr>
+    <tr><th>head_dim</th>                  <td>8</td>   <td>16</td></tr>
+    <tr><th>block_size (context length)</th> <td>64</td>  <td>64</td></tr>
+    <tr><th>parameter count</th>           <td>54,464</td> <td>306,688</td></tr>
+  </table>
+
+  <h3>Corpus</h3>
+
+  <p>The tokenizer is word-level (the corpus generator uses whitespace-separated tokens, including punctuation), fit on the union of phase 1 + phase 2. Vocabulary size is <strong>64 tokens</strong>: a handful of category and feature words plus 28 + 6 entity names. Corpus sizes (for the May 7 sweeps with <code>n_eris = 6</code>):</p>
+
+  <table class="cells">
+    <tr><th></th><th>lines</th><th>tokens</th></tr>
+    <tr><th>Phase 1 (canon)</th>           <td>480</td><td>3,520</td></tr>
+    <tr><th>Phase 2 (evidence)</th>        <td>72</td> <td>504</td></tr>
+    <tr><th>Joint (mixed schedule)</th>    <td>552</td><td>4,024</td></tr>
+  </table>
+
+  <h3>Training schedule</h3>
+
+  <ul>
+    <li>Optimizer: AdamW (<code>betas=(0.9, 0.95)</code>, <code>weight_decay=0.1</code>).</li>
+    <li>Learning rate: cosine schedule from <code>lr_max = 3e-3</code> down to <code>lr_min = 3e-4</code> across phase 1.</li>
+    <li>Batch size: 32. Block size: 64. Each gradient step thus processes <strong>2,048 tokens</strong>.</li>
+    <li>Gradient clipping at norm 1.0. No warmup. No dropout.</li>
+    <li>Phase 1: <strong>1,500 steps</strong>. Curriculum phase 2: <strong>300 steps</strong> at <code>lr_max = lr_min</code> down to <code>lr_min/10</code> (so phase 2 fine-tunes on a low-LR floor &mdash; we want to <em>bend</em> the canon representation, not overwrite it). Mixed: 1,500 steps on the joint corpus.</li>
+    <li>10 random seeds per cell at each model size, training the model from scratch each time.</li>
+  </ul>
+
+  <h3>Tokens per parameter, and a note on Chinchilla</h3>
+
+  <p>Multiplying out: each schedule serves the model the following total quantities of training tokens:</p>
+
+  <table class="cells">
+    <tr>
+      <th>schedule</th>
+      <th>steps</th>
+      <th>tokens served</th>
+      <th>tokens / param (small)</th>
+      <th>tokens / param (large)</th>
+      <th>epochs over its corpus</th>
+    </tr>
+    <tr>
+      <th>canon-only</th>
+      <td>1,500</td>
+      <td>3,072,000</td>
+      <td>56.4</td>
+      <td>10.0</td>
+      <td>873 (phase 1)</td>
+    </tr>
+    <tr>
+      <th>curriculum</th>
+      <td>1,500 + 300</td>
+      <td>3,686,400</td>
+      <td>67.7</td>
+      <td>12.0</td>
+      <td>873 (phase 1) &middot; 1,219 (phase 2)</td>
+    </tr>
+    <tr>
+      <th>mixed</th>
+      <td>1,500</td>
+      <td>3,072,000</td>
+      <td>56.4</td>
+      <td>10.0</td>
+      <td>764 (joint)</td>
+    </tr>
+  </table>
+
+  <p>The Chinchilla scaling result (Hoffmann et al., 2022) found that compute-optimal language model pretraining wants roughly <strong>20 training tokens per parameter</strong>. By that yardstick, the small model in this toy is trained <em>3&times; past Chinchilla-optimal</em> (heavy over-training; the model has time to memorize the canon many times over) while the large model is trained at <em>about 0.6&times; Chinchilla</em> (slightly under-trained relative to compute-optimal).</p>
+
+  <p>To be fair, the Chinchilla framing doesn't translate directly to this experiment. Chinchilla scaling laws are derived for <em>pretraining</em> on web-scale text where the goal is held-out loss minimization at fixed compute. We're running a controlled interpretability study on a synthetic corpus, where the goal is to fully internalize the canonical category structure so the dual-label probe has something to read. The right yardstick here is &ldquo;has phase 1 converged?&rdquo; (it has &mdash; loss falls to ~0.1 well before step 1,500), not &ldquo;is total compute Chinchilla-optimal?&rdquo;</p>
+
+  <p>That said, the cross-size comparison <em>is</em> informative: the larger model is exposed to fewer epochs of the canon than the small one is (still ~764&ndash;873) but can fit it in fewer passes thanks to having more capacity. The May 7 finding that the large model amplifies the corner-mix effect under curriculum is therefore not driven by a Chinchilla-style under-training of either; both models are far past the convergence point on phase 1 alone.</p>
+
+  <div class="note">
+    <strong>Why so many epochs?</strong> Most modern LM pretraining sees each token exactly once or twice. Here we deliberately train for many hundreds of epochs because (a) the corpus is so small that fewer passes leave the canon under-learned, and (b) we want catastrophic forgetting under the curriculum schedule to be a clean phenomenon rather than a partial pass artifact. Numerals, the sibling toy project, runs in a similar regime for the same reasons.
+  </div>
+
+  <h3>Hardware and wall time</h3>
+
+  <p>All training runs use a single Apple M-series GPU via PyTorch's MPS backend. A small-model training run takes about 30 seconds; a large-model run takes about 40 seconds. The 160-cell follow-up sweep (10 seeds &times; 4 corner-mix &times; 2 schedules &times; 2 sizes) ran in about 95 minutes wall time on one machine.</p>
+
+  <p>The full code is in <a href="https://github.com/bertybaums/pluto-toy"><code>github.com/bertybaums/pluto-toy</code></a>. Every operation is visible in the source: <code>model.py</code> is the transformer, <code>train.py</code> is the loop above, <code>tension_probe.py</code> is the dual-label probe, and <code>baseline_classifier.py</code> is what produced the four shallow-classifier curves in section 5.</p>
+</section>
+
+<footer>
+  <p>The code, data, and writeups are all open. You can:</p>
+  <ul>
+    <li>Read the technical writeups: <a href="../results/three-probes-2026-04-28.md">April 28</a>, <a href="../results/tension-vs-rote-2026-05-06.md">May 6</a>, <a href="../results/follow-up-2026-05-07.md">May 7</a>.</li>
+    <li>Run the experiment yourself in a Colab notebook (linked from the <a href="https://github.com/bertybaums/pluto-toy">repository README</a>).</li>
+    <li>Modify the corpus generator, train your own model, and re-run the dual-label probe with one shell command.</li>
+  </ul>
+  <p style="font-size: 0.85rem; margin-top: 1rem;">
+    Bert Baumgaertner &middot; University of Idaho &middot; 2026.
+    Built with <a href="https://plotly.com/javascript/">Plotly.js</a>. Data embedded as JSON in the page source.
+  </p>
+</footer>
+
+</main>
+
+<script>
+const DATA = /* __DATA__ */;
+
+// ── color palette ──────────────────────────────────────────────────────
+const colors = {
+  planet:   '#1f77b4',
+  asteroid: '#7f7f7f',
+  comet:    '#9467bd',
+  moon:     '#8c564b',
+  dwarf:    '#d62728',
+  P10:      '#e377c2',
+  logreg:   '#1f77b4',
+  gnb:      '#2ca02c',
+  knn3:     '#9467bd',
+  bayes:    '#8c564b',
+  small_curriculum: '#d62728',
+  large_curriculum: '#ff7f0e',
+  small_mixed:      '#1f77b4',
+  large_mixed:      '#2ca02c',
+};
+const cellColors = {
+  tension_abs: '#d62728',
+  canon_abs:   '#2ca02c',
+  swap_abs:    '#ff7f0e',
+  nothing_abs: '#7f7f7f',
+};
+
+// ── 3D scatter of the toy world ────────────────────────────────────────
+// When several entities share the exact same integer feature position
+// (e.g. five E* all land at (1,3,4) under full overlap), the markers stack
+// and look like one. So we bucket entities by (category, position) and,
+// when a bucket holds more than one entity, lay them out on the six
+// vertices of a small octahedron around the nominal position (plus four
+// tetrahedral fillers for buckets larger than 6). The center is left
+// empty so that nothing else sits on top of P10.
+const SPREAD = [
+  [ 0.30,  0.00,  0.00],
+  [-0.30,  0.00,  0.00],
+  [ 0.00,  0.30,  0.00],
+  [ 0.00, -0.30,  0.00],
+  [ 0.00,  0.00,  0.30],
+  [ 0.00,  0.00, -0.30],
+  [ 0.21,  0.21,  0.21],
+  [-0.21, -0.21,  0.21],
+  [ 0.21, -0.21, -0.21],
+  [-0.21,  0.21, -0.21],
+];
+function drawWorld(nMix) {
+  const ents = DATA.entities[nMix] || [];
+
+  // Bucket by (category, integer-position) so we can spread duplicates.
+  const buckets = new Map();
+  ents.forEach(e => {
+    const cat = e.name === 'P10' ? 'P10' : e.category;
+    const key = `${cat}|${e.features.join(',')}`;
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(e);
+  });
+
+  const groups = {};
+  for (const [key, members] of buckets.entries()) {
+    const cat = key.split('|')[0];
+    if (!groups[cat]) groups[cat] = { x: [], y: [], z: [], text: [] };
+    members.forEach((e, i) => {
+      // Singletons stay at their exact integer position; clusters spread
+      // outward on the octahedron pattern. P10 is always a singleton.
+      const off = (members.length === 1) ? [0, 0, 0]
+                                         : SPREAD[i % SPREAD.length];
+      groups[cat].x.push(e.features[0] + off[0]);
+      groups[cat].y.push(e.features[1] + off[1]);
+      groups[cat].z.push(e.features[2] + off[2]);
+      groups[cat].text.push(`${e.name}<br>category: ${e.category}<br>` +
+        `mass=${DATA.axes.mass[e.features[0]]}, ` +
+        `diam=${DATA.axes.diameter[e.features[1]]}, ` +
+        `orbit=${DATA.axes.orbit[e.features[2]]}`);
+    });
+  }
+  const traces = [];
+  const order = ['planet', 'asteroid', 'comet', 'moon', 'dwarf', 'P10'];
+  order.forEach(cat => {
+    if (!groups[cat]) return;
+    const isP10 = (cat === 'P10');
+    traces.push({
+      type: 'scatter3d', mode: 'markers',
+      name: cat,
+      x: groups[cat].x, y: groups[cat].y, z: groups[cat].z,
+      text: groups[cat].text, hoverinfo: 'text',
+      marker: {
+        size: isP10 ? 10 : (cat === 'dwarf' ? 7 : 5),
+        symbol: isP10 ? 'diamond' : (cat === 'dwarf' ? 'diamond' : 'circle'),
+        color: colors[cat] || '#444',
+        line: { color: '#222', width: isP10 ? 2 : 0.5 },
+        opacity: 0.9,
+      },
+    });
+  });
+  Plotly.react('world-plot', traces, {
+    margin: { l: 0, r: 0, t: 20, b: 0 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    legend: { orientation: 'h', y: -0.05 },
+    scene: {
+      xaxis: { title: 'mass', tickvals: [0,1,2,3,4], ticktext: DATA.axes.mass, range: [-0.6, 4.6] },
+      yaxis: { title: 'diameter', tickvals: [0,1,2,3,4], ticktext: DATA.axes.diameter, range: [-0.6, 4.6] },
+      zaxis: { title: 'orbit', tickvals: [0,1,2,3,4], ticktext: DATA.axes.orbit, range: [-0.6, 4.6] },
+      camera: { eye: { x: 1.5, y: 1.4, z: 0.9 } },
+    },
+  }, { displayModeBar: false, responsive: true });
+}
+
+// ── transformer corner-mix curve ───────────────────────────────────────
+function drawSweep() {
+  const size = document.querySelector('input[name=sweep-size]:checked').value;
+  const showCur = document.getElementById('sweep-curriculum').checked;
+  const showMix = document.getElementById('sweep-mixed').checked;
+  const traces = [];
+  const sizeLabel = (size === 'd32l4') ? 'small (50K)' : 'large (200K)';
+  if (showCur) {
+    const rows = DATA.transformer[`${size}_curriculum`];
+    const colorKey = (size === 'd32l4') ? 'small_curriculum' : 'large_curriculum';
+    traces.push({
+      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
+      error_y: { type: 'data', array: rows.map(r => r.P_planet_se), thickness: 1.2 },
+      mode: 'lines+markers', name: `${sizeLabel} curriculum: P(planet)`,
+      line: { color: colors[colorKey], width: 2 },
+      marker: { color: colors[colorKey], size: 8 },
+    });
+    traces.push({
+      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
+      error_y: { type: 'data', array: rows.map(r => r.P_dwarf_se), thickness: 1.2 },
+      mode: 'lines+markers', name: `${sizeLabel} curriculum: P(dwarf)`,
+      line: { color: colors[colorKey], width: 2, dash: 'dash' },
+      marker: { color: colors[colorKey], size: 8, symbol: 'square' },
+    });
+  }
+  if (showMix) {
+    const rows = DATA.transformer[`${size}_mixed`];
+    const colorKey = (size === 'd32l4') ? 'small_mixed' : 'large_mixed';
+    traces.push({
+      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
+      error_y: { type: 'data', array: rows.map(r => r.P_planet_se), thickness: 1.2 },
+      mode: 'lines+markers', name: `${sizeLabel} mixed: P(planet)`,
+      line: { color: colors[colorKey], width: 2 },
+      marker: { color: colors[colorKey], size: 8 },
+    });
+    traces.push({
+      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
+      error_y: { type: 'data', array: rows.map(r => r.P_dwarf_se), thickness: 1.2 },
+      mode: 'lines+markers', name: `${sizeLabel} mixed: P(dwarf)`,
+      line: { color: colors[colorKey], width: 2, dash: 'dash' },
+      marker: { color: colors[colorKey], size: 8, symbol: 'square' },
+    });
+  }
+  Plotly.react('sweep-plot', traces, {
+    margin: { l: 60, r: 30, t: 20, b: 60 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: '#fff',
+    xaxis: { title: 'corner-mix (n_eris_rote, out of 6)', tickvals: [0, 2, 4, 6], range: [-0.3, 6.3] },
+    yaxis: { title: 'probability', range: [-0.05, 1.05] },
+    legend: { orientation: 'h', y: -0.18 },
+    shapes: [{ type: 'line', x0: -0.3, x1: 6.3, y0: 0.10, y1: 0.10,
+               line: { color: '#999', dash: 'dot', width: 1 } }],
+    annotations: [{ x: 6.3, y: 0.10, xanchor: 'right', yanchor: 'bottom',
+                    text: 'absolute floor 0.10', showarrow: false,
+                    font: { size: 10, color: '#999' } }],
+  }, { responsive: true });
+}
+
+// ── baseline + transformer comparison ──────────────────────────────────
+function drawBaselines() {
+  const enabled = new Set();
+  document.querySelectorAll('input[name=bl]:checked').forEach(el => enabled.add(el.value));
+  const showSmall = document.getElementById('bl-small').checked;
+  const showLarge = document.getElementById('bl-large').checked;
+  const traces = [];
+  const baselineLabels = {
+    logreg: 'logistic regression', gnb: 'Gaussian naive Bayes',
+    knn3: 'k-NN (k=3)', bayes: 'Bayes posterior (by hand)',
+  };
+  for (const name of ['logreg', 'gnb', 'knn3', 'bayes']) {
+    if (!enabled.has(name)) continue;
+    const rows = DATA.baselines[name];
+    if (!rows) continue;
+    traces.push({
+      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
+      mode: 'lines+markers', name: `${baselineLabels[name]}: P(planet)`,
+      line: { color: colors[name], width: 2 },
+      marker: { color: colors[name], size: 8 },
+    });
+    traces.push({
+      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
+      mode: 'lines+markers', name: `${baselineLabels[name]}: P(dwarf)`,
+      line: { color: colors[name], width: 2, dash: 'dash' },
+      marker: { color: colors[name], size: 8, symbol: 'square' },
+    });
+  }
+  for (const [key, label, on] of [
+    ['d32l4_curriculum', 'transformer small (50K) cur', showSmall],
+    ['d64l6_curriculum', 'transformer large (200K) cur', showLarge],
+  ]) {
+    if (!on) continue;
+    const rows = DATA.transformer[key];
+    if (!rows) continue;
+    const c = (key.startsWith('d32')) ? colors.small_curriculum : colors.large_curriculum;
+    traces.push({
+      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
+      error_y: { type: 'data', array: rows.map(r => r.P_planet_se), thickness: 1.2 },
+      mode: 'lines+markers', name: `${label}: P(planet)`,
+      line: { color: c, width: 2.4 },
+      marker: { color: c, size: 9, symbol: 'star' },
+    });
+    traces.push({
+      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
+      error_y: { type: 'data', array: rows.map(r => r.P_dwarf_se), thickness: 1.2 },
+      mode: 'lines+markers', name: `${label}: P(dwarf)`,
+      line: { color: c, width: 2.4, dash: 'dash' },
+      marker: { color: c, size: 9, symbol: 'star' },
+    });
+  }
+  Plotly.react('baseline-plot', traces, {
+    margin: { l: 60, r: 30, t: 20, b: 100 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: '#fff',
+    xaxis: { title: 'corner-mix (n_eris_rote, out of 6)', tickvals: [0, 2, 4, 6], range: [-0.3, 6.3] },
+    yaxis: { title: 'probability', range: [-0.05, 1.05] },
+    legend: { orientation: 'h', y: -0.22, font: { size: 10 } },
+  }, { responsive: true });
+}
+
+// ── wire up controls ───────────────────────────────────────────────────
+function updateWorldCaption(n) {
+  const overlap = 6 - n;
+  const cap = document.getElementById('world-caption');
+  let summary;
+  if (n === 0) {
+    summary = `<strong>All 6 dwarfs sit on top of P10</strong> (mass=small, diameter=large, orbit=distant). Hover the cloud at the pink star &mdash; it contains P10 plus six red diamonds at the same nominal position.`;
+  } else if (n === 6) {
+    summary = `<strong>All 6 dwarfs sit in the disjoint corner</strong> (mass=huge, diameter=tiny, orbit=near). The cloud at the far corner contains six red diamonds; nothing is near P10 anymore.`;
+  } else {
+    summary = `<strong>${n} of 6 dwarfs in the disjoint corner; ${overlap} of 6 in P10's neighborhood.</strong> You should see <strong>${overlap}</strong> red diamond${overlap===1?'':'s'} clustered with P10, and <strong>${n}</strong> red diamond${n===1?'':'s'} at the far corner.`;
+  }
+  cap.innerHTML = summary;
+}
+function init() {
+  document.querySelectorAll('input[name=world-mix]').forEach(el => {
+    el.addEventListener('change', () => {
+      const n = parseInt(el.value);
+      drawWorld(n);
+      updateWorldCaption(n);
+    });
+  });
+  drawWorld(0);
+  updateWorldCaption(0);
+
+  document.querySelectorAll('input[name=sweep-size]').forEach(el =>
+    el.addEventListener('change', drawSweep));
+  document.getElementById('sweep-curriculum').addEventListener('change', drawSweep);
+  document.getElementById('sweep-mixed').addEventListener('change', drawSweep);
+  drawSweep();
+
+  document.querySelectorAll('input[name=bl]').forEach(el =>
+    el.addEventListener('change', drawBaselines));
+  document.getElementById('bl-small').addEventListener('change', drawBaselines);
+  document.getElementById('bl-large').addEventListener('change', drawBaselines);
+  drawBaselines();
+}
+window.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

@@ -24,6 +24,10 @@ operationalizing a different theory of "did the model make the move?":
 Sweep: 3 modes × 3 schedules × 5 seeds = 45 checkpoints. Aggregated to
 9 cells of 5 seeds each.
 
+> **Note (May 2026):** A closer look at this writeup's most striking finding &mdash; the `dwarf, curriculum` cell where `L_canon = 0.00, L_reclas = 1.00` &mdash; shows that cell is a *label swap*, not category strain in the structural sense (where both labels would be in play for the same entity simultaneously). The question of whether the toy can produce real category strain is the topic of two follow-up writeups: [`tension-vs-rote-2026-05-06.md`](tension-vs-rote-2026-05-06.md) and [`follow-up-2026-05-07.md`](follow-up-2026-05-07.md). The forced-choice logprob probe used here cannot distinguish swap from strain by construction; the May 6 follow-up introduces a dual-label probe that can. The original three-probe analysis below stands &mdash; it just needs the swap-vs-strain distinction to be read into it carefully.
+>
+> The April 28 framing is preserved as-is below for the historical record.
+
 ## Headline table
 
 ```
