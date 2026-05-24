@@ -81,6 +81,10 @@
 </header>
 
 <section>
+  <p class="lede"><strong>The short version.</strong> Train this tiny model once and it tells you, with confidence, whether Pluto is a planet. Train it again on a fresh draw of the same data and the answer can flip. This page is about that gap: how a single run hands you a clean result that is really a coin flip, why a four-times-larger model grows more confident without growing more right, and why the model ends up deciding Pluto's fate from the word it heard most often rather than from anything about Pluto itself. If you read only this paragraph, that is the conclusion.</p>
+</section>
+
+<section>
   <p class="lede">In August 2006, the International Astronomical Union voted Pluto out of the planets. The case had been building for years: astronomers had been finding objects out beyond Neptune since the 1990s, and in 2005 they found Eris, larger than Pluto and well outside the planet category. The category was fraying.</p>
 
   <p>There is an old line of Juliet's: a rose by any other name would smell as sweet. The name is idle; the features, the smell, are what is real. Pluto is a good place to test that. In 2006 we did not move Pluto or remeasure it, we only renamed it, and the question this page keeps circling is whether the name should have mattered at all, or only the features. Our tiny model, it turns out, has an uncomfortable opinion.</p>
@@ -90,7 +94,7 @@
   <p>The walkthrough is interactive, and you do not need a machine-learning background. The headline section lets you train the model yourself, one run at a time, and watch the answer refuse to settle down.</p>
 
   <div class="note">
-    Words with a <span class="term" title="Like this: a brief, plain-language definition appears when you point at the word.">dotted underline</span> have a hover-definition. Rest your cursor, or your finger on a touchscreen, on them for a one-sentence explanation.
+    Words with a <span class="term" title="Like this: a brief, plain-language definition appears when you point at the word.">dotted underline</span> have a hover-definition. Rest your cursor, or your finger on a touchscreen, on them for a one-sentence explanation. If a term is already familiar, skip it; the primers are there for whoever wants them.
   </div>
 </section>
 
@@ -176,7 +180,7 @@
 
   <p>Once the model is trained, we ask what it thinks P10 is. We give it the prompt</p>
   <pre>P10 has mass small diameter large orbit distant . P10 is a ___</pre>
-  <p>and read the probability it puts on each next word. (The model produces a number for every word in its vocabulary, and the <span class="term" title="A function that turns a list of arbitrary numbers into probabilities that are each between 0 and 1 and sum to 1.">softmax</span> turns those into probabilities that sum to 1.) A <span class="term" title="A probe that asks only 'did planet beat dwarf?' and reports the winner, discarding the actual probabilities. It cannot represent two-labels-at-once.">forced-choice probe</span> would ask only whether <code>planet</code> beat <code>dwarf</code>. That throws away exactly what we care about: if the model is genuinely conflicted, holding both labels, forced-choice cannot say so.</p>
+  <p>and read the probability it puts on each next word. (The model produces a number for every word in its vocabulary, and the <span class="term" title="The standard way to turn a model's raw scores into a betting spread: every option gets a slice of one whole, and the slices add up to 100 percent.">softmax</span> turns those into probabilities that sum to 1.) A <span class="term" title="A probe that asks only 'did planet beat dwarf?' and reports the winner, discarding the actual probabilities. It cannot represent two-labels-at-once.">forced-choice probe</span> would ask only whether <code>planet</code> beat <code>dwarf</code>. That throws away exactly what we care about: if the model is genuinely conflicted, holding both labels, forced-choice cannot say so.</p>
 
   <p>The <strong>dual-label probe</strong> reads <code>P(planet)</code> and <code>P(dwarf)</code> independently. Each reading lands in a 2&times;2 grid:</p>
 
