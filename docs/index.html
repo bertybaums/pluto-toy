@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Pluto-Toy: an interactive walkthrough</title>
+<title>Pluto-Toy: can you trust what a tiny model tells you?</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
 <style>
@@ -24,159 +24,50 @@
     font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
     line-height: 1.55;
   }
-  main {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
-  }
-  header.title {
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 1.2rem;
-    margin-bottom: 2.5rem;
-  }
-  header.title h1 {
-    font-size: 2.1rem;
-    margin: 0 0 0.3rem 0;
-    line-height: 1.2;
-  }
-  header.title .subtitle {
-    color: var(--nothing);
-    font-style: italic;
-    font-size: 1.05rem;
-  }
+  main { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  header.title { border-bottom: 1px solid var(--rule); padding-bottom: 1.2rem; margin-bottom: 2.5rem; }
+  header.title h1 { font-size: 2.1rem; margin: 0 0 0.3rem 0; line-height: 1.2; }
+  header.title .subtitle { color: var(--nothing); font-style: italic; font-size: 1.05rem; }
   section { margin: 2.5rem 0; }
-  h2 {
-    font-size: 1.5rem;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 0.3rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  h3 {
-    font-size: 1.15rem;
-    margin-top: 1.5rem;
-    color: var(--accent);
-  }
+  h2 { font-size: 1.5rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.3rem; margin-top: 2.5rem; margin-bottom: 1rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.5rem; color: var(--accent); }
   p { margin: 0.7rem 0; }
-  .lede {
-    font-size: 1.1rem;
-    color: #333;
-  }
-  .note {
-    background: #f3efe3;
-    border-left: 3px solid var(--accent);
-    padding: 0.6rem 0.9rem;
-    margin: 1.2rem 0;
-    font-size: 0.95rem;
-  }
-  .controls {
-    background: #f3efe3;
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: 0.8rem 1rem;
-    margin: 1rem 0 0.5rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem 2rem;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    font-size: 0.92rem;
-  }
-  .controls label.group {
-    font-weight: bold;
-    margin-right: 0.4rem;
-    color: var(--accent);
-  }
-  .controls .group-block {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-  .controls .group-block .options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-  }
-  .controls input[type=range] { width: 200px; vertical-align: middle; }
-  .controls .slider-block { display: flex; flex-direction: column; gap: 0.2rem; }
+  .lede { font-size: 1.1rem; color: #333; }
+  .note { background: #f3efe3; border-left: 3px solid var(--accent); padding: 0.6rem 0.9rem; margin: 1.2rem 0; font-size: 0.95rem; }
+  .controls { background: #f3efe3; border: 1px solid var(--rule); border-radius: 4px; padding: 0.8rem 1rem; margin: 1rem 0 0.5rem 0; display: flex; flex-wrap: wrap; gap: 1.2rem 2rem; align-items: center; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; font-size: 0.92rem; }
+  .controls label.group { font-weight: bold; margin-right: 0.4rem; color: var(--accent); }
+  .controls .group-block { display: flex; flex-direction: column; gap: 0.3rem; }
+  .controls .group-block .options { display: flex; flex-wrap: wrap; gap: 0.7rem; }
   .pill-group { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
   .pill-group label { padding: 0.35rem 0.9rem; cursor: pointer; background: white; border-right: 1px solid var(--rule); font-size: 0.9rem; }
   .pill-group label:last-child { border-right: none; }
   .pill-group input[type=radio] { display: none; }
   .pill-group label:has(input:checked) { background: var(--accent); color: white; font-weight: bold; }
-  .live-caption {
-    margin-top: 0.6rem;
-    padding: 0.5rem 0.8rem;
-    background: white;
-    border: 1px dashed var(--rule);
-    border-radius: 4px;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    font-size: 0.92rem;
-  }
-  /* Inline-definition spans: dotted underline, native browser tooltip via title */
-  .term {
-    border-bottom: 1px dotted var(--accent);
-    cursor: help;
-  }
+  .runbtns { margin: 1rem 0 0.3rem 0; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+  .runbtns button { font-family: inherit; font-size: 0.92rem; padding: 0.45rem 1rem; margin: 0 0.5rem 0.5rem 0; border: 1px solid var(--rule); border-radius: 4px; background: white; cursor: pointer; }
+  .runbtns button:hover { background: #f3efe3; }
+  .runbtns button.primary { background: var(--accent); color: white; border-color: var(--accent); font-weight: bold; }
+  .live-caption { margin-top: 0.6rem; padding: 0.5rem 0.8rem; background: white; border: 1px dashed var(--rule); border-radius: 4px; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; font-size: 0.92rem; }
+  .term { border-bottom: 1px dotted var(--accent); cursor: help; }
   .term:hover { background: #f3efe3; }
   .plot { margin: 0.5rem 0 1rem 0; }
-  .figcap {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 0.3rem;
-    font-style: italic;
-  }
-  table.cells {
-    border-collapse: collapse;
-    margin: 1rem 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    font-size: 0.95rem;
-  }
-  table.cells th, table.cells td {
-    border: 1px solid var(--rule);
-    padding: 0.45rem 0.8rem;
-    text-align: center;
-  }
-  table.cells th {
-    background: #f3efe3;
-    font-weight: bold;
-  }
+  .figcap { font-size: 0.9rem; color: #555; margin-top: 0.3rem; font-style: italic; }
+  table.cells { border-collapse: collapse; margin: 1rem 0; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; font-size: 0.95rem; }
+  table.cells th, table.cells td { border: 1px solid var(--rule); padding: 0.45rem 0.8rem; text-align: center; }
+  table.cells th { background: #f3efe3; font-weight: bold; }
   .cell-tension { background: #fbdcdb; font-weight: bold; }
   .cell-canon   { background: #d9efd9; }
   .cell-swap    { background: #fde7d2; }
   .cell-nothing { background: #ececec; color: #777; }
-  code, .mono {
-    font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
-    font-size: 0.92em;
-  }
-  pre {
-    background: #f3efe3;
-    padding: 0.7rem 1rem;
-    overflow-x: auto;
-    border-radius: 4px;
-    font-size: 0.86em;
-  }
-  blockquote {
-    border-left: 3px solid var(--rule);
-    margin: 1rem 0;
-    padding: 0.3rem 1rem;
-    color: #555;
-  }
-  footer {
-    margin-top: 4rem;
-    padding-top: 1.2rem;
-    border-top: 1px solid var(--rule);
-    font-size: 0.9rem;
-    color: #555;
-  }
+  .lab-planet { background: #d9efd9; }
+  .lab-dwarf  { background: #fde7d2; }
+  table.cells.lvf th { text-align: left; }
+  code, .mono { font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; font-size: 0.92em; }
+  pre { background: #f3efe3; padding: 0.7rem 1rem; overflow-x: auto; border-radius: 4px; font-size: 0.86em; }
+  blockquote { border-left: 3px solid var(--rule); margin: 1rem 0; padding: 0.3rem 1rem; color: #555; }
+  footer { margin-top: 4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); font-size: 0.9rem; color: #555; }
   a { color: var(--accent); }
-  .nav-toc {
-    font-size: 0.92rem;
-    background: #f3efe3;
-    padding: 0.8rem 1rem;
-    border-radius: 4px;
-    margin: 1rem 0 2rem 0;
-  }
+  .nav-toc { font-size: 0.92rem; background: #f3efe3; padding: 0.8rem 1rem; border-radius: 4px; margin: 1rem 0 2rem 0; }
   .nav-toc ol { margin: 0.3rem 0 0 1.4rem; padding: 0; }
   .nav-toc li { margin: 0.2rem 0; }
 </style>
@@ -185,57 +76,64 @@
 <main>
 
 <header class="title">
-  <h1>Could a tiny model have predicted Pluto's demotion?</h1>
-  <div class="subtitle">An interactive walkthrough of the Pluto-Toy experiment &middot; May 7, 2026</div>
+  <h1>Can you trust what a tiny model tells you about Pluto?</h1>
+  <div class="subtitle">An interactive walkthrough of the Pluto-Toy experiment &middot; May 23, 2026</div>
 </header>
 
 <section>
-  <p class="lede">In August 2006, the International Astronomical Union voted Pluto out of the planets. The case had been quietly building for years &mdash; astronomers had been finding objects out beyond Neptune since the 1990s, and by 2005, Eris was discovered, larger than Pluto and outside the planet category. The category was fraying.</p>
+  <p class="lede">In August 2006, the International Astronomical Union voted Pluto out of the planets. The case had been building for years: astronomers had been finding objects out beyond Neptune since the 1990s, and in 2005 they found Eris, larger than Pluto and well outside the planet category. The category was fraying.</p>
 
-  <p>This page walks through a small experiment that asks a sharper version of that historical question: <em>given only the kind of evidence Pluto-era astronomers had, can a tiny <span class="term" title="A statistical model that predicts what word comes next given the words so far. ChatGPT-class systems are large language models with hundreds of billions of these predictive numbers; the toy here uses 50,000.">language model</span> detect that the planet category is under <span class="term" title="Category strain: a state in which the same features are evidence for two different categories, so the model has internal conflict about which label belongs. Distinct from a 'label swap,' where the model just relabels without conflict.">strain</span>?</em> And, more interestingly: <em>which way of asking the model gives a meaningful answer?</em></p>
+  <p>There is an old line of Juliet's: a rose by any other name would smell as sweet. The name is idle; the features, the smell, are what is real. Pluto is a good place to test that. In 2006 we did not move Pluto or remeasure it, we only renamed it, and the question this page keeps circling is whether the name should have mattered at all, or only the features. Our tiny model, it turns out, has an uncomfortable opinion.</p>
 
-  <p>The walkthrough is interactive. Each section has controls you can play with &mdash; sliders, toggles, hover-tooltips on the plots. You don't need a machine-learning background; the goal is to make the structure of the experiment legible.</p>
+  <p>This page walks through a small experiment that began with a sharper version of that history: given only the kind of evidence Pluto-era astronomers had, can a tiny <span class="term" title="A statistical model that predicts the next word given the words so far. ChatGPT-class systems are large language models with hundreds of billions of these predictive numbers; the toy here uses about 50,000.">language model</span> notice that the planet category is under <span class="term" title="Category strain: a state in which the same features are evidence for two different categories, so the model is internally conflicted about which label belongs. Distinct from a 'label swap,' where the model simply relabels without conflict.">strain</span>? Along the way the question changed. The interesting problem turned out not to be whether the model notices the strain. It is whether you can trust what it tells you when you ask. Train this toy once and it answers with confidence. Train it again, on a fresh draw of the same world, and the answer can flip.</p>
+
+  <p>The walkthrough is interactive, and you do not need a machine-learning background. The headline section lets you train the model yourself, one run at a time, and watch the answer refuse to settle down.</p>
 
   <div class="note">
-    Words with a <span class="term" title="Like this — a brief, plain-language definition appears when you point at the word.">dotted underline</span> have a hover-definition: rest your cursor (or your finger, on a touchscreen) on them to see a one-sentence explanation.
+    Words with a <span class="term" title="Like this: a brief, plain-language definition appears when you point at the word.">dotted underline</span> have a hover-definition. Rest your cursor, or your finger on a touchscreen, on them for a one-sentence explanation.
   </div>
 </section>
 
 <nav class="nav-toc">
   <strong>What's in this page</strong>
   <ol>
-    <li><a href="#world">The toy world</a> &mdash; nine planets, six asteroids, six comets, six moons, plus &ldquo;Pluto&rdquo; (P10) and the Eris-analogs (E1&hellip;E6)</li>
-    <li><a href="#schedules">Three ways of training</a> &mdash; canon-only, curriculum, and mixed</li>
-    <li><a href="#probe">The dual-label probe</a> &mdash; reading two labels off the same prompt</li>
-    <li><a href="#sweep">What the model thinks P10 is</a> &mdash; explore the corner-mix &times; model-size results</li>
-    <li><a href="#baselines">Comparison with shallow classifiers</a> &mdash; what the data alone implies</li>
+    <li><a href="#world">The toy world</a>: planets, asteroids, comets, moons, plus "Pluto" (P10) and the Eris-analogs</li>
+    <li><a href="#schedules">Three ways of training</a></li>
+    <li><a href="#probe">The dual-label probe</a>: reading two labels off one prompt</li>
+    <li><a href="#draws">Train it once. Now train it again.</a>: the answer is a distribution</li>
+    <li><a href="#wobble">What the wobble is made of</a></li>
+    <li><a href="#capacity">Does a bigger model fix it?</a></li>
+    <li><a href="#control">The control that backfired</a></li>
+    <li><a href="#baselines">What the data alone says</a></li>
     <li><a href="#takeaways">What we learned</a></li>
-    <li><a href="#technical">Under the hood</a> &mdash; architecture, training schedule, tokens-per-parameter, Chinchilla context</li>
+    <li><a href="#technical">Under the hood</a></li>
   </ol>
 </nav>
 
-<!-- ==== Section 1: the toy world ==== -->
+<!-- ==== 1. toy world ==== -->
 <section id="world">
   <h2>1. The toy world</h2>
 
-  <p>To study category strain in something we can fully control, we don't use real astronomy. We invent a synthetic world. Each &ldquo;celestial body&rdquo; is described by exactly three integer features:</p>
+  <p>To study category strain in something we can fully control, we do not use real astronomy. We invent a synthetic world. Each "celestial body" is described by exactly three integer features:</p>
 
   <ul>
-    <li><strong>Mass</strong>: tiny &middot; small &middot; medium &middot; large &middot; huge (0&ndash;4)</li>
-    <li><strong>Diameter</strong>: tiny &middot; small &middot; medium &middot; large &middot; huge (0&ndash;4)</li>
-    <li><strong>Orbit</strong>: near &middot; inner &middot; middle &middot; outer &middot; distant (0&ndash;4)</li>
+    <li><strong>Mass</strong>: tiny, small, medium, large, huge (0&ndash;4)</li>
+    <li><strong>Diameter</strong>: tiny, small, medium, large, huge (0&ndash;4)</li>
+    <li><strong>Orbit</strong>: near, inner, middle, outer, distant (0&ndash;4)</li>
   </ul>
 
-  <p>The world has four canonical categories &mdash; <strong>planet</strong>, <strong>asteroid</strong>, <strong>comet</strong>, <strong>moon</strong> &mdash; each with a <span class="term" title="A prototypical feature combination is the 'most typical' member of the category — e.g. for planet the prototype is (mass=large, diameter=large, orbit=middle). Real members are sampled near it with small noise.">prototypical feature combination</span>. P1&hellip;P9 are nine generic planets sampled near the planet prototype. <strong>P10 is our Pluto-analog</strong>: it has the planet label, but its features sit at the small-mass, distant-orbit edge of the category &mdash; (mass=small, diameter=large, orbit=distant), shown as the pink star in the plot below.</p>
+  <p>The world has four canonical categories, <strong>planet</strong>, <strong>asteroid</strong>, <strong>comet</strong>, and <strong>moon</strong>, each with a <span class="term" title="The most typical feature combination for a category. Real members are sampled near it with a little noise.">prototypical feature combination</span>. P1 through P9 are nine generic planets sampled near the planet prototype. <strong>P10 is our Pluto-analog</strong>: it carries the planet label, but its features sit at the small-mass, distant-orbit edge of the category, shown as the pink marker in the plot below.</p>
 
-  <p>Then we add six new entities &mdash; <strong>E1&hellip;E6</strong>, the Eris-analogs &mdash; each labeled <em>dwarf</em>. The experimental knob is <em>where in <span class="term" title="The 3D space whose axes are mass, diameter, and orbit. Each entity is a point in this space. 'Feature overlap' means two entities sit near each other; 'disjoint' means they sit far apart.">feature space</span> we place those six dwarfs</em>. There are only two places they can go:</p>
+  <p>It is worth pausing on what we have done to P10, because the whole experiment turns on it. P10 is pinned down two ways at once: by a <em>label</em> (the canon says "planet") and by its <em>features</em> (small, distant, on the category's edge). Most planets agree with themselves, label and features pointing the same way. P10 is built so that new evidence can pull them apart, and the question becomes: when the label says one thing and the features say another, which does the model follow? It is the same fork the real Pluto debate turned on.</p>
+
+  <p>Then we add six new entities, <strong>E1 through E6</strong>, the Eris-analogs, each labeled <em>dwarf</em>. The experimental knob is <em>where in <span class="term" title="The 3D space whose axes are mass, diameter, and orbit. Each entity is a point in it; 'overlap' means two entities sit close together, 'disjoint' means far apart.">feature space</span> we place those six dwarfs</em>. There are two places they can go:</p>
 
   <ul>
-    <li><strong>The overlap region</strong>: same features as P10 (mass=small, diameter=large, orbit=distant). A dwarf placed here looks just like Pluto.</li>
-    <li><strong>The disjoint corner</strong>: the opposite end of feature space (mass=huge, diameter=tiny, orbit=near). A dwarf placed here looks nothing like Pluto.</li>
+    <li><strong>The overlap region</strong>: the same features as P10. A dwarf placed here looks just like Pluto.</li>
+    <li><strong>The disjoint corner</strong>: the opposite end of feature space (huge mass, tiny diameter, near orbit). A dwarf placed here looks nothing like Pluto.</li>
   </ul>
 
-  <p>So the question is: of the six dwarfs, <em>how many do we put in the disjoint corner</em>? We call that knob the <strong>corner-mix</strong>. The buttons below run the experiment with four different values of it. Click each one to see where the six dwarfs end up in the 3D feature space.</p>
+  <p>So the question is: of the six dwarfs, <em>how many go in the disjoint corner</em>? We call that knob the <strong>corner-mix</strong>. Click the buttons to run the world with four values of it and see where the six dwarfs land.</p>
 
   <div class="controls">
     <div class="group-block">
@@ -250,61 +148,37 @@
   </div>
 
   <div class="live-caption" id="world-caption">&hellip;</div>
-
   <div id="world-plot" class="plot" style="height: 480px;"></div>
+  <div class="figcap">Each point is one entity. Hover for its name and category. P10 is the pink marker; the red diamonds are the six dwarfs, and their positions change with corner-mix. A small visual jitter spreads entities that share a position, so a cloud is several bodies, not one.</div>
 
-  <div class="figcap">Each point is one entity. Hover for its name and category. P10 is the pink star. The red diamonds are the six dwarf-labeled entities; their positions change with corner-mix. (We add a small visual jitter so that several entities at the same nominal position appear as a cloud rather than a single stacked marker &mdash; nothing is randomized in the actual experiment.)</div>
+  <h3>Aside: what "rote" means here</h3>
+  <p>"Rote" is the everyday word: <em>learning by memorizing flat pairings, without integrating them into anything else.</em> A child who memorizes "8&times;7=56" as a free-standing fact, rather than working it out from 8&times;8 minus 8, has learned it by <span class="term" title="Rote learning: memorizing facts as standalone pairings, with no integration into a broader category structure.">rote</span>.</p>
 
-  <p>Reading the four conditions:</p>
-  <ul>
-    <li><strong>0 of 6</strong> (&ldquo;full overlap&rdquo;): all six dwarfs sit on top of P10. The model is being told, in effect, &ldquo;this Pluto-shaped thing is a dwarf, not a planet.&rdquo;</li>
-    <li><strong>6 of 6</strong> (&ldquo;full rote-control&rdquo;): all six dwarfs sit in the far corner. The model is being told, &ldquo;here's a new category called dwarf, and it lives somewhere completely separate from any planet.&rdquo;</li>
-    <li><strong>2 of 6</strong> and <strong>4 of 6</strong> are intermediate: some dwarfs in P10's neighborhood, some in the far corner.</li>
-  </ul>
-
-  <h3>Aside: what does &ldquo;rote&rdquo; mean here?</h3>
-
-  <p>&ldquo;Rote&rdquo; is the everyday word: <em>learning by memorizing flat pairings, without integrating them into anything else.</em> When a child memorizes &ldquo;8&times;7=56&rdquo; as a free-standing fact rather than working it out from 8&times;8=64 minus 8, that's <span class="term" title="Rote learning: memorizing facts as standalone pairings, with no integration into a broader category structure or inferential network.">rote</span>.</p>
-
-  <p>Applied to this experiment: under the <strong>rote-control</strong> condition (corner-mix = 6/6), the six dwarfs sit in a region of feature space that no other category occupies. So the model can only learn &ldquo;dwarf&rdquo; <em>by rote</em> &mdash; by memorizing &ldquo;things-with-these-particular-features map to the word <em>dwarf</em>,&rdquo; with no overlap or conflict against what it already knows about planets. There's no opportunity for category strain because the feature evidence and the existing label structure don't compete.</p>
-
-  <p>That makes the 6/6 condition the experimental control against tension. If the model produces both labels for P10 even at 6/6, it can't be because the features support both labels &mdash; the dwarf-labeled examples don't share P10's features at all. So 6/6 is the &ldquo;flat memorization only&rdquo; setup; 0/6 is the &ldquo;features-actively-contested&rdquo; setup; and the intermediate values let us watch how the two stories trade off.</p>
-
-  <p>Why does any of this matter? Because if the model picks up &ldquo;dwarf&rdquo; for P10, we want to know <em>why</em>. Did it pick that up because P10's features look just like a dwarf's (the overlap-driven story)? Or because the model has just generally learned to say &ldquo;dwarf&rdquo; after seeing dwarf-labeled examples in phase 2 (a frequency-driven story that has nothing to do with P10's features)? The corner-mix knob separates these two. At 0/6 they're confounded; at 6/6 only the frequency story can be at work.</p>
+  <p>At <strong>corner-mix 6/6</strong> the six dwarfs sit where no other category lives, so the model can only learn "dwarf" by rote: by memorizing that things-with-these-features are called <em>dwarf</em>, with no overlap or conflict against what it already knows about planets. There is no room for category strain, because the feature evidence and the label structure never compete. That makes 6/6 our <strong>control</strong>. If the model still attaches "dwarf" to P10 at 6/6, it cannot be because the features support it, since the dwarfs share none of P10's features. It would have to be something else: a frequency effect, the word <em>dwarf</em> simply becoming common. Hold onto that distinction. It is the hinge of the whole experiment, and we return to it in section 7.</p>
 </section>
 
-<!-- ==== Section 2: schedules ==== -->
+<!-- ==== 2. schedules ==== -->
 <section id="schedules">
   <h2>2. Three ways of training</h2>
 
-  <p>The model trains in two phases. <strong>Phase&nbsp;1</strong> is the canon: 28 entities (P1&hellip;P10, plus asteroids, comets, moons), each described and labeled. <strong>Phase&nbsp;2</strong> is the new evidence: 6 E* described and labeled as dwarfs.</p>
+  <p>The model trains in two phases. <strong>Phase&nbsp;1</strong> is the canon: 28 entities (P1 through P10, plus asteroids, comets, moons), each described and labeled. <strong>Phase&nbsp;2</strong> is the new evidence: six dwarfs, described and labeled. How those phases get combined matters a great deal, so we compare three schedules.</p>
 
-  <p>How those two phases get combined matters &mdash; a lot. We compare three schedules:</p>
+  <div class="note"><strong>Canon-only:</strong> just phase 1. The model never sees the dwarfs. This is the "before-Eris" baseline.</div>
+  <div class="note"><strong>Curriculum:</strong> phase 1 first, then phase 2 as a <span class="term" title="Continue training a model on new data, starting from the weights it already has rather than from scratch.">fine-tune</span>. This mirrors how a student learns, textbook first and new findings later, and it is how most real models get updated. Its danger is <span class="term" title="When a network trained on new data overwrites what it learned for the old data, because the new updates contain no examples of the old.">catastrophic forgetting</span>.</div>
+  <div class="note"><strong>Mixed:</strong> shuffle phase 1 and phase 2 together and train on the union, so canon and evidence are interleaved throughout and canon never gets a chance to be forgotten.</div>
 
-  <div class="note">
-    <strong>Canon-only:</strong> just phase 1. The model never sees the E*. This is our &ldquo;before-Eris&rdquo; baseline.
-  </div>
-  <div class="note">
-    <strong>Curriculum:</strong> phase 1 first, then phase 2 as a <span class="term" title="Fine-tune: continue training a model on new data, starting from the weights it already has rather than from scratch.">fine-tune</span>. This mirrors how a student learns &mdash; textbook first, new findings after &mdash; and it is also how most real-world models get updated. The danger here is <span class="term" title="Catastrophic forgetting: when a network trained on new data overwrites the representations it had learned for the old data, because the gradient updates don't include any examples from the old training set.">catastrophic forgetting</span>: when a network is trained on new data without rehearsing the old, the new data can overwrite the old representation.
-  </div>
-  <div class="note">
-    <strong>Mixed:</strong> shuffle phase 1 and phase 2 together and train on the union. The model sees canon and evidence interleaved throughout, so canon never gets a chance to be forgotten.
-  </div>
-
-  <p>The toy uses a 50,000-<span class="term" title="A model's parameters are the numbers it learns during training. Each parameter is one weight in one layer. ChatGPT-class models have ~200 billion of these; this toy has 50,000 in the small version and ~300,000 in the large version.">parameter</span> <span class="term" title="A transformer is a neural-network architecture built around attention layers; it's the architecture used in ChatGPT, Claude, and most modern language models. Same family of architecture here, just much smaller.">transformer</span> (about four million times smaller than ChatGPT-class models). We also test a 200,000-parameter version &mdash; still tiny &mdash; to see whether more capacity changes anything.</p>
+  <p>The toy uses a 50,000-<span class="term" title="The numbers a model learns during training. ChatGPT-class models have hundreds of billions; this toy has about 50,000 in the small version and 300,000 in the large.">parameter</span> <span class="term" title="The neural-network architecture behind ChatGPT and Claude, built around attention layers. The same family here, just far smaller.">transformer</span>, roughly four million times smaller than ChatGPT-class models. We also test a 300,000-parameter version, still tiny, to ask whether more capacity changes the story.</p>
 </section>
 
-<!-- ==== Section 3: dual-label probe ==== -->
+<!-- ==== 3. dual-label probe ==== -->
 <section id="probe">
   <h2>3. The dual-label probe</h2>
 
-  <p>Once the model is trained, we ask: what does it think P10 is? The natural way is to give it the prompt</p>
-
+  <p>Once the model is trained, we ask what it thinks P10 is. We give it the prompt</p>
   <pre>P10 has mass small diameter large orbit distant . P10 is a ___</pre>
+  <p>and read the probability it puts on each next word. (The model produces a number for every word in its vocabulary, and the <span class="term" title="A function that turns a list of arbitrary numbers into probabilities that are each between 0 and 1 and sum to 1.">softmax</span> turns those into probabilities that sum to 1.) A <span class="term" title="A probe that asks only 'did planet beat dwarf?' and reports the winner, discarding the actual probabilities. It cannot represent two-labels-at-once.">forced-choice probe</span> would ask only whether <code>planet</code> beat <code>dwarf</code>. That throws away exactly what we care about: if the model is genuinely conflicted, holding both labels, forced-choice cannot say so.</p>
 
-  <p>and look at the probability the model assigns to each possible next word. (More precisely: the model produces a number for every word in its vocabulary, and we run those numbers through the <span class="term" title="Softmax: a function that turns a list of arbitrary numbers into a probability distribution — every output is between 0 and 1, and they all sum to 1. The 'standard' way of getting probabilities out of a neural network's raw outputs.">softmax</span> function to turn them into probabilities that sum to 1.) A <span class="term" title="Forced-choice probe: ask 'did planet win or did dwarf win?' and report just the winner. Discards the actual probability values, so it can't represent two-labels-in-play states.">forced-choice probe</span> asks: did <code>planet</code> beat <code>dwarf</code>? The trouble is, this collapses two pieces of information into one. If the model is genuinely conflicted &mdash; if it has acquired both labels for P10 &mdash; the forced-choice probe cannot say so.</p>
-
-  <p>The <strong>dual-label probe</strong> reads <code>P(planet)</code> and <code>P(dwarf)</code> independently. Each P10 reading then lands in a 2&times;2 grid:</p>
+  <p>The <strong>dual-label probe</strong> reads <code>P(planet)</code> and <code>P(dwarf)</code> independently. Each reading lands in a 2&times;2 grid:</p>
 
   <table class="cells">
     <tr><th></th><th>P(planet) high</th><th>P(planet) low</th></tr>
@@ -313,277 +187,229 @@
         <td class="cell-swap">swap<br><small>label flipped</small></td></tr>
     <tr><th>P(dwarf) low</th>
         <td class="cell-canon">canon<br><small>still a planet</small></td>
-        <td class="cell-nothing">nothing<br><small>some third token wins</small></td></tr>
+        <td class="cell-nothing">nothing<br><small>some third word wins</small></td></tr>
   </table>
 
-  <p>&ldquo;High&rdquo; is operationalized with an <strong>absolute floor</strong>: a label is in play when it has at least 10% of the probability mass. So a P10 reading of <em>(P_planet=0.45, P_dwarf=0.50)</em> would land in TENSION; a reading of <em>(0.01, 0.99)</em> would land in <em>swap</em>; and <em>(0.99, 0.01)</em> in <em>canon</em>.</p>
-
-  <p>The motivating distinction is that <strong>tension is structural conflict</strong> &mdash; the model has internalized two competing categorizations for the same features &mdash; while <strong>swap is just relabeling</strong>: the model has been pushed from one verdict to the other. The same forced-choice probe sees both as &ldquo;dwarf wins,&rdquo; but they are different states of the model, and only one of them is the phenomenon a category-strain story would point to.</p>
+  <p>"High" means a label clears an <strong>absolute floor</strong> of 10% of the probability. So a reading of <em>(P_planet=0.45, P_dwarf=0.50)</em> is TENSION; <em>(0.01, 0.99)</em> is a swap; <em>(0.99, 0.01)</em> is canon. <strong>Tension is structural conflict</strong>, the model holding two categorizations of the same features at once. <strong>A swap is just relabeling.</strong> Forced-choice sees both as "dwarf wins," but they are different states of the model, and only one of them is what a category-strain story would point to.</p>
 </section>
 
-<!-- ==== Section 4: transformer results ==== -->
-<section id="sweep">
-  <h2>4. What the model thinks P10 is</h2>
+<!-- ==== 4. draw-a-run ==== -->
+<section id="draws">
+  <h2>4. Train it once. Now train it again.</h2>
 
-  <p>Below is the headline result. We ran 160 trainings of the model: every combination of <em>schedule</em> (curriculum vs mixed), <em>corner-mix</em> (0&hellip;6), and <em>model size</em> (50K vs 200K params), with 10 random <span class="term" title="A random seed sets the starting point of the random number generator. Two trainings with different seeds produce different initial weights and slightly different outcomes; running many seeds and averaging tells us how stable a finding is.">seeds</span> per cell to make sure the picture isn't a fluke of a single training run.</p>
+  <p>Here is the natural thing to do, and what our earlier write-ups did: train the model once, on the overlapping condition under the curriculum schedule, run the probe, and report the answer. Do that and P10 comes back as a <span style="color:var(--canon);font-weight:bold">canon</span> planet, P(planet) near 0.87. Clean. You would write it down.</p>
+
+  <p>But that was <em>one run</em>, and a training run has randomness baked into it: which corpus we happen to generate from the world, and which random starting weights the model happens to get. So let us not train once. Click the button and train a model. Then train another. Then twenty. Each dot is one trained model's verdict on P10, placed by its P(planet) and P(dwarf) and colored by the 2&times;2 cell it lands in. The black star is the single run you would have done.</p>
 
   <div class="controls">
     <div class="group-block">
       <label class="group">model size</label>
-      <div class="options">
-        <label><input type="radio" name="sweep-size" value="d32l4" checked> small (50K)</label>
-        <label><input type="radio" name="sweep-size" value="d64l6"> large (200K)</label>
-      </div>
-    </div>
-    <div class="group-block">
-      <label class="group">schedule</label>
-      <div class="options">
-        <label><input type="checkbox" id="sweep-curriculum" checked> curriculum</label>
-        <label><input type="checkbox" id="sweep-mixed" checked> mixed</label>
+      <div class="pill-group">
+        <label><input type="radio" name="run-size" value="50K" checked>small (50K)</label>
+        <label><input type="radio" name="run-size" value="200K">large (300K)</label>
       </div>
     </div>
   </div>
+  <div class="runbtns">
+    <button id="run-one" class="primary">Train one model</button>
+    <button id="run-twenty">Run 20 at once</button>
+    <button id="run-reset">Reset</button>
+  </div>
+  <div class="live-caption" id="run-caption">&hellip;</div>
+  <div id="run-plot" class="plot" style="height: 460px;"></div>
+  <div class="figcap">Twenty independent trainings of the same condition (overlap, curriculum). Each draws a fresh corpus from the world and fresh starting weights. Dotted lines are the 10% floor; corners are labeled by their 2&times;2 cell.</div>
 
-  <div id="sweep-plot" class="plot" style="height: 460px;"></div>
-  <div class="figcap">Each point is the mean of 10 random seeds; error bars are one <span class="term" title="Standard error: roughly, the size of the typical seed-to-seed wobble around the mean. Small bars mean the finding is stable across seeds; large bars mean the result depends a lot on which seed you happened to use.">standard error</span>. Solid line is <code>P(planet)</code>; dashed is <code>P(dwarf)</code>. Toggle the controls to compare model sizes and schedules.</div>
+  <p>At the small model, the dots scatter across the whole plot. The single run you would have done, the star, says <span style="color:var(--canon);font-weight:bold">canon</span>: P10 stays a planet. But that outcome is a minority. Most runs <span style="color:var(--swap);font-weight:bold">swap</span> P10 to dwarf; a few land in genuine <span style="color:var(--tension);font-weight:bold">tension</span>; one or two keep canon. The verdict is not a number. It is a distribution, and the one run we happened to do sat in its tail. Had we trained once and published, we would have reported a roughly one-in-twenty outcome as the finding.</p>
 
-  <h3>The mixed schedule is rock-solid canon</h3>
-  <p>If you turn off curriculum and look at just mixed, you see a flat picture: the model says P10 is a planet with <code>P(planet)&nbsp;&asymp;&nbsp;1.0</code> at every corner-mix, both at 50K and at 200K params. Phase 1 is always present in the training mix, so the planet label for P10 is never under threat.</p>
-
-  <h3>The curriculum schedule depends on size</h3>
-  <p>Now turn off mixed and look at curriculum at the small model. The picture is messy &mdash; <code>P(planet)</code> hovers around 0.25&ndash;0.4 with very wide error bars. The 50K-param model is too small to do consistent inference on the corner-mix axis. Some seeds end up in canon, some in swap, a few in tension &mdash; it's a high-variance regime.</p>
-
-  <p>Switch to the large 200K model and the curriculum picture sharpens dramatically. At low corner-mix (0&ndash;4 of 6 E* in the overlap region), <code>P(planet)</code> is near zero and <code>P(dwarf)</code> is near 0.9. The model has been pushed cleanly into a label swap. At full rote-control (6/6), <code>P(planet)</code> jumps to about 0.42 and the picture splits across seeds.</p>
-
-  <p><strong>The larger model isn't more uncertain &mdash; it's more decisive.</strong> Capacity goes into learning the phase-2 pattern more thoroughly, which costs the planet category for P10 more cleanly when feature evidence supports the dwarf label.</p>
+  <p>So the honest read of "is P10 under strain?" is not a cell. It is the shape of this cloud. And that immediately raises a question: <em>where does all that scatter come from?</em></p>
 </section>
 
-<!-- ==== Section 5: baselines ==== -->
+<!-- ==== 5. what the wobble is made of ==== -->
+<section id="wobble">
+  <h2>5. What the wobble is made of</h2>
+
+  <p>The cloud has two independent sources of randomness, and telling them apart is the whole methodological point. One is <strong>which corpus we drew</strong> from the world: a different sample of feature values and sentence orderings. The other is <strong>which starting weights</strong> the model got, the random seed of the optimizer. We can measure each on its own. Hold the starting weights fixed and vary only the corpus, and the spread you get is <span class="term" title="Uncertainty about the estimate itself: how much the answer would move if you had drawn different data. It is not the same as the model's own output probabilities, which are about outcomes.">epistemic</span>, the part driven by the data draw. Hold the corpus fixed and vary only the weights, and the spread is the optimizer's own noise.</p>
+
+  <p>Training many models this way, then measuring the spread, is called <span class="term" title="Train many models, each on a resampled or freshly drawn version of the data, and use how much their answers vary as an estimate of how uncertain the answer truly is.">bootstrap-and-retrain</span>. The bar below splits the wobble in P10's tension reading into its two parts, for the contested overlap condition and the rote-control.</p>
+
+  <div class="controls">
+    <div class="group-block">
+      <label class="group">model size</label>
+      <div class="pill-group">
+        <label><input type="radio" name="decomp-size" value="50K" checked>small (50K)</label>
+        <label><input type="radio" name="decomp-size" value="200K">large (300K)</label>
+      </div>
+    </div>
+  </div>
+  <div id="decomp-plot" class="plot" style="height: 360px;"></div>
+  <div class="figcap">Variance of P10's tension reading, split into corpus luck (red) and seed luck (grey). Taller is more uncertain.</div>
+
+  <p>Here is why this matters beyond the toy. The standard, cheap way to put error bars on a result like this is to retrain a handful of times with different seeds and report the spread. But that holds the data fixed: it measures only the grey bar. The corpus luck, often the larger share, is invisible to it. A single fixed corpus with a few seeds will hand you tight, confident error bars that hide most of the real uncertainty. You have to pay for the red bar by actually redrawing the data and retraining, and until you do, you do not know how much of your finding was the draw.</p>
+</section>
+
+<!-- ==== 6. capacity ==== -->
+<section id="capacity">
+  <h2>6. Does a bigger model fix it?</h2>
+
+  <p>A natural hope is that the wobble is just a symptom of the model being too small, and that more capacity would settle it down. So flip the size toggle in <a href="#draws">section 4</a> to the large (300K) model and watch the cloud.</p>
+
+  <p>It does tighten. But look <em>where</em> it tightens: onto <span style="color:var(--swap);font-weight:bold">swap</span>. At the larger size, run after run drives P(planet) for P10 to near zero, and the bootstrap is nearly unanimous. The bigger model is not more uncertain than the small one, and it is not more discerning either. It is more <em>decisive</em>: it calls P10 a dwarf, hard, every time.</p>
+
+  <p>Decisive on what grounds, though? In this overlapping condition we cannot yet say, because the features and the sheer frequency of "dwarf" in phase 2 both point the same way. Section 7 pulls them apart, and the answer is not flattering. What is clear already is the trap: <strong>more capacity buys confidence, not correctness.</strong> A crisp, repeatable verdict feels like the evidence has spoken, when it may only be the training schedule speaking louder. Low variance is necessary for a finding to be real. It is not sufficient. You can be tightly, repeatably, confidently wrong about a question that had no single right answer to begin with.</p>
+</section>
+
+<!-- ==== 7. control backfired ==== -->
+<section id="control">
+  <h2>7. The control that backfired</h2>
+
+  <p>Recall the control from <a href="#world">section 1</a>. At corner-mix 6/6 the six dwarfs sit in the disjoint corner, sharing none of P10's features. We built it precisely so that tension could not come from feature overlap: if P10 still picks up "dwarf" there, it can only be the frequency effect, the word becoming common, and not a real conflict over P10's features.</p>
+
+  <p>So we ran it, across a sweep of how prototype-edge P10 is (lower means more dwarf-like), at both model sizes. The plot is the fraction of trained models that classify P10 as TENSION, for the overlap condition and for the rote-control.</p>
+
+  <div class="controls">
+    <div class="group-block">
+      <label class="group">model size</label>
+      <div class="pill-group">
+        <label><input type="radio" name="edge-size" value="50K" checked>small (50K)</label>
+        <label><input type="radio" name="edge-size" value="200K">large (300K)</label>
+      </div>
+    </div>
+  </div>
+  <div id="edge-plot" class="plot" style="height: 400px;"></div>
+  <div class="figcap">Fraction of 20 trained models in which P10 reads as TENSION, versus how prototype-edge P10 is. Blue is the contested overlap condition; red is the rote-control, where tension should be impossible.</div>
+
+  <p>The red line should sit on the floor. It does not. Across every prototype edge and at both model sizes, the rote-control shows as much "tension" as the contested overlap condition, and usually more. P10 is picking up "dwarf" even though no dwarf shares any of its features. That is the frequency effect, exactly the thing the control was built to expose, and it means the probe's "tension" is not measuring feature conflict. It is catching a common label leaking onto P10. The control we designed to rule out the confound caught the confound instead.</p>
+
+  <p>Set this against the overlapping condition, because the contrast is the whole point. There, calling P10 a dwarf at least went along with its features. Here it goes along with nothing about P10: the features say planet, the canon says planet, the classifiers say planet, and the model leans dwarf regardless. The pull toward "dwarf" was never really about what P10 is like. It was about how often the word turned up.</p>
+
+  <p>To be fair, there is a faint signal in the intended direction at the far planet end of the sweep. But it is buried under the run-to-run scatter, and it does not survive at either size. The honest conclusion is a boundary, drawn cleanly: at this scale, this toy cannot separate genuine category tension from a frequent label leaking. That is a real limit, and it is better to know it than to have reported the clean-looking single run.</p>
+</section>
+
+<!-- ==== 8. baselines ==== -->
 <section id="baselines">
-  <h2>5. Comparison with shallow classifiers</h2>
+  <h2>8. What the data alone says</h2>
 
-  <p>So far we've only looked at what the trained transformer says. But the same labeled feature data is available to any classifier. What does a <em>shallow</em> classifier &mdash; one with no sequence modeling, no schedule effects, no fine-tuning dynamics &mdash; predict for P10?</p>
-
-  <p>Below: four baselines, each fit on the same union of phase-1 + phase-2 entities (34 labeled examples per corpus), all asked the same question: <em>given P10's three features, what's the probability of each category?</em></p>
+  <p>One more check keeps us honest. The trained model is wobbling, but maybe the <em>data</em> is genuinely ambiguous, and the model is just faithfully reflecting that. So set the transformer aside and ask: given P10's three features, what does a plain statistical classifier say? Below are four <span class="term" title="Classifiers with no sequence modeling, no training schedule, no fine-tuning dynamics: they map features straight to a category probability.">shallow classifiers</span>, each fit on the same labeled features the transformer trains on.</p>
 
   <div class="controls">
     <div class="group-block">
       <label class="group">show baselines</label>
       <div class="options">
-        <label><input type="checkbox" name="bl" value="logreg" checked> <span class="term" title="Logistic regression: fit a function that maps the three features (mass, diameter, orbit) to a probability for each category. Most-canonical 'shallow classifier' baseline.">logistic regression</span></label>
-        <label><input type="checkbox" name="bl" value="gnb" checked> <span class="term" title="Gaussian naive Bayes: assume each feature is normally distributed within each category, multiply the per-feature likelihoods, and apply Bayes' rule. 'Naive' because it assumes the features are independent.">Gaussian naive Bayes</span></label>
-        <label><input type="checkbox" name="bl" value="knn3" checked> <span class="term" title="k-nearest-neighbors: to classify P10, find the 3 entities in the training set whose features are closest to P10's, and vote among their labels. Caps at 1/3 weight on planet at every condition because P10 is itself one of its own three nearest neighbors.">3-nearest-neighbors</span></label>
-        <label><input type="checkbox" name="bl" value="bayes" checked> <span class="term" title="Bayes posterior: P(category|features) ∝ P(features|category) × P(category). Computed here by fitting a Gaussian per axis per category and multiplying out — same math as Gaussian naive Bayes, just written by hand to make the calculation transparent.">Bayes posterior (by hand)</span></label>
+        <label><input type="checkbox" name="bl" value="logreg" checked> <span class="term" title="Fit a function mapping the three features to a probability for each category. The most standard shallow baseline.">logistic regression</span></label>
+        <label><input type="checkbox" name="bl" value="gnb" checked> <span class="term" title="Assume each feature is normally distributed within a category, multiply the per-feature likelihoods, and apply Bayes' rule.">Gaussian naive Bayes</span></label>
+        <label><input type="checkbox" name="bl" value="knn3" checked> <span class="term" title="Classify P10 by the labels of its three nearest entities in feature space.">3-nearest-neighbors</span></label>
+        <label><input type="checkbox" name="bl" value="bayes" checked> <span class="term" title="P(category given features), computed by hand from a Gaussian per axis per category, to make the calculation transparent.">Bayes posterior</span></label>
       </div>
     </div>
     <div class="group-block">
       <label class="group">show transformer</label>
       <div class="options">
         <label><input type="checkbox" id="bl-small" checked> small (50K) curriculum</label>
-        <label><input type="checkbox" id="bl-large" checked> large (200K) curriculum</label>
+        <label><input type="checkbox" id="bl-large" checked> large (300K) curriculum</label>
       </div>
     </div>
   </div>
+  <div id="baseline-plot" class="plot" style="height: 470px;"></div>
+  <div class="figcap">Solid lines: <code>P(planet | P10's features)</code>. Dashed: <code>P(dwarf | P10's features)</code>. Baselines are deterministic given the corpus; transformer error bars are one standard error across seeds.</div>
 
-  <div id="baseline-plot" class="plot" style="height: 480px;"></div>
-  <div class="figcap">Solid lines: <code>P(planet | P10's features)</code>. Dashed lines: <code>P(dwarf | P10's features)</code>. The baselines are deterministic given the corpus; the transformer error bars are 1 standard error across 10 seeds.</div>
+  <p>Every baseline tells the same clean story. At full overlap the data implies P10 is a dwarf; at full rote-control it implies P10 is a planet; in between the answer slides smoothly from one to the other. <strong>And no baseline ever lands in tension.</strong> At every corner-mix the data has one decisive answer. The data does not contain category strain; it contains a shifting single-label majority.</p>
 
-  <h3>The data alone produces a clean monotone</h3>
-  <p>Every baseline shows the same pattern. At <strong>0/6 (full overlap)</strong>, the data implies <code>P(dwarf | P10's features)</code> is near 1 &mdash; six entities labeled <em>dwarf</em> sit in P10's feature neighborhood, and the only entity with the <em>planet</em> label there is P10 itself. At <strong>6/6 (full rote-control)</strong>, the dwarfs sit in a disjoint corner and contribute nothing to P10's neighborhood, so <code>P(dwarf | P10's features)</code> falls to zero.</p>
-
-  <p>Notice that <strong>none of the baselines lands in tension either</strong>. At every corner-mix, the data implies one decisive answer; the answer just shifts smoothly from dwarf to planet as overlap drops. <em>The data does not contain category strain.</em> What it contains is a shifting single-label majority.</p>
-
-  <h3>Curriculum approximates the baseline; mixed overrides it</h3>
-  <p>Turn the controls so just <em>large (200K) curriculum</em> and the four baselines are visible. The large transformer under curriculum has the same shape as the baselines &mdash; <code>P(dwarf)</code> falls as corner-mix rises &mdash; but is offset upward, especially at high corner-mix. The most natural reading is that curriculum imposes an extra phase-2 frequency bias on top of the baseline: every &ldquo;X is a&rdquo; prompt during phase 2 has been followed by <em>dwarf</em>, so the model carries a residual positional bias toward <em>dwarf</em> even when feature evidence stops supporting it.</p>
-
-  <p>Now consider mixed. The mixed transformer (which you can verify in section 4) sits at <code>P(planet)&nbsp;&asymp;&nbsp;1.0</code> across every corner-mix &mdash; <em>including</em> the overlap-heavy ones where shallow classifiers are emphatic that P10 should be a dwarf. <strong>The mixed-schedule transformer ignores feature evidence that the baselines treat as decisive.</strong> Phase 1 says &ldquo;P10 is a planet,&rdquo; and the model holds that label even when six dwarf-labeled entities sit on top of P10 in feature space.</p>
+  <p>That is the punchline of this section. The model's instability is not the data being ambiguous, because the data is clear. It is the training process being a coin flip, plus the curriculum schedule's bias toward the frequent phase-2 label. The gap between the clean baseline and the wobbling model is variance and schedule, not insight.</p>
 </section>
 
-<!-- ==== Section 6: takeaways ==== -->
+<!-- ==== 9. takeaways ==== -->
 <section id="takeaways">
-  <h2>6. What we learned</h2>
+  <h2>9. What we learned</h2>
+
+  <p>The toy set out to show that a small model could detect category strain. It ended up teaching something more useful, and more cautionary.</p>
+
+  <p>Start with what actually happened across the two schedules, because it is not what we first reported. The cells below are P10's probabilities on the two label words, next to what a plain classifier infers from P10's features alone.</p>
+
+  <table class="cells lvf">
+    <tr><th>where the dwarfs sit &rarr;</th><th>on P10<br><small>0 of 6</small></th><th>2 of 6</th><th>4 of 6</th><th>far corner<br><small>6 of 6</small></th></tr>
+    <tr><th>the <em>features</em> imply</th>
+        <td class="lab-dwarf">0.13 / 0.73</td><td class="lab-dwarf">0.31 / 0.45</td><td class="lab-planet">0.49 / 0.17</td><td class="lab-planet">0.67 / 0.00</td></tr>
+    <tr><th><em>mixed</em> says</th>
+        <td class="lab-planet">0.99 / 0.01</td><td class="lab-planet">0.99 / 0.01</td><td class="lab-planet">0.99 / 0.00</td><td class="lab-planet">1.00 / 0.00</td></tr>
+    <tr><th><em>curriculum</em> (50K) says</th>
+        <td class="lab-dwarf">0.28 / 0.68</td><td class="lab-dwarf">0.28 / 0.65</td><td class="lab-dwarf">0.24 / 0.70</td><td class="lab-dwarf">0.38 / 0.56</td></tr>
+    <tr><th><em>curriculum</em> (300K) says</th>
+        <td class="lab-dwarf">0.10 / 0.89</td><td class="lab-dwarf">0.12 / 0.87</td><td class="lab-dwarf">0.11 / 0.87</td><td class="lab-dwarf">0.42 / 0.50</td></tr>
+  </table>
+  <div class="figcap">Each cell is <code>P(planet) / P(dwarf)</code>. The three model rows are <strong>label-tracking</strong>: the probability the model puts on the words "planet" and "dwarf." The top row is <strong>feature-tracking</strong>: what a classifier infers from P10's features alone, with no labels in sight. Green is planet-leaning, orange dwarf-leaning. Read across each row: only the features move. Mixed sits on "planet" everywhere, the canon label, even at 0 of 6 where the features say dwarf. Curriculum sits on "dwarf" everywhere, the frequent phase-2 word, even at 6 of 6 where the features put zero mass on dwarf.</div>
+
+  <p>So neither schedule does the rational thing, which would be to read P10's category off its features. <em>Mixed</em> rehearses phase 1 throughout, so the canon label survives and P10 stays a planet, no matter what the new evidence shows. <em>Curriculum</em> fine-tunes on the new evidence without rehearsal, so the planet label erodes, but it slides toward the word that was frequent, not toward what the features support. Same data, opposite verdicts, and in both the feature evidence is a bystander.</p>
 
   <ol>
-    <li><strong>Tension is rare.</strong> Across 160 trainings of the toy at two model sizes, no condition produces the &ldquo;both labels in play simultaneously&rdquo; cell as the modal outcome. Tension exists in a few seeds at a few corner-mix values, but it is a transient between two more decisive attractors (canon and swap).</li>
-
-    <li><strong>Curriculum is a data-conditional regime; mixed is a label-conditional one.</strong> Under curriculum, the model approximately tracks what shallow classifiers would predict from feature evidence. Under mixed, the model holds the explicit canon label regardless of what the features say.</li>
-
-    <li><strong>The data has the evidence; what the model does with it depends on schedule.</strong> A larger model amplifies whichever of these two tendencies the schedule selects. It does not introduce a third regime (such as a stable tension cell).</li>
+    <li><strong>One run is one sample.</strong> A single training run gives a confident verdict, but the verdict is a draw from a distribution. Our one run said canon; the distribution said swap. The single run was not just uncertain, it was unrepresentative.</li>
+    <li><strong>Cheap error bars hide the bigger half.</strong> Retraining with a few seeds on a fixed corpus measures the optimizer's noise and misses the data-draw uncertainty, which is often larger. You have to redraw the data and retrain to see it.</li>
+    <li><strong>Scale buys confidence, not discernment.</strong> The larger model is more decisive, not more correct: it commits harder to "dwarf" without committing any harder to the features. A tighter answer is not a truer one.</li>
+    <li><strong>The control failed informatively.</strong> What the probe reads as "tension" is, at this scale, largely a frequent label leaking onto P10, not feature-driven conflict. The toy cannot, at 50K or 300K parameters, separate the two.</li>
   </ol>
 
-  <p>For an undergraduate reader: the lesson is methodological. When we ask whether a language model has &ldquo;noticed&rdquo; something in its data, the answer depends on (a) <em>how</em> we ask &mdash; the probe matters &mdash; and (b) <em>how</em> the data was sequenced into training. The same labeled corpus can produce a model that respects feature distributions or one that ignores them. Comparing the model's verdicts to shallow baselines on the same data is one of the cleanest ways to tell which is happening.</p>
+  <p>So the toy is best understood two ways at once. It is a clean, runnable demonstration of a <em>method</em>: when you ask whether a model has "noticed" something, retrain it many times, separate the data luck from the seed luck, and report the distribution rather than the run. And it is a cautionary tale: a single training run will hand you a clean result, a bigger model will hand you a confident one, and neither is the same as a true one.</p>
 
-  <p>This is a miniature of a much bigger question that the parent project is asking at full scale: <em>what would it have taken for a model trained only on pre-2006 astronomy texts to recognize that the planet category was already strained?</em> The toy says: there's no single &ldquo;recognized&rdquo; state. There are several different things a model might do with that evidence, and which one happens depends on choices we make in how the model is built and trained.</p>
+  <p>This is a miniature of the question the parent project asks at full scale: what would it have taken for a model trained only on pre-2006 astronomy to recognize that the planet category was already strained? The toy's answer is modest and honest. There is no single "recognized" state to find. There is a distribution of things a model might do with the evidence, and the discipline that tells a real finding from an artifact is to retrain and look at the spread.</p>
+
+  <p>Underneath all of this is a genuine question, and the toy is a good place to feel its edges. A label invites inferences about what a thing is like, and later evidence can make those inferences misleading: a sky full of Eris-sized neighbors, sharing Pluto's features. When the label and the updated features finally disagree, which one fixes the thing's real kind? The toy does not settle it. What it shows is sharper, and a little deflating: the model's answer is not discovered from the features at all, it is decided by how we chose to train it. So was Juliet right, that a rose by any other name smells as sweet, the name idle and the features all that matter? For our model, no. The name was very nearly everything, and the smell, the features, barely registered.</p>
 </section>
 
-<!-- ==== Section 7: technical details ==== -->
+<!-- ==== 10. under the hood ==== -->
 <section id="technical">
-  <h2>7. Under the hood: training details</h2>
+  <h2>10. Under the hood</h2>
 
-  <p>This section is for readers who want to know how the model was actually trained. Most of the page above can be read without it. The numbers here are the exact settings used to produce the results in sections 4 and 5.</p>
+  <p>This section is for readers who want the exact settings. The rest of the page can be read without it.</p>
 
   <h3>Architecture</h3>
-
-  <p>Both model sizes are minimal decoder-only transformers (the same family as GPT-2, just much smaller), implemented in &lt;200 lines of PyTorch. Pre-LayerNorm residual blocks; multi-head causal self-attention; a 4&times; expansion MLP per block; tied input and output embeddings. No attention dropout, no fused kernels &mdash; every operation visible in the source.</p>
-
+  <p>Both sizes are minimal decoder-only transformers (the GPT-2 family, much smaller), in under 200 lines of PyTorch: pre-LayerNorm blocks, multi-head causal attention, a 4&times; MLP per block, tied input and output embeddings.</p>
   <table class="cells">
-    <tr>
-      <th></th>
-      <th>small</th>
-      <th>large</th>
-    </tr>
-    <tr><th>n_embd (hidden width)</th>     <td>32</td>  <td>64</td></tr>
-    <tr><th>n_layer (transformer blocks)</th> <td>4</td>   <td>6</td></tr>
-    <tr><th>n_head (attention heads)</th>  <td>4</td>   <td>4</td></tr>
-    <tr><th>head_dim</th>                  <td>8</td>   <td>16</td></tr>
-    <tr><th>block_size (context length)</th> <td>64</td>  <td>64</td></tr>
-    <tr><th>parameter count</th>           <td>54,464</td> <td>306,688</td></tr>
+    <tr><th></th><th>small</th><th>large</th></tr>
+    <tr><th>n_embd (width)</th><td>32</td><td>64</td></tr>
+    <tr><th>n_layer (blocks)</th><td>4</td><td>6</td></tr>
+    <tr><th>n_head</th><td>4</td><td>4</td></tr>
+    <tr><th>parameters</th><td>54,464</td><td>306,688</td></tr>
   </table>
 
-  <h3>Corpus</h3>
+  <h3>The ensemble</h3>
+  <p>The draw-a-run scatter, the variance split, and the edge sweep all come from <strong>bootstrap-and-retrain</strong>: for each condition we train <strong>B = 20</strong> models from scratch. To separate the two sources of randomness we run three ensembles. <em>Parametric</em>: regenerate the corpus from a fresh random seed each time, holding the starting weights fixed. <em>Bootstrap</em>: resample the realized corpus with replacement (keeping each description glued to its label), again with fixed weights. <em>Optimization</em>: hold the corpus fixed and vary only the starting weights. The first two estimate the corpus (epistemic) uncertainty by different means and agree; the third is the seed-luck term that the older single-corpus sweeps measured on their own.</p>
 
-  <p>The tokenizer is word-level (the corpus generator uses whitespace-separated tokens, including punctuation), fit on the union of phase 1 + phase 2. Vocabulary size is <strong>64 tokens</strong>: a handful of category and feature words plus 28 + 6 entity names. Corpus sizes (for the May 7 sweeps with <code>n_eris = 6</code>):</p>
+  <h3>Corpus and training</h3>
+  <p>The tokenizer is word-level, 64 tokens, fit on the union of both phases. Optimizer AdamW with a cosine learning-rate schedule; phase 1 runs 1,500 steps, the curriculum phase 2 a further 300 at a low-rate floor; mixed runs 1,500 steps on the joint corpus. All runs use a single Apple M-series GPU via PyTorch MPS; a small-model run takes about 30 seconds, a large-model run about 40. The full set of ensembles behind this page is a few hours of wall time.</p>
 
-  <table class="cells">
-    <tr><th></th><th>lines</th><th>tokens</th></tr>
-    <tr><th>Phase 1 (canon)</th>           <td>480</td><td>3,520</td></tr>
-    <tr><th>Phase 2 (evidence)</th>        <td>72</td> <td>504</td></tr>
-    <tr><th>Joint (mixed schedule)</th>    <td>552</td><td>4,024</td></tr>
-  </table>
-
-  <h3>Training schedule</h3>
-
-  <ul>
-    <li>Optimizer: AdamW (<code>betas=(0.9, 0.95)</code>, <code>weight_decay=0.1</code>).</li>
-    <li>Learning rate: cosine schedule from <code>lr_max = 3e-3</code> down to <code>lr_min = 3e-4</code> across phase 1.</li>
-    <li>Batch size: 32. Block size: 64. Each gradient step thus processes <strong>2,048 tokens</strong>.</li>
-    <li>Gradient clipping at norm 1.0. No warmup. No dropout.</li>
-    <li>Phase 1: <strong>1,500 steps</strong>. Curriculum phase 2: <strong>300 steps</strong> at <code>lr_max = lr_min</code> down to <code>lr_min/10</code> (so phase 2 fine-tunes on a low-LR floor &mdash; we want to <em>bend</em> the canon representation, not overwrite it). Mixed: 1,500 steps on the joint corpus.</li>
-    <li>10 random seeds per cell at each model size, training the model from scratch each time.</li>
-  </ul>
-
-  <h3>Tokens per parameter, and a note on Chinchilla</h3>
-
-  <p>Multiplying out: each schedule serves the model the following total quantities of training tokens:</p>
-
-  <table class="cells">
-    <tr>
-      <th>schedule</th>
-      <th>steps</th>
-      <th>tokens served</th>
-      <th>tokens / param (small)</th>
-      <th>tokens / param (large)</th>
-      <th>epochs over its corpus</th>
-    </tr>
-    <tr>
-      <th>canon-only</th>
-      <td>1,500</td>
-      <td>3,072,000</td>
-      <td>56.4</td>
-      <td>10.0</td>
-      <td>873 (phase 1)</td>
-    </tr>
-    <tr>
-      <th>curriculum</th>
-      <td>1,500 + 300</td>
-      <td>3,686,400</td>
-      <td>67.7</td>
-      <td>12.0</td>
-      <td>873 (phase 1) &middot; 1,219 (phase 2)</td>
-    </tr>
-    <tr>
-      <th>mixed</th>
-      <td>1,500</td>
-      <td>3,072,000</td>
-      <td>56.4</td>
-      <td>10.0</td>
-      <td>764 (joint)</td>
-    </tr>
-  </table>
-
-  <p>The Chinchilla scaling result (Hoffmann et al., 2022) found that compute-optimal language model pretraining wants roughly <strong>20 training tokens per parameter</strong>. By that yardstick, the small model in this toy is trained <em>3&times; past Chinchilla-optimal</em> (heavy over-training; the model has time to memorize the canon many times over) while the large model is trained at <em>about 0.6&times; Chinchilla</em> (slightly under-trained relative to compute-optimal).</p>
-
-  <p>To be fair, the Chinchilla framing doesn't translate directly to this experiment. Chinchilla scaling laws are derived for <em>pretraining</em> on web-scale text where the goal is held-out loss minimization at fixed compute. We're running a controlled interpretability study on a synthetic corpus, where the goal is to fully internalize the canonical category structure so the dual-label probe has something to read. The right yardstick here is &ldquo;has phase 1 converged?&rdquo; (it has &mdash; loss falls to ~0.1 well before step 1,500), not &ldquo;is total compute Chinchilla-optimal?&rdquo;</p>
-
-  <p>That said, the cross-size comparison <em>is</em> informative: the larger model is exposed to fewer epochs of the canon than the small one is (still ~764&ndash;873) but can fit it in fewer passes thanks to having more capacity. The May 7 finding that the large model amplifies the corner-mix effect under curriculum is therefore not driven by a Chinchilla-style under-training of either; both models are far past the convergence point on phase 1 alone.</p>
-
-  <div class="note">
-    <strong>Why so many epochs?</strong> Most modern LM pretraining sees each token exactly once or twice. Here we deliberately train for many hundreds of epochs because (a) the corpus is so small that fewer passes leave the canon under-learned, and (b) we want catastrophic forgetting under the curriculum schedule to be a clean phenomenon rather than a partial pass artifact. Numerals, the sibling toy project, runs in a similar regime for the same reasons.
-  </div>
-
-  <h3>Hardware and wall time</h3>
-
-  <p>All training runs use a single Apple M-series GPU via PyTorch's MPS backend. A small-model training run takes about 30 seconds; a large-model run takes about 40 seconds. The 160-cell follow-up sweep (10 seeds &times; 4 corner-mix &times; 2 schedules &times; 2 sizes) ran in about 95 minutes wall time on one machine.</p>
-
-  <p>The full code is in <a href="https://github.com/bertybaums/pluto-toy"><code>github.com/bertybaums/pluto-toy</code></a>. Every operation is visible in the source: <code>model.py</code> is the transformer, <code>train.py</code> is the loop above, <code>tension_probe.py</code> is the dual-label probe, and <code>baseline_classifier.py</code> is what produced the four shallow-classifier curves in section 5.</p>
+  <p>The code is at <a href="https://github.com/bertybaums/pluto-toy"><code>github.com/bertybaums/pluto-toy</code></a>. <code>ensemble_tension.py</code> runs the three ensembles; <code>generate_corpus.py</code>, <code>train.py</code>, and <code>tension_probe.py</code> are the world, the training loop, and the dual-label probe.</p>
 </section>
 
 <footer>
-  <p>The code, data, and writeups are all open. You can:</p>
+  <p>The code, data, and write-ups are open. You can:</p>
   <ul>
-    <li>Read the technical writeups: <a href="../results/three-probes-2026-04-28.md">April 28</a>, <a href="../results/tension-vs-rote-2026-05-06.md">May 6</a>, <a href="../results/follow-up-2026-05-07.md">May 7</a>.</li>
-    <li>Run the experiment yourself in a Colab notebook (linked from the <a href="https://github.com/bertybaums/pluto-toy">repository README</a>).</li>
-    <li>Modify the corpus generator, train your own model, and re-run the dual-label probe with one shell command.</li>
+    <li>Read the technical write-ups on GitHub: <a href="https://github.com/bertybaums/pluto-toy/blob/main/results/three-probes-2026-04-28.md">April 28</a>, <a href="https://github.com/bertybaums/pluto-toy/blob/main/results/follow-up-2026-05-07.md">May 7</a>, and the uncertainty study, <a href="https://github.com/bertybaums/pluto-toy/blob/main/results/ensemble-uncertainty-2026-05-22.md">May 22&ndash;23</a>.</li>
+    <li>Run it yourself from scratch in a <a href="https://colab.research.google.com/github/bertybaums/pluto-toy/blob/main/tutorial-tension.ipynb">Colab notebook</a>, including training your own ensemble and watching the distribution form.</li>
   </ul>
   <p style="font-size: 0.85rem; margin-top: 1rem;">
-    Bert Baumgaertner &middot; University of Idaho &middot; 2026.
-    Built with <a href="https://plotly.com/javascript/">Plotly.js</a>. Data embedded as JSON in the page source.
+    Bert Baumgaertner &middot; University of Idaho &middot; 2026. Built with <a href="https://plotly.com/javascript/">Plotly.js</a>. Data embedded as JSON in the page source.
   </p>
 </footer>
 
 </main>
 
 <script>
-const DATA = {"transformer": {"d32l4_curriculum": [{"n_eris_rote": 0, "P_planet": 0.2847586043957563, "P_planet_se": 0.132342611951749, "P_dwarf": 0.6832273628562688, "P_dwarf_se": 0.13326198849620757, "abs_cell_counts": {"canon_abs": 2, "swap_abs": 6, "tension_abs": 2}}, {"n_eris_rote": 2, "P_planet": 0.28170485845694204, "P_planet_se": 0.12407719554443837, "P_dwarf": 0.6487811449915171, "P_dwarf_se": 0.12021209177879442, "abs_cell_counts": {"canon_abs": 2, "tension_abs": 2, "swap_abs": 6}}, {"n_eris_rote": 4, "P_planet": 0.23551834145910105, "P_planet_se": 0.11205901948510973, "P_dwarf": 0.6974694488570095, "P_dwarf_se": 0.11078807067099096, "abs_cell_counts": {"canon_abs": 1, "tension_abs": 3, "swap_abs": 6}}, {"n_eris_rote": 6, "P_planet": 0.37983467084304723, "P_planet_se": 0.14384730403590182, "P_dwarf": 0.5577088439837098, "P_dwarf_se": 0.13570767686390214, "abs_cell_counts": {"canon_abs": 3, "swap_abs": 6, "tension_abs": 1}}], "d32l4_mixed": [{"n_eris_rote": 0, "P_planet": 0.9884345710277558, "P_planet_se": 0.006424444303322133, "P_dwarf": 0.010694061743606653, "P_dwarf_se": 0.006475058996302532, "abs_cell_counts": {"canon_abs": 10}}, {"n_eris_rote": 2, "P_planet": 0.9762311339378357, "P_planet_se": 0.018160338860225746, "P_dwarf": 0.020932578303836637, "P_dwarf_se": 0.018196337921689672, "abs_cell_counts": {"canon_abs": 9, "tension_abs": 1}}, {"n_eris_rote": 4, "P_planet": 0.9943113207817078, "P_planet_se": 0.0031065460656511043, "P_dwarf": 0.004252613447089715, "P_dwarf_se": 0.0030690658133896145, "abs_cell_counts": {"canon_abs": 10}}, {"n_eris_rote": 6, "P_planet": 0.9993484079837799, "P_planet_se": 0.00023357264482134444, "P_dwarf": 7.020919800749814e-05, "P_dwarf_se": 6.287486174495195e-05, "abs_cell_counts": {"canon_abs": 10}}], "d64l6_curriculum": [{"n_eris_rote": 0, "P_planet": 0.09540095116485645, "P_planet_se": 0.06735616138976998, "P_dwarf": 0.8903416126966477, "P_dwarf_se": 0.07348272970605015, "abs_cell_counts": {"swap_abs": 8, "tension_abs": 2}}, {"n_eris_rote": 2, "P_planet": 0.11928525401788193, "P_planet_se": 0.09936435984203916, "P_dwarf": 0.8682858236177708, "P_dwarf_se": 0.10012011680824602, "abs_cell_counts": {"swap_abs": 8, "canon_abs": 1, "tension_abs": 1}}, {"n_eris_rote": 4, "P_planet": 0.10635743285997705, "P_planet_se": 0.07958413358308328, "P_dwarf": 0.8726694926619529, "P_dwarf_se": 0.08479410080271689, "abs_cell_counts": {"swap_abs": 8, "tension_abs": 2}}, {"n_eris_rote": 6, "P_planet": 0.4173736494034529, "P_planet_se": 0.14810811304980814, "P_dwarf": 0.5020172845572233, "P_dwarf_se": 0.1356315584494209, "abs_cell_counts": {"swap_abs": 5, "canon_abs": 4, "tension_abs": 1}}], "d64l6_mixed": [{"n_eris_rote": 0, "P_planet": 0.9992669463157654, "P_planet_se": 0.0002733166542055271, "P_dwarf": 0.00038441385549958795, "P_dwarf_se": 0.00014499797496144533, "abs_cell_counts": {"canon_abs": 10}}, {"n_eris_rote": 2, "P_planet": 0.9992206215858459, "P_planet_se": 0.00020990931827283055, "P_dwarf": 0.0006483471430328791, "P_dwarf_se": 0.00018858833298119958, "abs_cell_counts": {"canon_abs": 10}}, {"n_eris_rote": 4, "P_planet": 0.9991755068302155, "P_planet_se": 0.0002696730665822304, "P_dwarf": 0.0005659463703750589, "P_dwarf_se": 0.00025056255936932025, "abs_cell_counts": {"canon_abs": 10}}, {"n_eris_rote": 6, "P_planet": 0.9999371290206909, "P_planet_se": 2.2844566139992918e-05, "P_dwarf": 1.404450233704474e-06, "P_dwarf_se": 9.133215455882471e-07, "abs_cell_counts": {"canon_abs": 10}}]}, "baselines": {"logreg": [{"n_eris_rote": 0, "P_planet": 0.12848112943105355, "P_dwarf": 0.730812137567903}, {"n_eris_rote": 2, "P_planet": 0.3111945332403628, "P_dwarf": 0.4478610185612173}, {"n_eris_rote": 4, "P_planet": 0.4871281083873487, "P_dwarf": 0.17409873263778203}, {"n_eris_rote": 6, "P_planet": 0.6696457060717512, "P_dwarf": 0.00014905991009835193}], "gnb": [{"n_eris_rote": 0, "P_planet": 3.2771753539317382e-12, "P_dwarf": 0.9999999999947455}, {"n_eris_rote": 2, "P_planet": 0.02898279784864309, "P_dwarf": 0.9535387219885733}, {"n_eris_rote": 4, "P_planet": 0.19721083044341783, "P_dwarf": 0.6838584298801722}, {"n_eris_rote": 6, "P_planet": 0.6238054369627106, "P_dwarf": 0.0}], "knn3": [{"n_eris_rote": 0, "P_planet": 0.3333333333333333, "P_dwarf": 0.6666666666666666}, {"n_eris_rote": 2, "P_planet": 0.3333333333333333, "P_dwarf": 0.6666666666666666}, {"n_eris_rote": 4, "P_planet": 0.3333333333333333, "P_dwarf": 0.6666666666666666}, {"n_eris_rote": 6, "P_planet": 0.3333333333333333, "P_dwarf": 0.0}], "bayes": [{"n_eris_rote": 0, "P_planet": 8.607070410137414e-05, "P_dwarf": 0.9997515028858519}, {"n_eris_rote": 2, "P_planet": 0.03256059893763571, "P_dwarf": 0.9059933928110674}, {"n_eris_rote": 4, "P_planet": 0.13977793828571936, "P_dwarf": 0.5964432422366673}, {"n_eris_rote": 6, "P_planet": 0.3463650046660664, "P_dwarf": 1.7461335161520886e-144}]}, "entities": {"0": [{"name": "P1", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P2", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P3", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "P4", "category": "planet", "features": [3, 3, 2], "phase": 1}, {"name": "P5", "category": "planet", "features": [3, 4, 2], "phase": 1}, {"name": "P6", "category": "planet", "features": [3, 4, 1], "phase": 1}, {"name": "P7", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P8", "category": "planet", "features": [4, 4, 2], "phase": 1}, {"name": "P9", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "A1", "category": "asteroid", "features": [1, 2, 1], "phase": 1}, {"name": "A2", "category": "asteroid", "features": [0, 1, 2], "phase": 1}, {"name": "A3", "category": "asteroid", "features": [2, 1, 2], "phase": 1}, {"name": "A4", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "A5", "category": "asteroid", "features": [0, 2, 2], "phase": 1}, {"name": "A6", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "C1", "category": "comet", "features": [1, 1, 4], "phase": 1}, {"name": "C2", "category": "comet", "features": [0, 2, 4], "phase": 1}, {"name": "C3", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C4", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C5", "category": "comet", "features": [0, 1, 3], "phase": 1}, {"name": "C6", "category": "comet", "features": [0, 0, 4], "phase": 1}, {"name": "M1", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M2", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M3", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M4", "category": "moon", "features": [0, 1, 0], "phase": 1}, {"name": "M5", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M6", "category": "moon", "features": [2, 1, 1], "phase": 1}, {"name": "P10", "category": "planet", "features": [1, 3, 4], "phase": 1}, {"name": "E1", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E2", "category": "dwarf", "features": [2, 3, 4], "phase": 2}, {"name": "E3", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E4", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E5", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E6", "category": "dwarf", "features": [1, 3, 4], "phase": 2}], "2": [{"name": "P1", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P2", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P3", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "P4", "category": "planet", "features": [3, 3, 2], "phase": 1}, {"name": "P5", "category": "planet", "features": [3, 4, 2], "phase": 1}, {"name": "P6", "category": "planet", "features": [3, 4, 1], "phase": 1}, {"name": "P7", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P8", "category": "planet", "features": [4, 4, 2], "phase": 1}, {"name": "P9", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "A1", "category": "asteroid", "features": [1, 2, 1], "phase": 1}, {"name": "A2", "category": "asteroid", "features": [0, 1, 2], "phase": 1}, {"name": "A3", "category": "asteroid", "features": [2, 1, 2], "phase": 1}, {"name": "A4", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "A5", "category": "asteroid", "features": [0, 2, 2], "phase": 1}, {"name": "A6", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "C1", "category": "comet", "features": [1, 1, 4], "phase": 1}, {"name": "C2", "category": "comet", "features": [0, 2, 4], "phase": 1}, {"name": "C3", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C4", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C5", "category": "comet", "features": [0, 1, 3], "phase": 1}, {"name": "C6", "category": "comet", "features": [0, 0, 4], "phase": 1}, {"name": "M1", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M2", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M3", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M4", "category": "moon", "features": [0, 1, 0], "phase": 1}, {"name": "M5", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M6", "category": "moon", "features": [2, 1, 1], "phase": 1}, {"name": "P10", "category": "planet", "features": [1, 3, 4], "phase": 1}, {"name": "E1", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E2", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E3", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E4", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E5", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E6", "category": "dwarf", "features": [1, 3, 4], "phase": 2}], "4": [{"name": "P1", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P2", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P3", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "P4", "category": "planet", "features": [3, 3, 2], "phase": 1}, {"name": "P5", "category": "planet", "features": [3, 4, 2], "phase": 1}, {"name": "P6", "category": "planet", "features": [3, 4, 1], "phase": 1}, {"name": "P7", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P8", "category": "planet", "features": [4, 4, 2], "phase": 1}, {"name": "P9", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "A1", "category": "asteroid", "features": [1, 2, 1], "phase": 1}, {"name": "A2", "category": "asteroid", "features": [0, 1, 2], "phase": 1}, {"name": "A3", "category": "asteroid", "features": [2, 1, 2], "phase": 1}, {"name": "A4", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "A5", "category": "asteroid", "features": [0, 2, 2], "phase": 1}, {"name": "A6", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "C1", "category": "comet", "features": [1, 1, 4], "phase": 1}, {"name": "C2", "category": "comet", "features": [0, 2, 4], "phase": 1}, {"name": "C3", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C4", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C5", "category": "comet", "features": [0, 1, 3], "phase": 1}, {"name": "C6", "category": "comet", "features": [0, 0, 4], "phase": 1}, {"name": "M1", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M2", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M3", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M4", "category": "moon", "features": [0, 1, 0], "phase": 1}, {"name": "M5", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M6", "category": "moon", "features": [2, 1, 1], "phase": 1}, {"name": "P10", "category": "planet", "features": [1, 3, 4], "phase": 1}, {"name": "E1", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E2", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E3", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E4", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E5", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E6", "category": "dwarf", "features": [1, 3, 4], "phase": 2}], "6": [{"name": "P1", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P2", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P3", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "P4", "category": "planet", "features": [3, 3, 2], "phase": 1}, {"name": "P5", "category": "planet", "features": [3, 4, 2], "phase": 1}, {"name": "P6", "category": "planet", "features": [3, 4, 1], "phase": 1}, {"name": "P7", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P8", "category": "planet", "features": [4, 4, 2], "phase": 1}, {"name": "P9", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "A1", "category": "asteroid", "features": [1, 2, 1], "phase": 1}, {"name": "A2", "category": "asteroid", "features": [0, 1, 2], "phase": 1}, {"name": "A3", "category": "asteroid", "features": [2, 1, 2], "phase": 1}, {"name": "A4", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "A5", "category": "asteroid", "features": [0, 2, 2], "phase": 1}, {"name": "A6", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "C1", "category": "comet", "features": [1, 1, 4], "phase": 1}, {"name": "C2", "category": "comet", "features": [0, 2, 4], "phase": 1}, {"name": "C3", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C4", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C5", "category": "comet", "features": [0, 1, 3], "phase": 1}, {"name": "C6", "category": "comet", "features": [0, 0, 4], "phase": 1}, {"name": "M1", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M2", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M3", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M4", "category": "moon", "features": [0, 1, 0], "phase": 1}, {"name": "M5", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M6", "category": "moon", "features": [2, 1, 1], "phase": 1}, {"name": "P10", "category": "planet", "features": [1, 3, 4], "phase": 1}, {"name": "E1", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E2", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E3", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E4", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E5", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E6", "category": "dwarf", "features": [4, 0, 0], "phase": 2}]}, "axes": {"mass": ["tiny", "small", "medium", "large", "huge"], "diameter": ["tiny", "small", "medium", "large", "huge"], "orbit": ["near", "inner", "middle", "outer", "distant"]}};
+const DATA = {"axes": {"mass": ["tiny", "small", "medium", "large", "huge"], "diameter": ["tiny", "small", "medium", "large", "huge"], "orbit": ["near", "inner", "middle", "outer", "distant"]}, "entities": {"0": [{"name": "P1", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P2", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P3", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "P4", "category": "planet", "features": [3, 3, 2], "phase": 1}, {"name": "P5", "category": "planet", "features": [3, 4, 2], "phase": 1}, {"name": "P6", "category": "planet", "features": [3, 4, 1], "phase": 1}, {"name": "P7", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P8", "category": "planet", "features": [4, 4, 2], "phase": 1}, {"name": "P9", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "A1", "category": "asteroid", "features": [1, 2, 1], "phase": 1}, {"name": "A2", "category": "asteroid", "features": [0, 1, 2], "phase": 1}, {"name": "A3", "category": "asteroid", "features": [2, 1, 2], "phase": 1}, {"name": "A4", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "A5", "category": "asteroid", "features": [0, 2, 2], "phase": 1}, {"name": "A6", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "C1", "category": "comet", "features": [1, 1, 4], "phase": 1}, {"name": "C2", "category": "comet", "features": [0, 2, 4], "phase": 1}, {"name": "C3", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C4", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C5", "category": "comet", "features": [0, 1, 3], "phase": 1}, {"name": "C6", "category": "comet", "features": [0, 0, 4], "phase": 1}, {"name": "M1", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M2", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M3", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M4", "category": "moon", "features": [0, 1, 0], "phase": 1}, {"name": "M5", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M6", "category": "moon", "features": [2, 1, 1], "phase": 1}, {"name": "P10", "category": "planet", "features": [1, 3, 4], "phase": 1}, {"name": "E1", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E2", "category": "dwarf", "features": [2, 3, 4], "phase": 2}, {"name": "E3", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E4", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E5", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E6", "category": "dwarf", "features": [1, 3, 4], "phase": 2}], "2": [{"name": "P1", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P2", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P3", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "P4", "category": "planet", "features": [3, 3, 2], "phase": 1}, {"name": "P5", "category": "planet", "features": [3, 4, 2], "phase": 1}, {"name": "P6", "category": "planet", "features": [3, 4, 1], "phase": 1}, {"name": "P7", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P8", "category": "planet", "features": [4, 4, 2], "phase": 1}, {"name": "P9", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "A1", "category": "asteroid", "features": [1, 2, 1], "phase": 1}, {"name": "A2", "category": "asteroid", "features": [0, 1, 2], "phase": 1}, {"name": "A3", "category": "asteroid", "features": [2, 1, 2], "phase": 1}, {"name": "A4", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "A5", "category": "asteroid", "features": [0, 2, 2], "phase": 1}, {"name": "A6", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "C1", "category": "comet", "features": [1, 1, 4], "phase": 1}, {"name": "C2", "category": "comet", "features": [0, 2, 4], "phase": 1}, {"name": "C3", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C4", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C5", "category": "comet", "features": [0, 1, 3], "phase": 1}, {"name": "C6", "category": "comet", "features": [0, 0, 4], "phase": 1}, {"name": "M1", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M2", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M3", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M4", "category": "moon", "features": [0, 1, 0], "phase": 1}, {"name": "M5", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M6", "category": "moon", "features": [2, 1, 1], "phase": 1}, {"name": "P10", "category": "planet", "features": [1, 3, 4], "phase": 1}, {"name": "E1", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E2", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E3", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E4", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E5", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E6", "category": "dwarf", "features": [1, 3, 4], "phase": 2}], "4": [{"name": "P1", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P2", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P3", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "P4", "category": "planet", "features": [3, 3, 2], "phase": 1}, {"name": "P5", "category": "planet", "features": [3, 4, 2], "phase": 1}, {"name": "P6", "category": "planet", "features": [3, 4, 1], "phase": 1}, {"name": "P7", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P8", "category": "planet", "features": [4, 4, 2], "phase": 1}, {"name": "P9", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "A1", "category": "asteroid", "features": [1, 2, 1], "phase": 1}, {"name": "A2", "category": "asteroid", "features": [0, 1, 2], "phase": 1}, {"name": "A3", "category": "asteroid", "features": [2, 1, 2], "phase": 1}, {"name": "A4", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "A5", "category": "asteroid", "features": [0, 2, 2], "phase": 1}, {"name": "A6", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "C1", "category": "comet", "features": [1, 1, 4], "phase": 1}, {"name": "C2", "category": "comet", "features": [0, 2, 4], "phase": 1}, {"name": "C3", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C4", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C5", "category": "comet", "features": [0, 1, 3], "phase": 1}, {"name": "C6", "category": "comet", "features": [0, 0, 4], "phase": 1}, {"name": "M1", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M2", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M3", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M4", "category": "moon", "features": [0, 1, 0], "phase": 1}, {"name": "M5", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M6", "category": "moon", "features": [2, 1, 1], "phase": 1}, {"name": "P10", "category": "planet", "features": [1, 3, 4], "phase": 1}, {"name": "E1", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E2", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E3", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E4", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E5", "category": "dwarf", "features": [1, 3, 4], "phase": 2}, {"name": "E6", "category": "dwarf", "features": [1, 3, 4], "phase": 2}], "6": [{"name": "P1", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P2", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P3", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "P4", "category": "planet", "features": [3, 3, 2], "phase": 1}, {"name": "P5", "category": "planet", "features": [3, 4, 2], "phase": 1}, {"name": "P6", "category": "planet", "features": [3, 4, 1], "phase": 1}, {"name": "P7", "category": "planet", "features": [3, 2, 2], "phase": 1}, {"name": "P8", "category": "planet", "features": [4, 4, 2], "phase": 1}, {"name": "P9", "category": "planet", "features": [3, 3, 1], "phase": 1}, {"name": "A1", "category": "asteroid", "features": [1, 2, 1], "phase": 1}, {"name": "A2", "category": "asteroid", "features": [0, 1, 2], "phase": 1}, {"name": "A3", "category": "asteroid", "features": [2, 1, 2], "phase": 1}, {"name": "A4", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "A5", "category": "asteroid", "features": [0, 2, 2], "phase": 1}, {"name": "A6", "category": "asteroid", "features": [1, 1, 2], "phase": 1}, {"name": "C1", "category": "comet", "features": [1, 1, 4], "phase": 1}, {"name": "C2", "category": "comet", "features": [0, 2, 4], "phase": 1}, {"name": "C3", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C4", "category": "comet", "features": [0, 1, 4], "phase": 1}, {"name": "C5", "category": "comet", "features": [0, 1, 3], "phase": 1}, {"name": "C6", "category": "comet", "features": [0, 0, 4], "phase": 1}, {"name": "M1", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M2", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M3", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M4", "category": "moon", "features": [0, 1, 0], "phase": 1}, {"name": "M5", "category": "moon", "features": [1, 1, 0], "phase": 1}, {"name": "M6", "category": "moon", "features": [2, 1, 1], "phase": 1}, {"name": "P10", "category": "planet", "features": [1, 3, 4], "phase": 1}, {"name": "E1", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E2", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E3", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E4", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E5", "category": "dwarf", "features": [4, 0, 0], "phase": 2}, {"name": "E6", "category": "dwarf", "features": [4, 0, 0], "phase": 2}]}, "baselines": {"logreg": [{"n_eris_rote": 0, "P_planet": 0.12848112943105355, "P_dwarf": 0.730812137567903}, {"n_eris_rote": 2, "P_planet": 0.3111945332403628, "P_dwarf": 0.4478610185612173}, {"n_eris_rote": 4, "P_planet": 0.4871281083873487, "P_dwarf": 0.17409873263778203}, {"n_eris_rote": 6, "P_planet": 0.6696457060717512, "P_dwarf": 0.00014905991009835193}], "gnb": [{"n_eris_rote": 0, "P_planet": 3.2771753539317382e-12, "P_dwarf": 0.9999999999947455}, {"n_eris_rote": 2, "P_planet": 0.02898279784864309, "P_dwarf": 0.9535387219885733}, {"n_eris_rote": 4, "P_planet": 0.19721083044341783, "P_dwarf": 0.6838584298801722}, {"n_eris_rote": 6, "P_planet": 0.6238054369627106, "P_dwarf": 0.0}], "knn3": [{"n_eris_rote": 0, "P_planet": 0.3333333333333333, "P_dwarf": 0.6666666666666666}, {"n_eris_rote": 2, "P_planet": 0.3333333333333333, "P_dwarf": 0.6666666666666666}, {"n_eris_rote": 4, "P_planet": 0.3333333333333333, "P_dwarf": 0.6666666666666666}, {"n_eris_rote": 6, "P_planet": 0.3333333333333333, "P_dwarf": 0.0}], "bayes": [{"n_eris_rote": 0, "P_planet": 8.607070410137414e-05, "P_dwarf": 0.9997515028858519}, {"n_eris_rote": 2, "P_planet": 0.03256059893763571, "P_dwarf": 0.9059933928110674}, {"n_eris_rote": 4, "P_planet": 0.13977793828571936, "P_dwarf": 0.5964432422366673}, {"n_eris_rote": 6, "P_planet": 0.3463650046660664, "P_dwarf": 1.7461335161520886e-144}]}, "transformer": {"d32l4_curriculum": [{"n_eris_rote": 0, "P_planet": 0.2847586043957563, "P_planet_se": 0.132342611951749, "P_dwarf": 0.6832273628562688, "P_dwarf_se": 0.13326198849620757}, {"n_eris_rote": 2, "P_planet": 0.28170485845694204, "P_planet_se": 0.12407719554443837, "P_dwarf": 0.6487811449915171, "P_dwarf_se": 0.12021209177879442}, {"n_eris_rote": 4, "P_planet": 0.23551834145910105, "P_planet_se": 0.11205901948510973, "P_dwarf": 0.6974694488570095, "P_dwarf_se": 0.11078807067099096}, {"n_eris_rote": 6, "P_planet": 0.37983467084304723, "P_planet_se": 0.14384730403590182, "P_dwarf": 0.5577088439837098, "P_dwarf_se": 0.13570767686390214}], "d32l4_mixed": [{"n_eris_rote": 0, "P_planet": 0.9884345710277558, "P_planet_se": 0.006424444303322133, "P_dwarf": 0.010694061743606653, "P_dwarf_se": 0.006475058996302532}, {"n_eris_rote": 2, "P_planet": 0.9762311339378357, "P_planet_se": 0.018160338860225746, "P_dwarf": 0.020932578303836637, "P_dwarf_se": 0.018196337921689672}, {"n_eris_rote": 4, "P_planet": 0.9943113207817078, "P_planet_se": 0.0031065460656511043, "P_dwarf": 0.004252613447089715, "P_dwarf_se": 0.0030690658133896145}, {"n_eris_rote": 6, "P_planet": 0.9993484079837799, "P_planet_se": 0.00023357264482134444, "P_dwarf": 7.020919800749814e-05, "P_dwarf_se": 6.287486174495195e-05}], "d64l6_curriculum": [{"n_eris_rote": 0, "P_planet": 0.09540095116485645, "P_planet_se": 0.06735616138976998, "P_dwarf": 0.8903416126966477, "P_dwarf_se": 0.07348272970605015}, {"n_eris_rote": 2, "P_planet": 0.11928525401788193, "P_planet_se": 0.09936435984203916, "P_dwarf": 0.8682858236177708, "P_dwarf_se": 0.10012011680824602}, {"n_eris_rote": 4, "P_planet": 0.10635743285997705, "P_planet_se": 0.07958413358308328, "P_dwarf": 0.8726694926619529, "P_dwarf_se": 0.08479410080271689}, {"n_eris_rote": 6, "P_planet": 0.4173736494034529, "P_planet_se": 0.14810811304980814, "P_dwarf": 0.5020172845572233, "P_dwarf_se": 0.1356315584494209}], "d64l6_mixed": [{"n_eris_rote": 0, "P_planet": 0.9992669463157654, "P_planet_se": 0.0002733166542055271, "P_dwarf": 0.00038441385549958795, "P_dwarf_se": 0.00014499797496144533}, {"n_eris_rote": 2, "P_planet": 0.9992206215858459, "P_planet_se": 0.00020990931827283055, "P_dwarf": 0.0006483471430328791, "P_dwarf_se": 0.00018858833298119958}, {"n_eris_rote": 4, "P_planet": 0.9991755068302155, "P_planet_se": 0.0002696730665822304, "P_dwarf": 0.0005659463703750589, "P_dwarf_se": 0.00025056255936932025}, {"n_eris_rote": 6, "P_planet": 0.9999371290206909, "P_planet_se": 2.2844566139992918e-05, "P_dwarf": 1.404450233704474e-06, "P_dwarf_se": 9.133215455882471e-07}]}, "ensemble": {"50K": {"overlap": {"label": "overlap (curriculum, r0/6)", "baseline": {"P_planet": 0.8740925788879395, "P_dwarf": 0.02190013974905014, "cell": "canon_abs"}, "decomposition": {"tension_index": {"var_epistemic_boot": 0.05417950396668726, "var_optimization": 0.03848125777384123, "var_total": 0.0926607617405285, "sd_total": 0.3044023024560236, "var_epistemic_parametric": 0.06920898553549033}, "P_planet": {"var_epistemic_boot": 0.04468514726318023, "var_optimization": 0.11435939065604767, "var_total": 0.1590445379192279, "sd_total": 0.39880388403227457, "var_epistemic_parametric": 0.057892897949213123}, "P_dwarf": {"var_epistemic_boot": 0.07921721381074888, "var_optimization": 0.13790925585652952, "var_total": 0.2171264696672784, "sd_total": 0.46596831401639144, "var_epistemic_parametric": 0.062460046712136265}}, "ensembles": {"parametric": {"draws": [{"P_planet": 0.021609511226415634, "P_dwarf": 0.7726044058799744, "cell": "swap_abs"}, {"P_planet": 0.001880687428638339, "P_dwarf": 0.8791322708129883, "cell": "swap_abs"}, {"P_planet": 0.0005720247863791883, "P_dwarf": 0.8918999433517456, "cell": "swap_abs"}, {"P_planet": 0.40302178263664246, "P_dwarf": 0.40720900893211365, "cell": "tension_abs"}, {"P_planet": 0.8850586414337158, "P_dwarf": 0.041360724717378616, "cell": "canon_abs"}, {"P_planet": 0.04652484133839607, "P_dwarf": 0.8722411394119263, "cell": "swap_abs"}, {"P_planet": 0.048014916479587555, "P_dwarf": 0.8490734696388245, "cell": "swap_abs"}, {"P_planet": 0.06724703311920166, "P_dwarf": 0.7551190257072449, "cell": "swap_abs"}, {"P_planet": 0.6713439226150513, "P_dwarf": 0.2111150026321411, "cell": "tension_abs"}, {"P_planet": 0.07683257758617401, "P_dwarf": 0.7883533835411072, "cell": "swap_abs"}, {"P_planet": 0.02924414910376072, "P_dwarf": 0.8773874044418335, "cell": "swap_abs"}, {"P_planet": 0.02701323851943016, "P_dwarf": 0.8304100632667542, "cell": "swap_abs"}, {"P_planet": 0.00047633788199163973, "P_dwarf": 0.5759214758872986, "cell": "swap_abs"}, {"P_planet": 0.007826884277164936, "P_dwarf": 0.9240576028823853, "cell": "swap_abs"}, {"P_planet": 0.00312228430993855, "P_dwarf": 0.881588876247406, "cell": "swap_abs"}, {"P_planet": 0.31979116797447205, "P_dwarf": 0.361836314201355, "cell": "tension_abs"}, {"P_planet": 0.03534412384033203, "P_dwarf": 0.6647500991821289, "cell": "swap_abs"}, {"P_planet": 0.29013392329216003, "P_dwarf": 0.630573570728302, "cell": "tension_abs"}, {"P_planet": 0.0002076547098113224, "P_dwarf": 0.9398965835571289, "cell": "swap_abs"}, {"P_planet": 0.051140766590833664, "P_dwarf": 0.8695788383483887, "cell": "swap_abs"}], "tension_frac": 0.2, "P_planet": {"mean": 0.14932032345750484, "sd": 0.24060943029983908, "ci_lo": 0.0003352792165969731, "ci_hi": 0.7835441499948499, "n": 20}, "P_dwarf": {"mean": 0.7012054601684212, "sd": 0.24992008065006754, "ci_lo": 0.1219940067268908, "ci_hi": 0.9323730677366256, "n": 20}}, "bootstrap": {"draws": [{"P_planet": 0.004674687050282955, "P_dwarf": 0.7665039300918579, "cell": "swap_abs"}, {"P_planet": 0.8993577361106873, "P_dwarf": 0.001459999824874103, "cell": "canon_abs"}, {"P_planet": 0.0009678457863628864, "P_dwarf": 0.9414243698120117, "cell": "swap_abs"}, {"P_planet": 0.001984600443392992, "P_dwarf": 0.9710236191749573, "cell": "swap_abs"}, {"P_planet": 0.0039731948636472225, "P_dwarf": 0.699504554271698, "cell": "swap_abs"}, {"P_planet": 0.4638485312461853, "P_dwarf": 0.359086811542511, "cell": "tension_abs"}, {"P_planet": 0.009901775047183037, "P_dwarf": 0.9380779266357422, "cell": "swap_abs"}, {"P_planet": 0.11891287565231323, "P_dwarf": 0.649878203868866, "cell": "tension_abs"}, {"P_planet": 0.0962996706366539, "P_dwarf": 0.8161410689353943, "cell": "swap_abs"}, {"P_planet": 0.23714137077331543, "P_dwarf": 0.5388834476470947, "cell": "tension_abs"}, {"P_planet": 0.042633894830942154, "P_dwarf": 0.3661004602909088, "cell": "swap_abs"}, {"P_planet": 0.055070728063583374, "P_dwarf": 0.5894433259963989, "cell": "swap_abs"}, {"P_planet": 6.41930746496655e-05, "P_dwarf": 0.8134843111038208, "cell": "swap_abs"}, {"P_planet": 0.029181933030486107, "P_dwarf": 0.8453407883644104, "cell": "swap_abs"}, {"P_planet": 1.0455529491082416e-06, "P_dwarf": 0.9929980039596558, "cell": "swap_abs"}, {"P_planet": 0.07448513060808182, "P_dwarf": 0.31524181365966797, "cell": "swap_abs"}, {"P_planet": 0.0004968533758074045, "P_dwarf": 0.14585046470165253, "cell": "swap_abs"}, {"P_planet": 0.0028216615319252014, "P_dwarf": 0.868401050567627, "cell": "swap_abs"}, {"P_planet": 0.05087374150753021, "P_dwarf": 0.83558189868927, "cell": "swap_abs"}, {"P_planet": 0.027051595970988274, "P_dwarf": 0.8543572425842285, "cell": "swap_abs"}], "tension_frac": 0.15, "P_planet": {"mean": 0.10598715325784838, "sd": 0.21138861668306605, "ci_lo": 3.104062575687294e-05, "ci_hi": 0.6924908638000482, "n": 20}, "P_dwarf": {"mean": 0.6654391645861324, "sd": 0.2814555272343197, "ci_lo": 0.07004547064134385, "ci_hi": 0.982560171186924, "n": 20}}, "optimization": {"draws": [{"P_planet": 0.9121583700180054, "P_dwarf": 0.023817602545022964, "cell": "canon_abs"}, {"P_planet": 0.8657814860343933, "P_dwarf": 0.09755556285381317, "cell": "canon_abs"}, {"P_planet": 0.00016101353685371578, "P_dwarf": 0.9786627888679504, "cell": "swap_abs"}, {"P_planet": 0.03565237298607826, "P_dwarf": 0.9537017345428467, "cell": "swap_abs"}, {"P_planet": 0.0056175063364207745, "P_dwarf": 0.9750380516052246, "cell": "swap_abs"}, {"P_planet": 0.8490633368492126, "P_dwarf": 0.11560144275426865, "cell": "tension_abs"}, {"P_planet": 2.486713492544368e-05, "P_dwarf": 0.9579747319221497, "cell": "swap_abs"}, {"P_planet": 3.6817971704294905e-05, "P_dwarf": 0.9895094633102417, "cell": "swap_abs"}, {"P_planet": 0.14521054923534393, "P_dwarf": 0.8062050342559814, "cell": "tension_abs"}, {"P_planet": 8.403788524447009e-05, "P_dwarf": 0.9453051686286926, "cell": "swap_abs"}, {"P_planet": 0.7880990505218506, "P_dwarf": 0.18630513548851013, "cell": "tension_abs"}, {"P_planet": 0.008763691410422325, "P_dwarf": 0.9237455129623413, "cell": "swap_abs"}, {"P_planet": 0.01343684270977974, "P_dwarf": 0.9808542728424072, "cell": "swap_abs"}, {"P_planet": 0.0005153634701855481, "P_dwarf": 0.9276176691055298, "cell": "swap_abs"}, {"P_planet": 3.9120655856095254e-05, "P_dwarf": 0.9851369857788086, "cell": "swap_abs"}, {"P_planet": 6.080013554310426e-05, "P_dwarf": 0.9667414426803589, "cell": "swap_abs"}, {"P_planet": 0.0021320278756320477, "P_dwarf": 0.10646028816699982, "cell": "swap_abs"}, {"P_planet": 5.837722710566595e-05, "P_dwarf": 0.9958374500274658, "cell": "swap_abs"}, {"P_planet": 0.00012213441368658096, "P_dwarf": 0.9860515594482422, "cell": "swap_abs"}, {"P_planet": 0.0036730424035340548, "P_dwarf": 0.9774476289749146, "cell": "swap_abs"}], "tension_frac": 0.15, "P_planet": {"mean": 0.1815345404405889, "sd": 0.33817065315613604, "ci_lo": 3.054378239539801e-05, "ci_hi": 0.8901293501257895, "n": 20}, "P_dwarf": {"mean": 0.7439784763380886, "sd": 0.3713613548237478, "ci_lo": 0.05884313369169831, "ci_hi": 0.9928316563367844, "n": 20}}}}, "rote_control": {"label": "rote-control (curriculum, r6/6)", "baseline": {"P_planet": 0.9899459481239319, "P_dwarf": 0.003963430877774954, "cell": "canon_abs"}, "decomposition": {"tension_index": {"var_epistemic_boot": 0.016112308731280674, "var_optimization": 0.12045700511611532, "var_total": 0.13656931384739598, "sd_total": 0.36955285663541554, "var_epistemic_parametric": 0.0555836655936458}, "P_planet": {"var_epistemic_boot": 0.13171043484676062, "var_optimization": 0.14915450219504844, "var_total": 0.28086493704180904, "sd_total": 0.5299669207052541, "var_epistemic_parametric": 0.12134747220359979}, "P_dwarf": {"var_epistemic_boot": 0.07145127244363007, "var_optimization": 0.14078845369471582, "var_total": 0.2122397261383459, "sd_total": 0.46069482972825504, "var_epistemic_parametric": 0.0874553483192309}}, "ensembles": {"parametric": {"draws": [{"P_planet": 0.12768784165382385, "P_dwarf": 0.5893886089324951, "cell": "tension_abs"}, {"P_planet": 0.0005179531290195882, "P_dwarf": 0.9199380874633789, "cell": "swap_abs"}, {"P_planet": 0.27083948254585266, "P_dwarf": 0.6574414968490601, "cell": "tension_abs"}, {"P_planet": 0.9538896083831787, "P_dwarf": 0.007793828379362822, "cell": "canon_abs"}, {"P_planet": 0.9706302881240845, "P_dwarf": 0.002164971549063921, "cell": "canon_abs"}, {"P_planet": 0.8969786763191223, "P_dwarf": 0.07415764778852463, "cell": "canon_abs"}, {"P_planet": 0.21147772669792175, "P_dwarf": 0.3824895918369293, "cell": "tension_abs"}, {"P_planet": 0.09768278151750565, "P_dwarf": 0.1533069610595703, "cell": "swap_abs"}, {"P_planet": 0.9980466365814209, "P_dwarf": 0.0006555790896527469, "cell": "canon_abs"}, {"P_planet": 0.8552278280258179, "P_dwarf": 0.0740538239479065, "cell": "canon_abs"}, {"P_planet": 0.6197762489318848, "P_dwarf": 0.2867818772792816, "cell": "tension_abs"}, {"P_planet": 0.1950376033782959, "P_dwarf": 0.38375747203826904, "cell": "tension_abs"}, {"P_planet": 0.5891371369361877, "P_dwarf": 0.019310982897877693, "cell": "canon_abs"}, {"P_planet": 0.19685588777065277, "P_dwarf": 0.06114920228719711, "cell": "canon_abs"}, {"P_planet": 0.1336672604084015, "P_dwarf": 0.49852225184440613, "cell": "tension_abs"}, {"P_planet": 0.36087626218795776, "P_dwarf": 0.49666985869407654, "cell": "tension_abs"}, {"P_planet": 0.007899162359535694, "P_dwarf": 0.6027171015739441, "cell": "swap_abs"}, {"P_planet": 0.14594335854053497, "P_dwarf": 0.7749993205070496, "cell": "tension_abs"}, {"P_planet": 0.020730838179588318, "P_dwarf": 0.8072008490562439, "cell": "swap_abs"}, {"P_planet": 0.3421105146408081, "P_dwarf": 0.5241521596908569, "cell": "tension_abs"}], "tension_frac": 0.45, "P_planet": {"mean": 0.39975065481557975, "sd": 0.34834964073987473, "ci_lo": 0.004024027513514739, "ci_hi": 0.9850238710641861, "n": 20}, "P_dwarf": {"mean": 0.3658325836382573, "sd": 0.2957285044077268, "ci_lo": 0.0013725405078730546, "ci_hi": 0.8663878992199896, "n": 20}}, "bootstrap": {"draws": [{"P_planet": 0.6793358325958252, "P_dwarf": 0.11884904652833939, "cell": "tension_abs"}, {"P_planet": 0.9862300157546997, "P_dwarf": 0.0016396582359448075, "cell": "canon_abs"}, {"P_planet": 0.6209298372268677, "P_dwarf": 0.23920263350009918, "cell": "tension_abs"}, {"P_planet": 0.04453176259994507, "P_dwarf": 0.8512071967124939, "cell": "swap_abs"}, {"P_planet": 0.00968391727656126, "P_dwarf": 0.0697784572839737, "cell": "nothing_abs"}, {"P_planet": 0.9501244425773621, "P_dwarf": 0.01747509278357029, "cell": "canon_abs"}, {"P_planet": 0.9330512881278992, "P_dwarf": 0.012575372122228146, "cell": "canon_abs"}, {"P_planet": 0.08570604026317596, "P_dwarf": 0.4125049412250519, "cell": "swap_abs"}, {"P_planet": 0.9941021800041199, "P_dwarf": 0.00018197580357082188, "cell": "canon_abs"}, {"P_planet": 0.8581716418266296, "P_dwarf": 0.011904990300536156, "cell": "canon_abs"}, {"P_planet": 0.32571160793304443, "P_dwarf": 0.1961372047662735, "cell": "tension_abs"}, {"P_planet": 0.19488145411014557, "P_dwarf": 0.22091513872146606, "cell": "tension_abs"}, {"P_planet": 0.33956822752952576, "P_dwarf": 0.0782385915517807, "cell": "canon_abs"}, {"P_planet": 0.9369255900382996, "P_dwarf": 0.011748629622161388, "cell": "canon_abs"}, {"P_planet": 0.0003536310396157205, "P_dwarf": 0.9857959747314453, "cell": "swap_abs"}, {"P_planet": 0.7509764432907104, "P_dwarf": 0.07261784374713898, "cell": "canon_abs"}, {"P_planet": 0.07856740057468414, "P_dwarf": 0.0596577450633049, "cell": "nothing_abs"}, {"P_planet": 0.23651698231697083, "P_dwarf": 0.408286452293396, "cell": "tension_abs"}, {"P_planet": 0.6502262353897095, "P_dwarf": 0.2815383970737457, "cell": "tension_abs"}, {"P_planet": 0.28397446870803833, "P_dwarf": 0.2416292279958725, "cell": "tension_abs"}], "tension_frac": 0.35, "P_planet": {"mean": 0.4979784499591915, "sd": 0.3629193227795409, "ci_lo": 0.004785517002164852, "ci_hi": 0.9903629019856452, "n": 20}, "P_dwarf": {"mean": 0.21459422850311966, "sd": 0.26730370824893185, "ci_lo": 0.000874374958948465, "ci_hi": 0.9218663051724432, "n": 20}}, "optimization": {"draws": [{"P_planet": 0.9896153211593628, "P_dwarf": 0.0027024971786886454, "cell": "canon_abs"}, {"P_planet": 0.8754120469093323, "P_dwarf": 0.05912162363529205, "cell": "canon_abs"}, {"P_planet": 0.07393856346607208, "P_dwarf": 0.8426421284675598, "cell": "swap_abs"}, {"P_planet": 0.03192603960633278, "P_dwarf": 0.9539180994033813, "cell": "swap_abs"}, {"P_planet": 0.016315938904881477, "P_dwarf": 0.9058730006217957, "cell": "swap_abs"}, {"P_planet": 0.9874826669692993, "P_dwarf": 0.007419876754283905, "cell": "canon_abs"}, {"P_planet": 5.411648453446105e-05, "P_dwarf": 0.8158475160598755, "cell": "swap_abs"}, {"P_planet": 0.00022315549722407013, "P_dwarf": 0.9792823195457458, "cell": "swap_abs"}, {"P_planet": 0.7560794949531555, "P_dwarf": 0.19745305180549622, "cell": "tension_abs"}, {"P_planet": 0.06730000674724579, "P_dwarf": 0.8056643009185791, "cell": "swap_abs"}, {"P_planet": 0.9959648847579956, "P_dwarf": 0.001248260261490941, "cell": "canon_abs"}, {"P_planet": 0.06852488219738007, "P_dwarf": 0.7774375677108765, "cell": "swap_abs"}, {"P_planet": 0.06032172590494156, "P_dwarf": 0.9367199540138245, "cell": "swap_abs"}, {"P_planet": 0.10183312743902206, "P_dwarf": 0.5726186037063599, "cell": "tension_abs"}, {"P_planet": 0.0028923125937581062, "P_dwarf": 0.9849570989608765, "cell": "swap_abs"}, {"P_planet": 0.09806481748819351, "P_dwarf": 0.6217418313026428, "cell": "swap_abs"}, {"P_planet": 0.00750660290941596, "P_dwarf": 0.12404495477676392, "cell": "swap_abs"}, {"P_planet": 0.04428360238671303, "P_dwarf": 0.921507716178894, "cell": "swap_abs"}, {"P_planet": 0.004752154927700758, "P_dwarf": 0.44443729519844055, "cell": "swap_abs"}, {"P_planet": 0.0001142787587014027, "P_dwarf": 0.9690985083580017, "cell": "swap_abs"}], "tension_frac": 0.1, "P_planet": {"mean": 0.2591302870030631, "sd": 0.3862052591499091, "ci_lo": 8.269356476375833e-05, "ci_hi": 0.992948842048645, "n": 20}, "P_dwarf": {"mean": 0.5961868102429435, "sd": 0.3752178749669528, "ci_lo": 0.0019390227971598506, "ci_hi": 0.9822615787386895, "n": 20}}}}, "canon": {"label": "canon baseline (mixed, r0/6)", "baseline": {"P_planet": 0.9997038245201111, "P_dwarf": 0.00016609379963483661, "cell": "canon_abs"}, "decomposition": {"tension_index": {"var_epistemic_boot": 4.001933256203436e-06, "var_optimization": 0.00021086219700563457, "var_total": 0.000214864130261838, "sd_total": 0.014658244446789596, "var_epistemic_parametric": 6.505299413798348e-05}, "P_planet": {"var_epistemic_boot": 2.52883612059307e-05, "var_optimization": 0.00020848213219011314, "var_total": 0.00023377049339604384, "sd_total": 0.015289555042447894, "var_epistemic_parametric": 7.930647927497426e-05}, "P_dwarf": {"var_epistemic_boot": 3.975400728320441e-06, "var_optimization": 0.0002102163591402792, "var_total": 0.00021419175986859962, "sd_total": 0.014635291588096209, "var_epistemic_parametric": 6.44809060926347e-05}}, "ensembles": {"parametric": {"draws": [{"P_planet": 0.9754917025566101, "P_dwarf": 0.020364772528409958, "cell": "canon_abs"}, {"P_planet": 0.9992166757583618, "P_dwarf": 0.0001616110821487382, "cell": "canon_abs"}, {"P_planet": 0.9960166811943054, "P_dwarf": 0.0036325063556432724, "cell": "canon_abs"}, {"P_planet": 0.9840881824493408, "P_dwarf": 0.014350097626447678, "cell": "canon_abs"}, {"P_planet": 0.9995567202568054, "P_dwarf": 0.00013282609870657325, "cell": "canon_abs"}, {"P_planet": 0.9847245812416077, "P_dwarf": 0.014773937873542309, "cell": "canon_abs"}, {"P_planet": 0.9996371269226074, "P_dwarf": 0.00016965715622063726, "cell": "canon_abs"}, {"P_planet": 0.9973618388175964, "P_dwarf": 0.0016084969975054264, "cell": "canon_abs"}, {"P_planet": 0.9919547438621521, "P_dwarf": 0.006755677983164787, "cell": "canon_abs"}, {"P_planet": 0.9735625386238098, "P_dwarf": 0.02040463127195835, "cell": "canon_abs"}, {"P_planet": 0.9967453479766846, "P_dwarf": 0.0005895624053664505, "cell": "canon_abs"}, {"P_planet": 0.9990158081054688, "P_dwarf": 0.00038764235796406865, "cell": "canon_abs"}, {"P_planet": 0.998612642288208, "P_dwarf": 0.0010726710315793753, "cell": "canon_abs"}, {"P_planet": 0.9995242357254028, "P_dwarf": 9.163038339465857e-05, "cell": "canon_abs"}, {"P_planet": 0.9979650974273682, "P_dwarf": 0.0018581874901428819, "cell": "canon_abs"}, {"P_planet": 0.9966132044792175, "P_dwarf": 0.0029627210460603237, "cell": "canon_abs"}, {"P_planet": 0.9848275184631348, "P_dwarf": 0.01420845277607441, "cell": "canon_abs"}, {"P_planet": 0.9986407160758972, "P_dwarf": 6.510590901598334e-05, "cell": "canon_abs"}, {"P_planet": 0.9990271329879761, "P_dwarf": 0.0006798555259592831, "cell": "canon_abs"}, {"P_planet": 0.9754147529602051, "P_dwarf": 0.02409309707581997, "cell": "canon_abs"}], "tension_frac": 0.0, "P_planet": {"mean": 0.992399862408638, "sd": 0.008905418534520107, "ci_lo": 0.9744423404335976, "ci_hi": 0.9995989337563514, "n": 20}, "P_dwarf": {"mean": 0.006418157048756257, "sd": 0.008030000379367033, "ci_lo": 7.770503434585407e-05, "ci_hi": 0.022341075818985694, "n": 20}}, "bootstrap": {"draws": [{"P_planet": 0.9897923469543457, "P_dwarf": 0.0015808094758540392, "cell": "canon_abs"}, {"P_planet": 0.9984847903251648, "P_dwarf": 0.0009932407410815358, "cell": "canon_abs"}, {"P_planet": 0.9994006156921387, "P_dwarf": 0.0003379799600224942, "cell": "canon_abs"}, {"P_planet": 0.999607503414154, "P_dwarf": 0.000283286499325186, "cell": "canon_abs"}, {"P_planet": 0.9965597987174988, "P_dwarf": 0.002152229193598032, "cell": "canon_abs"}, {"P_planet": 0.9976194500923157, "P_dwarf": 0.0002346591791138053, "cell": "canon_abs"}, {"P_planet": 0.9973835349082947, "P_dwarf": 0.0007512661395594478, "cell": "canon_abs"}, {"P_planet": 0.9959456324577332, "P_dwarf": 0.0009770347969606519, "cell": "canon_abs"}, {"P_planet": 0.9976951479911804, "P_dwarf": 0.00019625676213763654, "cell": "canon_abs"}, {"P_planet": 0.9960305094718933, "P_dwarf": 0.001789367524906993, "cell": "canon_abs"}, {"P_planet": 0.9939250349998474, "P_dwarf": 0.0036368309520184994, "cell": "canon_abs"}, {"P_planet": 0.9875268340110779, "P_dwarf": 0.0014426254201680422, "cell": "canon_abs"}, {"P_planet": 0.9788500666618347, "P_dwarf": 0.008477875031530857, "cell": "canon_abs"}, {"P_planet": 0.9995255470275879, "P_dwarf": 4.656800956581719e-05, "cell": "canon_abs"}, {"P_planet": 0.9942262768745422, "P_dwarf": 0.0001566168648423627, "cell": "canon_abs"}, {"P_planet": 0.9999393224716187, "P_dwarf": 2.3431828140019206e-06, "cell": "canon_abs"}, {"P_planet": 0.9983295798301697, "P_dwarf": 0.0003918885486200452, "cell": "canon_abs"}, {"P_planet": 0.993778645992279, "P_dwarf": 0.004489595536142588, "cell": "canon_abs"}, {"P_planet": 0.9981353282928467, "P_dwarf": 0.0013248949544504285, "cell": "canon_abs"}, {"P_planet": 0.9999004602432251, "P_dwarf": 2.3946417059050873e-05, "cell": "canon_abs"}], "tension_frac": 0.0, "P_planet": {"mean": 0.9956328213214874, "sd": 0.005028753444535803, "ci_lo": 0.9829715311527252, "ci_hi": 0.9999208629131318, "n": 20}, "P_dwarf": {"mean": 0.0014644657594885756, "sd": 0.001993840697829303, "ci_lo": 1.2604719080400173e-05, "ci_hi": 0.006583442271221424, "n": 20}}, "optimization": {"draws": [{"P_planet": 0.9996882677078247, "P_dwarf": 0.00015963059558998793, "cell": "canon_abs"}, {"P_planet": 0.9958900809288025, "P_dwarf": 0.0015739123336970806, "cell": "canon_abs"}, {"P_planet": 0.9986843466758728, "P_dwarf": 0.00013364366895984858, "cell": "canon_abs"}, {"P_planet": 0.9571766257286072, "P_dwarf": 0.04266206547617912, "cell": "canon_abs"}, {"P_planet": 0.9960387945175171, "P_dwarf": 0.0030841452535241842, "cell": "canon_abs"}, {"P_planet": 0.9999504089355469, "P_dwarf": 1.8326257986700512e-06, "cell": "canon_abs"}, {"P_planet": 0.9437313675880432, "P_dwarf": 0.05550357699394226, "cell": "canon_abs"}, {"P_planet": 0.9981676340103149, "P_dwarf": 0.001700643915683031, "cell": "canon_abs"}, {"P_planet": 0.9963651895523071, "P_dwarf": 0.0014657151186838746, "cell": "canon_abs"}, {"P_planet": 0.9987882971763611, "P_dwarf": 0.0005131335346959531, "cell": "canon_abs"}, {"P_planet": 0.9984139204025269, "P_dwarf": 0.0014709269162267447, "cell": "canon_abs"}, {"P_planet": 0.9960411787033081, "P_dwarf": 0.0036182852927595377, "cell": "canon_abs"}, {"P_planet": 0.999016523361206, "P_dwarf": 0.000935491407290101, "cell": "canon_abs"}, {"P_planet": 0.9986526966094971, "P_dwarf": 0.001085695344954729, "cell": "canon_abs"}, {"P_planet": 0.9980068802833557, "P_dwarf": 0.0018286654958501458, "cell": "canon_abs"}, {"P_planet": 0.9943619966506958, "P_dwarf": 0.005455241072922945, "cell": "canon_abs"}, {"P_planet": 0.9977109432220459, "P_dwarf": 3.8445479731308296e-05, "cell": "canon_abs"}, {"P_planet": 0.9981655478477478, "P_dwarf": 0.0012201869394630194, "cell": "canon_abs"}, {"P_planet": 0.9999325275421143, "P_dwarf": 1.8943827626571874e-06, "cell": "canon_abs"}, {"P_planet": 0.9967420697212219, "P_dwarf": 0.0014621028676629066, "cell": "canon_abs"}], "tension_frac": 0.0, "P_planet": {"mean": 0.9930762648582458, "sd": 0.014438910353281965, "ci_lo": 0.9501178652048111, "ci_hi": 0.9999419152736664, "n": 20}, "P_dwarf": {"mean": 0.006195761735818905, "sd": 0.01449883992394837, "ci_lo": 1.8619603565639409e-06, "ci_hi": 0.04940385902300475, "n": 20}}}}}, "200K": {"overlap": {"label": "overlap (curriculum, r0/6)", "baseline": {"P_planet": 3.52669439962483e-06, "P_dwarf": 0.997612476348877, "cell": "swap_abs"}, "decomposition": {"tension_index": {"var_epistemic_boot": 0.01712456641938134, "var_optimization": 0.007254360643529039, "var_total": 0.02437892706291038, "sd_total": 0.15613752612011753, "var_epistemic_parametric": 0.008151279486383034}, "P_planet": {"var_epistemic_boot": 0.0005099329392889442, "var_optimization": 0.07670350079389798, "var_total": 0.07721343373318693, "sd_total": 0.27787305326927064, "var_epistemic_parametric": 0.04014344543471408}, "P_dwarf": {"var_epistemic_boot": 0.001586740465138661, "var_optimization": 0.08777593639252962, "var_total": 0.08936267685766829, "sd_total": 0.29893590760841743, "var_epistemic_parametric": 0.05330053582285557}}, "ensembles": {"parametric": {"draws": [{"P_planet": 1.0364125273554237e-06, "P_dwarf": 0.9996947050094604, "cell": "swap_abs"}, {"P_planet": 6.782538093830226e-06, "P_dwarf": 0.9994739890098572, "cell": "swap_abs"}, {"P_planet": 9.443087037652731e-05, "P_dwarf": 0.9996935129165649, "cell": "swap_abs"}, {"P_planet": 7.371713763859589e-07, "P_dwarf": 0.9995307922363281, "cell": "swap_abs"}, {"P_planet": 4.393080234876834e-05, "P_dwarf": 0.999869704246521, "cell": "swap_abs"}, {"P_planet": 0.00013053258589934558, "P_dwarf": 0.9985668063163757, "cell": "swap_abs"}, {"P_planet": 0.6914514899253845, "P_dwarf": 0.2969619035720825, "cell": "tension_abs"}, {"P_planet": 0.00015179226465988904, "P_dwarf": 0.9955085515975952, "cell": "swap_abs"}, {"P_planet": 1.342569944107197e-09, "P_dwarf": 0.9997658133506775, "cell": "swap_abs"}, {"P_planet": 0.00030352978501468897, "P_dwarf": 0.9975807666778564, "cell": "swap_abs"}, {"P_planet": 9.036286428454332e-06, "P_dwarf": 0.9999327659606934, "cell": "swap_abs"}, {"P_planet": 1.0053345249616541e-05, "P_dwarf": 0.9919450879096985, "cell": "swap_abs"}, {"P_planet": 4.917003479931736e-07, "P_dwarf": 0.9999791383743286, "cell": "swap_abs"}, {"P_planet": 1.2232520703037153e-06, "P_dwarf": 0.9999723434448242, "cell": "swap_abs"}, {"P_planet": 5.61323531655944e-07, "P_dwarf": 0.9996670484542847, "cell": "swap_abs"}, {"P_planet": 9.35219333086934e-08, "P_dwarf": 0.467548668384552, "cell": "swap_abs"}, {"P_planet": 0.00010189066961174831, "P_dwarf": 0.9991746544837952, "cell": "swap_abs"}, {"P_planet": 0.000707128259819001, "P_dwarf": 0.9980371594429016, "cell": "swap_abs"}, {"P_planet": 0.0011952731292694807, "P_dwarf": 0.9961537718772888, "cell": "swap_abs"}, {"P_planet": 0.6436238288879395, "P_dwarf": 0.3080287277698517, "cell": "tension_abs"}], "tension_frac": 0.1, "P_planet": {"mean": 0.06689169220372262, "sd": 0.2003582926527227, "ci_lo": 4.512776754228564e-08, "ci_hi": 0.668733350932598, "n": 20}, "P_dwarf": {"mean": 0.9023542955517769, "sd": 0.23086908806259787, "ci_lo": 0.30221864506602286, "ci_hi": 0.999975910782814, "n": 20}}, "bootstrap": {"draws": [{"P_planet": 1.0053546883881381e-09, "P_dwarf": 0.9946251511573792, "cell": "swap_abs"}, {"P_planet": 5.5874088502605446e-06, "P_dwarf": 0.9657572507858276, "cell": "swap_abs"}, {"P_planet": 0.00013209028111305088, "P_dwarf": 0.9594188928604126, "cell": "swap_abs"}, {"P_planet": 2.1226164790277835e-06, "P_dwarf": 0.9992864727973938, "cell": "swap_abs"}, {"P_planet": 0.00026938991504721344, "P_dwarf": 0.9835899472236633, "cell": "swap_abs"}, {"P_planet": 0.07422657310962677, "P_dwarf": 0.8706686496734619, "cell": "swap_abs"}, {"P_planet": 2.2081181327848753e-08, "P_dwarf": 0.9995918869972229, "cell": "swap_abs"}, {"P_planet": 6.782751825085143e-06, "P_dwarf": 0.9990947246551514, "cell": "swap_abs"}, {"P_planet": 6.253222181840101e-06, "P_dwarf": 0.9978095889091492, "cell": "swap_abs"}, {"P_planet": 0.0001770189410308376, "P_dwarf": 0.9636165499687195, "cell": "swap_abs"}, {"P_planet": 1.1384059916963452e-06, "P_dwarf": 0.9995071887969971, "cell": "swap_abs"}, {"P_planet": 4.537067798082717e-05, "P_dwarf": 0.9910265803337097, "cell": "swap_abs"}, {"P_planet": 5.645316036861914e-07, "P_dwarf": 0.8885728120803833, "cell": "swap_abs"}, {"P_planet": 0.0026141847483813763, "P_dwarf": 0.9968075752258301, "cell": "swap_abs"}, {"P_planet": 0.07663409411907196, "P_dwarf": 0.8963446617126465, "cell": "swap_abs"}, {"P_planet": 0.00017882850079331547, "P_dwarf": 0.9963867664337158, "cell": "swap_abs"}, {"P_planet": 5.938860795140499e-06, "P_dwarf": 0.9997469782829285, "cell": "swap_abs"}, {"P_planet": 1.0562383190304558e-09, "P_dwarf": 0.9999375343322754, "cell": "swap_abs"}, {"P_planet": 3.673591919550745e-08, "P_dwarf": 0.9989743232727051, "cell": "swap_abs"}, {"P_planet": 1.1816146979981568e-05, "P_dwarf": 0.9945684671401978, "cell": "swap_abs"}], "tension_frac": 0.0, "P_planet": {"mean": 0.00771589075582228, "sd": 0.02258169478336257, "ci_lo": 1.029524412943239e-09, "ci_hi": 0.07549052163958549, "n": 20}, "P_dwarf": {"mean": 0.9747666001319886, "sd": 0.0398339109947625, "ci_lo": 0.8791731268167495, "ci_hi": 0.9998470202088356, "n": 20}}, "optimization": {"draws": [{"P_planet": 7.146421125980851e-07, "P_dwarf": 0.9998251795768738, "cell": "swap_abs"}, {"P_planet": 0.0021231116261333227, "P_dwarf": 0.9970818161964417, "cell": "swap_abs"}, {"P_planet": 0.00012404729204718024, "P_dwarf": 0.9993828535079956, "cell": "swap_abs"}, {"P_planet": 7.143630682548974e-06, "P_dwarf": 0.9998928308486938, "cell": "swap_abs"}, {"P_planet": 0.9637464284896851, "P_dwarf": 0.03149745613336563, "cell": "canon_abs"}, {"P_planet": 0.0006486535421572626, "P_dwarf": 0.9993390440940857, "cell": "swap_abs"}, {"P_planet": 4.5745462557533756e-05, "P_dwarf": 0.9998660087585449, "cell": "swap_abs"}, {"P_planet": 0.0005637229769490659, "P_dwarf": 0.98932284116745, "cell": "swap_abs"}, {"P_planet": 0.027179207652807236, "P_dwarf": 0.9701523780822754, "cell": "swap_abs"}, {"P_planet": 0.05205068364739418, "P_dwarf": 0.8031207919120789, "cell": "swap_abs"}, {"P_planet": 0.0002685759391169995, "P_dwarf": 0.9994900226593018, "cell": "swap_abs"}, {"P_planet": 1.51126378113986e-05, "P_dwarf": 0.9998705387115479, "cell": "swap_abs"}, {"P_planet": 0.025620337575674057, "P_dwarf": 0.9715476632118225, "cell": "swap_abs"}, {"P_planet": 0.00014920940157026052, "P_dwarf": 0.9991210103034973, "cell": "swap_abs"}, {"P_planet": 0.35150665044784546, "P_dwarf": 0.6237741708755493, "cell": "tension_abs"}, {"P_planet": 0.0008032555342651904, "P_dwarf": 0.9970870614051819, "cell": "swap_abs"}, {"P_planet": 0.07586468011140823, "P_dwarf": 0.9236342906951904, "cell": "swap_abs"}, {"P_planet": 0.007293549366295338, "P_dwarf": 0.9788792133331299, "cell": "swap_abs"}, {"P_planet": 0.8684232234954834, "P_dwarf": 0.0010154062183573842, "cell": "canon_abs"}, {"P_planet": 3.206414760370535e-07, "P_dwarf": 0.9999730587005615, "cell": "swap_abs"}], "tension_frac": 0.05, "P_planet": {"mean": 0.11882171870567362, "sd": 0.2769539687274728, "ci_lo": 5.077917784035435e-07, "ci_hi": 0.9184679061174391, "n": 20}, "P_dwarf": {"mean": 0.8641936818195972, "sd": 0.29627003964715976, "ci_lo": 0.015494379927986301, "ci_hi": 0.9999349504709244, "n": 20}}}}, "rote_control": {"label": "rote-control (curriculum, r6/6)", "baseline": {"P_planet": 0.038464032113552094, "P_dwarf": 0.956710934638977, "cell": "swap_abs"}, "decomposition": {"tension_index": {"var_epistemic_boot": 0.03627475359991856, "var_optimization": 0.027545579967425713, "var_total": 0.06382033356734428, "sd_total": 0.252626866281764, "var_epistemic_parametric": 0.05190440322112154}, "P_planet": {"var_epistemic_boot": 0.16982342010110035, "var_optimization": 0.17948659037062745, "var_total": 0.3493100104717278, "sd_total": 0.5910245430366896, "var_epistemic_parametric": 0.1440074694934161}, "P_dwarf": {"var_epistemic_boot": 0.164607318450044, "var_optimization": 0.18302179476822963, "var_total": 0.3476291132182736, "sd_total": 0.589600808359583, "var_epistemic_parametric": 0.16374812716210688}}, "ensembles": {"parametric": {"draws": [{"P_planet": 0.0019667050801217556, "P_dwarf": 0.9976606369018555, "cell": "swap_abs"}, {"P_planet": 0.9738603234291077, "P_dwarf": 8.053608326008543e-06, "cell": "canon_abs"}, {"P_planet": 0.9972586631774902, "P_dwarf": 0.0019067912362515926, "cell": "canon_abs"}, {"P_planet": 0.17031963169574738, "P_dwarf": 0.30594009160995483, "cell": "tension_abs"}, {"P_planet": 0.03627018257975578, "P_dwarf": 0.9631536602973938, "cell": "swap_abs"}, {"P_planet": 0.00014634548278991133, "P_dwarf": 0.9940126538276672, "cell": "swap_abs"}, {"P_planet": 0.9124521613121033, "P_dwarf": 0.004249682184308767, "cell": "canon_abs"}, {"P_planet": 0.27283793687820435, "P_dwarf": 0.6776015162467957, "cell": "tension_abs"}, {"P_planet": 0.018105939030647278, "P_dwarf": 0.9728981256484985, "cell": "swap_abs"}, {"P_planet": 4.219187030685134e-05, "P_dwarf": 0.9998964071273804, "cell": "swap_abs"}, {"P_planet": 2.5256194930989295e-05, "P_dwarf": 0.9992842078208923, "cell": "swap_abs"}, {"P_planet": 0.032149627804756165, "P_dwarf": 0.9626758098602295, "cell": "swap_abs"}, {"P_planet": 0.10936390608549118, "P_dwarf": 0.8223387002944946, "cell": "tension_abs"}, {"P_planet": 0.000552105251699686, "P_dwarf": 0.9981698989868164, "cell": "swap_abs"}, {"P_planet": 0.0021923871245235205, "P_dwarf": 0.9929394721984863, "cell": "swap_abs"}, {"P_planet": 0.7161660194396973, "P_dwarf": 0.2510392367839813, "cell": "tension_abs"}, {"P_planet": 0.42297112941741943, "P_dwarf": 0.24320314824581146, "cell": "tension_abs"}, {"P_planet": 0.1095578745007515, "P_dwarf": 0.8871714472770691, "cell": "tension_abs"}, {"P_planet": 0.007003689184784889, "P_dwarf": 0.9015706181526184, "cell": "swap_abs"}, {"P_planet": 0.9676478505134583, "P_dwarf": 0.01765367016196251, "cell": "canon_abs"}], "tension_frac": 0.3, "P_planet": {"mean": 0.28754449630268936, "sd": 0.37948316101431445, "ci_lo": 3.330064073452377e-05, "ci_hi": 0.9861444517970085, "n": 20}, "P_dwarf": {"mean": 0.6496686914235397, "sd": 0.40465803731312056, "ci_lo": 0.000909953981590661, "ci_hi": 0.9996056124567986, "n": 20}}, "bootstrap": {"draws": [{"P_planet": 0.01144329272210598, "P_dwarf": 0.8680627942085266, "cell": "swap_abs"}, {"P_planet": 0.9937115907669067, "P_dwarf": 0.004139467608183622, "cell": "canon_abs"}, {"P_planet": 0.09073888510465622, "P_dwarf": 0.7160210013389587, "cell": "swap_abs"}, {"P_planet": 0.7141008377075195, "P_dwarf": 0.0001521739031886682, "cell": "canon_abs"}, {"P_planet": 0.18210871517658234, "P_dwarf": 0.4473190903663635, "cell": "tension_abs"}, {"P_planet": 0.9673202633857727, "P_dwarf": 0.03133373335003853, "cell": "canon_abs"}, {"P_planet": 0.0038853485602885485, "P_dwarf": 0.9954388737678528, "cell": "swap_abs"}, {"P_planet": 0.024160493165254593, "P_dwarf": 0.7527278065681458, "cell": "swap_abs"}, {"P_planet": 0.9968093037605286, "P_dwarf": 0.001782732317224145, "cell": "canon_abs"}, {"P_planet": 0.9147146344184875, "P_dwarf": 0.008557251654565334, "cell": "canon_abs"}, {"P_planet": 0.9021634459495544, "P_dwarf": 0.03810766711831093, "cell": "canon_abs"}, {"P_planet": 0.9130692481994629, "P_dwarf": 0.0666760802268982, "cell": "canon_abs"}, {"P_planet": 0.26067760586738586, "P_dwarf": 0.006181611213833094, "cell": "canon_abs"}, {"P_planet": 0.05077400058507919, "P_dwarf": 0.9383357167243958, "cell": "swap_abs"}, {"P_planet": 0.9916918277740479, "P_dwarf": 0.005911335349082947, "cell": "canon_abs"}, {"P_planet": 0.6724817752838135, "P_dwarf": 0.015148944221436977, "cell": "canon_abs"}, {"P_planet": 0.6561416387557983, "P_dwarf": 0.06508544087409973, "cell": "canon_abs"}, {"P_planet": 0.007552702911198139, "P_dwarf": 0.98084557056427, "cell": "swap_abs"}, {"P_planet": 0.10717695951461792, "P_dwarf": 0.851656973361969, "cell": "tension_abs"}, {"P_planet": 0.9634003043174744, "P_dwarf": 0.005125346127897501, "cell": "canon_abs"}], "tension_frac": 0.1, "P_planet": {"mean": 0.5212061436963268, "sd": 0.41209637234644564, "ci_lo": 0.005627341876970604, "ci_hi": 0.9953378900885582, "n": 20}, "P_dwarf": {"mean": 0.3399304805432621, "sd": 0.40571827473019256, "ci_lo": 0.0009266891498555196, "ci_hi": 0.988507054746151, "n": 20}}, "optimization": {"draws": [{"P_planet": 0.17017558217048645, "P_dwarf": 0.8241961002349854, "cell": "tension_abs"}, {"P_planet": 0.8026150465011597, "P_dwarf": 0.08886607736349106, "cell": "canon_abs"}, {"P_planet": 0.14756663143634796, "P_dwarf": 0.6584202647209167, "cell": "tension_abs"}, {"P_planet": 0.0049867103807628155, "P_dwarf": 0.9917296767234802, "cell": "swap_abs"}, {"P_planet": 0.9963681697845459, "P_dwarf": 0.00040121725760400295, "cell": "canon_abs"}, {"P_planet": 0.005654631648212671, "P_dwarf": 0.9942633509635925, "cell": "swap_abs"}, {"P_planet": 0.9999202489852905, "P_dwarf": 2.4897075491026044e-05, "cell": "canon_abs"}, {"P_planet": 0.04402938112616539, "P_dwarf": 0.9467638731002808, "cell": "swap_abs"}, {"P_planet": 0.7552200555801392, "P_dwarf": 0.2442912757396698, "cell": "tension_abs"}, {"P_planet": 0.11108339577913284, "P_dwarf": 0.3722299337387085, "cell": "tension_abs"}, {"P_planet": 0.01594894751906395, "P_dwarf": 0.979572594165802, "cell": "swap_abs"}, {"P_planet": 0.7817716002464294, "P_dwarf": 0.024243952706456184, "cell": "canon_abs"}, {"P_planet": 0.991679847240448, "P_dwarf": 0.005853678565472364, "cell": "canon_abs"}, {"P_planet": 0.0020042567048221827, "P_dwarf": 0.996423065662384, "cell": "swap_abs"}, {"P_planet": 0.4931434094905853, "P_dwarf": 0.4986582100391388, "cell": "tension_abs"}, {"P_planet": 0.0028263251297175884, "P_dwarf": 0.9949169158935547, "cell": "swap_abs"}, {"P_planet": 0.9979543685913086, "P_dwarf": 0.0019971118308603764, "cell": "canon_abs"}, {"P_planet": 0.9024538397789001, "P_dwarf": 0.09742503613233566, "cell": "canon_abs"}, {"P_planet": 0.9281384348869324, "P_dwarf": 0.0005296756280586123, "cell": "canon_abs"}, {"P_planet": 0.0032236245460808277, "P_dwarf": 0.9967652559280396, "cell": "swap_abs"}], "tension_frac": 0.25, "P_planet": {"mean": 0.45783822537632657, "sd": 0.42365857759595454, "ci_lo": 0.0023947392066475002, "ci_hi": 0.9989864557981492, "n": 20}, "P_dwarf": {"mean": 0.48587860817351614, "sd": 0.42781046594050226, "ci_lo": 0.00020364916199469007, "ci_hi": 0.9966027155518532, "n": 20}}}}, "canon": {"label": "canon baseline (mixed, r0/6)", "baseline": {"P_planet": 0.9984423518180847, "P_dwarf": 0.0006382821593433619, "cell": "canon_abs"}, "decomposition": {"tension_index": {"var_epistemic_boot": 2.0143266555390458e-05, "var_optimization": 1.1148446670696333e-05, "var_total": 3.129171322608679e-05, "sd_total": 0.005593899643905564, "var_epistemic_parametric": 2.4851304079818928e-05}, "P_planet": {"var_epistemic_boot": 2.2079655262272624e-05, "var_optimization": 1.2616171212611604e-05, "var_total": 3.469582647488423e-05, "sd_total": 0.0058903163306298105, "var_epistemic_parametric": 2.5491450161210236e-05}, "P_dwarf": {"var_epistemic_boot": 2.01333153434628e-05, "var_optimization": 1.1140013309581085e-05, "var_total": 3.1273328653043884e-05, "sd_total": 0.005592256132639481, "var_epistemic_parametric": 2.4814023558800655e-05}}, "ensembles": {"parametric": {"draws": [{"P_planet": 0.999758780002594, "P_dwarf": 5.402983788371785e-06, "cell": "canon_abs"}, {"P_planet": 0.9992420673370361, "P_dwarf": 0.0005429098382592201, "cell": "canon_abs"}, {"P_planet": 0.9995860457420349, "P_dwarf": 0.00040976956370286644, "cell": "canon_abs"}, {"P_planet": 0.9999370574951172, "P_dwarf": 2.5213869321305538e-06, "cell": "canon_abs"}, {"P_planet": 0.9765302538871765, "P_dwarf": 0.023014353588223457, "cell": "canon_abs"}, {"P_planet": 0.9999030828475952, "P_dwarf": 5.066082303528674e-05, "cell": "canon_abs"}, {"P_planet": 0.9996682405471802, "P_dwarf": 2.551685383878066e-06, "cell": "canon_abs"}, {"P_planet": 0.9982435703277588, "P_dwarf": 0.0016663288697600365, "cell": "canon_abs"}, {"P_planet": 0.9990959167480469, "P_dwarf": 0.0006292650941759348, "cell": "canon_abs"}, {"P_planet": 0.9996249675750732, "P_dwarf": 4.8500358388992026e-05, "cell": "canon_abs"}, {"P_planet": 0.999981164932251, "P_dwarf": 9.841845560742968e-09, "cell": "canon_abs"}, {"P_planet": 0.9999294281005859, "P_dwarf": 5.9584719565464184e-05, "cell": "canon_abs"}, {"P_planet": 0.9998544454574585, "P_dwarf": 0.00011175858526257798, "cell": "canon_abs"}, {"P_planet": 0.9995375871658325, "P_dwarf": 0.00030714075546711683, "cell": "canon_abs"}, {"P_planet": 0.9991350769996643, "P_dwarf": 0.0003256739000789821, "cell": "canon_abs"}, {"P_planet": 0.9998849630355835, "P_dwarf": 6.322627450572327e-05, "cell": "canon_abs"}, {"P_planet": 0.9999970197677612, "P_dwarf": 1.4753785535503994e-06, "cell": "canon_abs"}, {"P_planet": 0.9996473789215088, "P_dwarf": 2.674365305210813e-06, "cell": "canon_abs"}, {"P_planet": 0.9999185800552368, "P_dwarf": 4.276293839211576e-05, "cell": "canon_abs"}, {"P_planet": 0.99982088804245, "P_dwarf": 5.388771114667179e-06, "cell": "canon_abs"}], "tension_frac": 0.0, "P_planet": {"mean": 0.9984648257493973, "sd": 0.0050489058380217625, "ci_lo": 0.9868440791964531, "ci_hi": 0.9999894887208939, "n": 20}, "P_dwarf": {"mean": 0.0013645979860870572, "sd": 0.00498136763939389, "ci_lo": 7.059717818558297e-07, "ci_hi": 0.012874041846953302, "n": 20}}, "bootstrap": {"draws": [{"P_planet": 0.9780860543251038, "P_dwarf": 0.020799456164240837, "cell": "canon_abs"}, {"P_planet": 0.9993719458580017, "P_dwarf": 0.0002809425350278616, "cell": "canon_abs"}, {"P_planet": 0.9983785152435303, "P_dwarf": 0.00016732355288695544, "cell": "canon_abs"}, {"P_planet": 0.9999171495437622, "P_dwarf": 1.5264655303326435e-05, "cell": "canon_abs"}, {"P_planet": 0.9999361038208008, "P_dwarf": 2.9802549761370756e-05, "cell": "canon_abs"}, {"P_planet": 0.9999769926071167, "P_dwarf": 1.888454903564707e-06, "cell": "canon_abs"}, {"P_planet": 0.9997543692588806, "P_dwarf": 0.00021753102191723883, "cell": "canon_abs"}, {"P_planet": 0.9997735619544983, "P_dwarf": 0.00014031806495040655, "cell": "canon_abs"}, {"P_planet": 0.9998903274536133, "P_dwarf": 5.7379555073566735e-05, "cell": "canon_abs"}, {"P_planet": 0.9992757439613342, "P_dwarf": 0.0006341924890875816, "cell": "canon_abs"}, {"P_planet": 0.9997623562812805, "P_dwarf": 9.896763367578387e-05, "cell": "canon_abs"}, {"P_planet": 0.9999077320098877, "P_dwarf": 5.458070882013999e-05, "cell": "canon_abs"}, {"P_planet": 0.9999094009399414, "P_dwarf": 8.6367101914675e-08, "cell": "canon_abs"}, {"P_planet": 0.9979705214500427, "P_dwarf": 0.0008896950166672468, "cell": "canon_abs"}, {"P_planet": 0.9999722242355347, "P_dwarf": 2.219386624346953e-05, "cell": "canon_abs"}, {"P_planet": 0.9983413219451904, "P_dwarf": 0.0008136074175126851, "cell": "canon_abs"}, {"P_planet": 0.9997298121452332, "P_dwarf": 3.061482493649237e-05, "cell": "canon_abs"}, {"P_planet": 0.9998248219490051, "P_dwarf": 2.9735243515460752e-05, "cell": "canon_abs"}, {"P_planet": 0.9992915391921997, "P_dwarf": 0.000680960831232369, "cell": "canon_abs"}, {"P_planet": 0.9990891218185425, "P_dwarf": 0.0007178322412073612, "cell": "canon_abs"}], "tension_frac": 0.0, "P_planet": {"mean": 0.998407980799675, "sd": 0.0046988993671148805, "ci_lo": 0.9875311762094497, "ci_hi": 0.9999747276306152, "n": 20}, "P_dwarf": {"mean": 0.0012841186597032817, "sd": 0.004487016307465664, "ci_lo": 9.423588076984401e-07, "ci_hi": 0.011342319619143353, "n": 20}}, "optimization": {"draws": [{"P_planet": 0.9973145127296448, "P_dwarf": 0.0011189940851181746, "cell": "canon_abs"}, {"P_planet": 0.9994760155677795, "P_dwarf": 0.0004431310517247766, "cell": "canon_abs"}, {"P_planet": 0.9991952776908875, "P_dwarf": 0.00039674813160672784, "cell": "canon_abs"}, {"P_planet": 0.9999102354049683, "P_dwarf": 7.79956390033476e-05, "cell": "canon_abs"}, {"P_planet": 0.999146580696106, "P_dwarf": 1.6237361705861986e-05, "cell": "canon_abs"}, {"P_planet": 0.9995189905166626, "P_dwarf": 0.00036122629535384476, "cell": "canon_abs"}, {"P_planet": 0.9999188184738159, "P_dwarf": 7.928790000732988e-05, "cell": "canon_abs"}, {"P_planet": 0.9996788501739502, "P_dwarf": 0.000289406772935763, "cell": "canon_abs"}, {"P_planet": 0.9967306852340698, "P_dwarf": 0.002228020690381527, "cell": "canon_abs"}, {"P_planet": 0.9998456239700317, "P_dwarf": 0.00014897921937517822, "cell": "canon_abs"}, {"P_planet": 0.9998466968536377, "P_dwarf": 0.00012093702389393002, "cell": "canon_abs"}, {"P_planet": 0.9996801614761353, "P_dwarf": 0.00031733245123177767, "cell": "canon_abs"}, {"P_planet": 0.9999281167984009, "P_dwarf": 6.563706119777635e-05, "cell": "canon_abs"}, {"P_planet": 0.9988269209861755, "P_dwarf": 0.00012861579307354987, "cell": "canon_abs"}, {"P_planet": 0.999924898147583, "P_dwarf": 6.257905624806881e-05, "cell": "canon_abs"}, {"P_planet": 0.9958868622779846, "P_dwarf": 0.0033464194275438786, "cell": "canon_abs"}, {"P_planet": 0.9998406171798706, "P_dwarf": 0.00014834235480520874, "cell": "canon_abs"}, {"P_planet": 0.998836100101471, "P_dwarf": 4.7915349568938836e-05, "cell": "canon_abs"}, {"P_planet": 0.9998884201049805, "P_dwarf": 2.3296825020224787e-05, "cell": "canon_abs"}, {"P_planet": 0.9836650490760803, "P_dwarf": 0.015338501892983913, "cell": "canon_abs"}], "tension_frac": 0.0, "P_planet": {"mean": 0.9983529716730117, "sd": 0.0035519250009834955, "ci_lo": 0.9894704103469849, "ci_hi": 0.9999265879392624, "n": 20}, "P_dwarf": {"mean": 0.00123798021913899, "sd": 0.0033376658475019762, "ci_lo": 1.9590606780184316e-05, "ci_hi": 0.009642262721899879, "n": 20}}}}}}, "edge": {"50K": {"overlap": [{"edge": 0.5, "tension_frac": 0.25, "P_planet": {"mean": 0.17363945657198201, "sd": 0.28707579807395983, "ci_lo": 0.00013147912432032172, "ci_hi": 0.9182288914918899, "n": 20}, "P_dwarf": {"mean": 0.6963415291160345, "sd": 0.28238136548451226, "ci_lo": 0.014968021027743816, "ci_hi": 0.9326907336711884, "n": 20}}, {"edge": 1.0, "tension_frac": 0.2, "P_planet": {"mean": 0.15435562369166292, "sd": 0.2526545589779146, "ci_lo": 0.00020073810337635224, "ci_hi": 0.8367093086242675, "n": 20}, "P_dwarf": {"mean": 0.6762967638671398, "sd": 0.2660793849171253, "ci_lo": 0.035170480608940125, "ci_hi": 0.9298025399446487, "n": 20}}, {"edge": 1.5, "tension_frac": 0.3, "P_planet": {"mean": 0.16156198808166664, "sd": 0.2501287974518822, "ci_lo": 0.0006810945036704652, "ci_hi": 0.8113234460353851, "n": 20}, "P_dwarf": {"mean": 0.6358618179336191, "sd": 0.2838777050549744, "ci_lo": 0.0768786788918078, "ci_hi": 0.9358559638261795, "n": 20}}, {"edge": 2.0, "tension_frac": 0.25, "P_planet": {"mean": 0.15861187074915506, "sd": 0.22612238041475055, "ci_lo": 0.0022685377771267667, "ci_hi": 0.6957420885562895, "n": 20}, "P_dwarf": {"mean": 0.6471469621697906, "sd": 0.28690235928795377, "ci_lo": 0.08627615919394883, "ci_hi": 0.9333688229322433, "n": 20}}, {"edge": 3.0, "tension_frac": 0.5, "P_planet": {"mean": 0.27826734370028133, "sd": 0.30926983430963567, "ci_lo": 0.0016642221584334037, "ci_hi": 0.9664164811372756, "n": 20}, "P_dwarf": {"mean": 0.5409202908165753, "sd": 0.3144942854649659, "ci_lo": 0.012175501463934778, "ci_hi": 0.9247749000787735, "n": 20}}], "rote_control": [{"edge": 0.5, "tension_frac": 0.3, "P_planet": {"mean": 0.3898504488868639, "sd": 0.3534341249092736, "ci_lo": 0.003501524741295725, "ci_hi": 0.9586171478033064, "n": 20}, "P_dwarf": {"mean": 0.40249778502984557, "sd": 0.3099275999364764, "ci_lo": 0.0007855710024159635, "ci_hi": 0.8614315062761306, "n": 20}}, {"edge": 1.0, "tension_frac": 0.4, "P_planet": {"mean": 0.4008565352996811, "sd": 0.3537095790481981, "ci_lo": 0.006910024152603, "ci_hi": 0.9764441236853599, "n": 20}, "P_dwarf": {"mean": 0.37242768003925447, "sd": 0.30649620793164795, "ci_lo": 0.0005011945082515013, "ci_hi": 0.865811850130558, "n": 20}}, {"edge": 1.5, "tension_frac": 0.55, "P_planet": {"mean": 0.354868260861258, "sd": 0.3081268344323293, "ci_lo": 0.008603647413838188, "ci_hi": 0.980778431892395, "n": 20}, "P_dwarf": {"mean": 0.3115615996241104, "sd": 0.291353055393964, "ci_lo": 0.0019055842683883383, "ci_hi": 0.8386043488979339, "n": 20}}, {"edge": 2.0, "tension_frac": 0.5, "P_planet": {"mean": 0.4076882591325557, "sd": 0.34466578071202464, "ci_lo": 0.00951246282638749, "ci_hi": 0.9948712140321732, "n": 20}, "P_dwarf": {"mean": 0.31264478365364995, "sd": 0.2777952359875563, "ci_lo": 0.00010856657822841952, "ci_hi": 0.8338249370455741, "n": 20}}, {"edge": 3.0, "tension_frac": 0.4, "P_planet": {"mean": 0.5425833387533203, "sd": 0.35769224644701575, "ci_lo": 0.016801174695137887, "ci_hi": 0.9950760856270789, "n": 20}, "P_dwarf": {"mean": 0.20399511536143108, "sd": 0.24809144694978633, "ci_lo": 0.00015893668596618225, "ci_hi": 0.7634922757744789, "n": 20}}]}, "200K": {"overlap": [{"edge": 0.5, "tension_frac": 0.0, "P_planet": {"mean": 0.049948880629537354, "sd": 0.21139988153221062, "ci_lo": 1.747122738260387e-07, "ci_hi": 0.5200744639616446, "n": 20}, "P_dwarf": {"mean": 0.9406697465572507, "sd": 0.21400430257382932, "ci_lo": 0.42919928806368257, "ci_hi": 0.9999412149190903, "n": 20}}, {"edge": 1.0, "tension_frac": 0.1, "P_planet": {"mean": 0.05003131197566031, "sd": 0.16104079540567837, "ci_lo": 3.086667487439687e-08, "ci_hi": 0.5063755422830576, "n": 20}, "P_dwarf": {"mean": 0.9134948074817657, "sd": 0.2045651775060728, "ci_lo": 0.389614836871624, "ci_hi": 0.9999752014875412, "n": 20}}, {"edge": 1.5, "tension_frac": 0.05, "P_planet": {"mean": 0.02189134630779782, "sd": 0.06987851629226069, "ci_lo": 4.843191814429825e-07, "ci_hi": 0.19521452793851457, "n": 20}, "P_dwarf": {"mean": 0.9490157157182694, "sd": 0.12350938092094554, "ci_lo": 0.581826189160347, "ci_hi": 0.9999497354030609, "n": 20}}, {"edge": 2.0, "tension_frac": 0.1, "P_planet": {"mean": 0.047056405746474184, "sd": 0.12937608000595438, "ci_lo": 9.394298416509627e-07, "ci_hi": 0.3772028099745506, "n": 20}, "P_dwarf": {"mean": 0.9328550875186921, "sd": 0.15361576840727184, "ci_lo": 0.5306207165122032, "ci_hi": 0.9999392420053482, "n": 20}}, {"edge": 3.0, "tension_frac": 0.05, "P_planet": {"mean": 0.0743601880436124, "sd": 0.22307010247020603, "ci_lo": 7.768821355114142e-08, "ci_hi": 0.6761103227734556, "n": 20}, "P_dwarf": {"mean": 0.8972404222192836, "sd": 0.2307659806899315, "ci_lo": 0.31299975119789, "ci_hi": 0.9999438136816025, "n": 20}}], "rote_control": [{"edge": 0.5, "tension_frac": 0.35, "P_planet": {"mean": 0.26761231127311474, "sd": 0.351124610074267, "ci_lo": 3.8961401151027525e-05, "ci_hi": 0.9783934235572814, "n": 20}, "P_dwarf": {"mean": 0.6265421342126501, "sd": 0.38232915846532173, "ci_lo": 0.0003619083898229291, "ci_hi": 0.9995657801628113, "n": 20}}, {"edge": 1.0, "tension_frac": 0.1, "P_planet": {"mean": 0.2933053410247794, "sd": 0.4109787908816392, "ci_lo": 1.7029977948368467e-05, "ci_hi": 0.9954548850655556, "n": 20}, "P_dwarf": {"mean": 0.6649201008942327, "sd": 0.42448545362502615, "ci_lo": 0.0008374542485398706, "ci_hi": 0.9998010978102684, "n": 20}}, {"edge": 1.5, "tension_frac": 0.15, "P_planet": {"mean": 0.2681631216293795, "sd": 0.38319148557034105, "ci_lo": 2.8409120602646e-06, "ci_hi": 0.9902920603752137, "n": 20}, "P_dwarf": {"mean": 0.6483514504594495, "sd": 0.42276943594495436, "ci_lo": 0.0008971226445282809, "ci_hi": 0.9998115703463555, "n": 20}}, {"edge": 2.0, "tension_frac": 0.35, "P_planet": {"mean": 0.2579406374948121, "sd": 0.3547761503089933, "ci_lo": 1.034822967085347e-05, "ci_hi": 0.9862726509571075, "n": 20}, "P_dwarf": {"mean": 0.6899744696507696, "sd": 0.3764269927027735, "ci_lo": 0.0007245223358040675, "ci_hi": 0.9998520150780678, "n": 20}}, {"edge": 3.0, "tension_frac": 0.1, "P_planet": {"mean": 0.2598119766409582, "sd": 0.3917461268847759, "ci_lo": 0.00010130859927812708, "ci_hi": 0.9692376479506493, "n": 20}, "P_dwarf": {"mean": 0.5983062834872225, "sd": 0.4377566778289733, "ci_lo": 0.002523088961308706, "ci_hi": 0.9992745637893676, "n": 20}}]}}};
 
-// ── color palette ──────────────────────────────────────────────────────
 const colors = {
-  planet:   '#1f77b4',
-  asteroid: '#7f7f7f',
-  comet:    '#9467bd',
-  moon:     '#8c564b',
-  dwarf:    '#d62728',
-  P10:      '#e377c2',
-  logreg:   '#1f77b4',
-  gnb:      '#2ca02c',
-  knn3:     '#9467bd',
-  bayes:    '#8c564b',
-  small_curriculum: '#d62728',
-  large_curriculum: '#ff7f0e',
-  small_mixed:      '#1f77b4',
-  large_mixed:      '#2ca02c',
+  planet: '#1f77b4', asteroid: '#7f7f7f', comet: '#9467bd', moon: '#8c564b',
+  dwarf: '#d62728', P10: '#e377c2',
+  logreg: '#1f77b4', gnb: '#2ca02c', knn3: '#9467bd', bayes: '#8c564b',
+  small_curriculum: '#d62728', large_curriculum: '#ff7f0e',
 };
-const cellColors = {
-  tension_abs: '#d62728',
-  canon_abs:   '#2ca02c',
-  swap_abs:    '#ff7f0e',
-  nothing_abs: '#7f7f7f',
-};
+const cellColors = { tension_abs: '#d62728', canon_abs: '#2ca02c', swap_abs: '#ff7f0e', nothing_abs: '#7f7f7f' };
+const cellLabel = c => ({tension_abs:'tension', canon_abs:'canon', swap_abs:'swap', nothing_abs:'nothing'}[c] || c);
+const prettyCell = c => ({overlap:'overlap', rote_control:'rote-control', canon:'canon'}[c] || c);
 
-// ── 3D scatter of the toy world ────────────────────────────────────────
-// When several entities share the exact same integer feature position
-// (e.g. five E* all land at (1,3,4) under full overlap), the markers stack
-// and look like one. So we bucket entities by (category, position) and,
-// when a bucket holds more than one entity, lay them out on the six
-// vertices of a small octahedron around the nominal position (plus four
-// tetrahedral fillers for buckets larger than 6). The center is left
-// empty so that nothing else sits on top of P10.
-const SPREAD = [
-  [ 0.30,  0.00,  0.00],
-  [-0.30,  0.00,  0.00],
-  [ 0.00,  0.30,  0.00],
-  [ 0.00, -0.30,  0.00],
-  [ 0.00,  0.00,  0.30],
-  [ 0.00,  0.00, -0.30],
-  [ 0.21,  0.21,  0.21],
-  [-0.21, -0.21,  0.21],
-  [ 0.21, -0.21, -0.21],
-  [-0.21,  0.21, -0.21],
-];
+// ── 1. 3D world ────────────────────────────────────────────────────────
+const SPREAD = [[0.30,0,0],[-0.30,0,0],[0,0.30,0],[0,-0.30,0],[0,0,0.30],[0,0,-0.30],
+                [0.21,0.21,0.21],[-0.21,-0.21,0.21],[0.21,-0.21,-0.21],[-0.21,0.21,-0.21]];
 function drawWorld(nMix) {
   const ents = DATA.entities[nMix] || [];
-
-  // Bucket by (category, integer-position) so we can spread duplicates.
   const buckets = new Map();
   ents.forEach(e => {
     const cat = e.name === 'P10' ? 'P10' : e.category;
@@ -591,209 +417,196 @@ function drawWorld(nMix) {
     if (!buckets.has(key)) buckets.set(key, []);
     buckets.get(key).push(e);
   });
-
   const groups = {};
   for (const [key, members] of buckets.entries()) {
     const cat = key.split('|')[0];
     if (!groups[cat]) groups[cat] = { x: [], y: [], z: [], text: [] };
     members.forEach((e, i) => {
-      // Singletons stay at their exact integer position; clusters spread
-      // outward on the octahedron pattern. P10 is always a singleton.
-      const off = (members.length === 1) ? [0, 0, 0]
-                                         : SPREAD[i % SPREAD.length];
+      const off = (members.length === 1) ? [0,0,0] : SPREAD[i % SPREAD.length];
       groups[cat].x.push(e.features[0] + off[0]);
       groups[cat].y.push(e.features[1] + off[1]);
       groups[cat].z.push(e.features[2] + off[2]);
       groups[cat].text.push(`${e.name}<br>category: ${e.category}<br>` +
-        `mass=${DATA.axes.mass[e.features[0]]}, ` +
-        `diam=${DATA.axes.diameter[e.features[1]]}, ` +
+        `mass=${DATA.axes.mass[e.features[0]]}, diam=${DATA.axes.diameter[e.features[1]]}, ` +
         `orbit=${DATA.axes.orbit[e.features[2]]}`);
     });
   }
   const traces = [];
-  const order = ['planet', 'asteroid', 'comet', 'moon', 'dwarf', 'P10'];
-  order.forEach(cat => {
+  ['planet','asteroid','comet','moon','dwarf','P10'].forEach(cat => {
     if (!groups[cat]) return;
     const isP10 = (cat === 'P10');
     traces.push({
-      type: 'scatter3d', mode: 'markers',
-      name: cat,
+      type: 'scatter3d', mode: 'markers', name: cat,
       x: groups[cat].x, y: groups[cat].y, z: groups[cat].z,
       text: groups[cat].text, hoverinfo: 'text',
-      marker: {
-        size: isP10 ? 10 : (cat === 'dwarf' ? 7 : 5),
-        symbol: isP10 ? 'diamond' : (cat === 'dwarf' ? 'diamond' : 'circle'),
-        color: colors[cat] || '#444',
-        line: { color: '#222', width: isP10 ? 2 : 0.5 },
-        opacity: 0.9,
-      },
+      marker: { size: isP10 ? 10 : (cat === 'dwarf' ? 7 : 5),
+        symbol: (isP10 || cat === 'dwarf') ? 'diamond' : 'circle',
+        color: colors[cat] || '#444', line: { color: '#222', width: isP10 ? 2 : 0.5 }, opacity: 0.9 },
     });
   });
   Plotly.react('world-plot', traces, {
-    margin: { l: 0, r: 0, t: 20, b: 0 },
-    paper_bgcolor: 'rgba(0,0,0,0)',
+    margin: { l: 0, r: 0, t: 20, b: 0 }, paper_bgcolor: 'rgba(0,0,0,0)',
     legend: { orientation: 'h', y: -0.05 },
     scene: {
-      xaxis: { title: 'mass', tickvals: [0,1,2,3,4], ticktext: DATA.axes.mass, range: [-0.6, 4.6] },
-      yaxis: { title: 'diameter', tickvals: [0,1,2,3,4], ticktext: DATA.axes.diameter, range: [-0.6, 4.6] },
-      zaxis: { title: 'orbit', tickvals: [0,1,2,3,4], ticktext: DATA.axes.orbit, range: [-0.6, 4.6] },
+      xaxis: { title: 'mass', tickvals: [0,1,2,3,4], ticktext: DATA.axes.mass, range: [-0.6,4.6] },
+      yaxis: { title: 'diameter', tickvals: [0,1,2,3,4], ticktext: DATA.axes.diameter, range: [-0.6,4.6] },
+      zaxis: { title: 'orbit', tickvals: [0,1,2,3,4], ticktext: DATA.axes.orbit, range: [-0.6,4.6] },
       camera: { eye: { x: 1.5, y: 1.4, z: 0.9 } },
     },
   }, { displayModeBar: false, responsive: true });
 }
-
-// ── transformer corner-mix curve ───────────────────────────────────────
-function drawSweep() {
-  const size = document.querySelector('input[name=sweep-size]:checked').value;
-  const showCur = document.getElementById('sweep-curriculum').checked;
-  const showMix = document.getElementById('sweep-mixed').checked;
-  const traces = [];
-  const sizeLabel = (size === 'd32l4') ? 'small (50K)' : 'large (200K)';
-  if (showCur) {
-    const rows = DATA.transformer[`${size}_curriculum`];
-    const colorKey = (size === 'd32l4') ? 'small_curriculum' : 'large_curriculum';
-    traces.push({
-      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
-      error_y: { type: 'data', array: rows.map(r => r.P_planet_se), thickness: 1.2 },
-      mode: 'lines+markers', name: `${sizeLabel} curriculum: P(planet)`,
-      line: { color: colors[colorKey], width: 2 },
-      marker: { color: colors[colorKey], size: 8 },
-    });
-    traces.push({
-      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
-      error_y: { type: 'data', array: rows.map(r => r.P_dwarf_se), thickness: 1.2 },
-      mode: 'lines+markers', name: `${sizeLabel} curriculum: P(dwarf)`,
-      line: { color: colors[colorKey], width: 2, dash: 'dash' },
-      marker: { color: colors[colorKey], size: 8, symbol: 'square' },
-    });
-  }
-  if (showMix) {
-    const rows = DATA.transformer[`${size}_mixed`];
-    const colorKey = (size === 'd32l4') ? 'small_mixed' : 'large_mixed';
-    traces.push({
-      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
-      error_y: { type: 'data', array: rows.map(r => r.P_planet_se), thickness: 1.2 },
-      mode: 'lines+markers', name: `${sizeLabel} mixed: P(planet)`,
-      line: { color: colors[colorKey], width: 2 },
-      marker: { color: colors[colorKey], size: 8 },
-    });
-    traces.push({
-      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
-      error_y: { type: 'data', array: rows.map(r => r.P_dwarf_se), thickness: 1.2 },
-      mode: 'lines+markers', name: `${sizeLabel} mixed: P(dwarf)`,
-      line: { color: colors[colorKey], width: 2, dash: 'dash' },
-      marker: { color: colors[colorKey], size: 8, symbol: 'square' },
-    });
-  }
-  Plotly.react('sweep-plot', traces, {
-    margin: { l: 60, r: 30, t: 20, b: 60 },
-    paper_bgcolor: 'rgba(0,0,0,0)',
-    plot_bgcolor: '#fff',
-    xaxis: { title: 'corner-mix (n_eris_rote, out of 6)', tickvals: [0, 2, 4, 6], range: [-0.3, 6.3] },
-    yaxis: { title: 'probability', range: [-0.05, 1.05] },
-    legend: { orientation: 'h', y: -0.18 },
-    shapes: [{ type: 'line', x0: -0.3, x1: 6.3, y0: 0.10, y1: 0.10,
-               line: { color: '#999', dash: 'dot', width: 1 } }],
-    annotations: [{ x: 6.3, y: 0.10, xanchor: 'right', yanchor: 'bottom',
-                    text: 'absolute floor 0.10', showarrow: false,
-                    font: { size: 10, color: '#999' } }],
-  }, { responsive: true });
+function updateWorldCaption(n) {
+  const overlap = 6 - n;
+  const cap = document.getElementById('world-caption');
+  if (n === 0) cap.innerHTML = '<strong>All 6 dwarfs sit on top of P10.</strong> The cloud at the pink marker holds P10 plus six red diamonds at the same spot.';
+  else if (n === 6) cap.innerHTML = '<strong>All 6 dwarfs sit in the disjoint corner</strong> (huge mass, tiny diameter, near orbit). Nothing is near P10 anymore.';
+  else cap.innerHTML = `<strong>${n} of 6 dwarfs in the disjoint corner; ${overlap} in P10's neighborhood.</strong> Look for ${overlap} red diamond${overlap===1?'':'s'} with P10 and ${n} at the far corner.`;
 }
 
-// ── baseline + transformer comparison ──────────────────────────────────
+// ── 4. draw-a-run ──────────────────────────────────────────────────────
+const runState = { size: '50K', shown: 0 };
+const runDraws = () => DATA.ensemble[runState.size].overlap.ensembles.parametric.draws;
+const runBaseline = () => DATA.ensemble[runState.size].overlap.baseline;
+function drawRunScatter() {
+  const shown = runDraws().slice(0, runState.shown);
+  const byCell = {};
+  shown.forEach((d, i) => {
+    if (!byCell[d.cell]) byCell[d.cell] = { x: [], y: [], t: [] };
+    byCell[d.cell].x.push(d.P_planet); byCell[d.cell].y.push(d.P_dwarf);
+    byCell[d.cell].t.push(`run ${i+1}: ${cellLabel(d.cell)}`);
+  });
+  const traces = [];
+  for (const cell in byCell)
+    traces.push({ x: byCell[cell].x, y: byCell[cell].y, text: byCell[cell].t, hoverinfo: 'text',
+      mode: 'markers', type: 'scatter', name: cellLabel(cell),
+      marker: { color: cellColors[cell], size: 11, line: { color: '#fff', width: 1 } } });
+  const b = runBaseline();
+  traces.push({ x: [b.P_planet], y: [b.P_dwarf], mode: 'markers', type: 'scatter',
+    name: 'the one run (seed 0)', hoverinfo: 'text', text: [`baseline: ${cellLabel(b.cell)}`],
+    marker: { symbol: 'star', size: 17, color: '#1c1c1c', line: { color: '#fff', width: 1 } } });
+  Plotly.react('run-plot', traces, {
+    margin: { l: 55, r: 20, t: 10, b: 50 }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#fff',
+    xaxis: { title: 'P(planet) for P10', range: [-0.03,1.03], zeroline: false },
+    yaxis: { title: 'P(dwarf) for P10', range: [-0.03,1.03], zeroline: false },
+    shapes: [
+      { type: 'line', x0: 0.1, x1: 0.1, y0: -0.03, y1: 1.03, line: { color: '#bbb', dash: 'dot', width: 1 } },
+      { type: 'line', x0: -0.03, x1: 1.03, y0: 0.1, y1: 0.1, line: { color: '#bbb', dash: 'dot', width: 1 } },
+    ],
+    annotations: [
+      { x: 0.98, y: 0.98, text: 'TENSION', showarrow: false, font: { size: 10, color: '#d62728' }, xanchor: 'right' },
+      { x: 0.02, y: 0.98, text: 'swap', showarrow: false, font: { size: 10, color: '#ff7f0e' }, xanchor: 'left' },
+      { x: 0.98, y: 0.02, text: 'canon', showarrow: false, font: { size: 10, color: '#2ca02c' }, xanchor: 'right', yanchor: 'bottom' },
+    ],
+    legend: { orientation: 'h', y: -0.2 },
+  }, { displayModeBar: false, responsive: true });
+  const counts = {};
+  shown.forEach(d => counts[d.cell] = (counts[d.cell] || 0) + 1);
+  const cap = document.getElementById('run-caption');
+  if (runState.shown === 0) {
+    cap.innerHTML = 'No runs yet. Click <strong>Train one model</strong> to train one and read off its verdict on P10.';
+  } else {
+    const parts = ['swap_abs','tension_abs','canon_abs','nothing_abs'].filter(c => counts[c])
+      .map(c => `<strong style="color:${cellColors[c]}">${counts[c]} ${cellLabel(c)}</strong>`);
+    cap.innerHTML = `${runState.shown} run${runState.shown>1?'s':''}: ` + parts.join(', ') +
+      `. The one run you would have done (&#9733;) landed on <strong>${cellLabel(runBaseline().cell)}</strong>.`;
+  }
+}
+
+// ── 5. decomposition ───────────────────────────────────────────────────
+function drawDecomp() {
+  const size = document.querySelector('input[name=decomp-size]:checked').value;
+  const cells = ['overlap', 'rote_control'];
+  const opt = cells.map(c => DATA.ensemble[size][c].decomposition.tension_index.var_optimization || 0);
+  const boot = cells.map(c => DATA.ensemble[size][c].decomposition.tension_index.var_epistemic_boot || 0);
+  const traces = [
+    { x: cells.map(prettyCell), y: opt, type: 'bar', name: 'seed luck (optimizer)', marker: { color: '#7f7f7f' } },
+    { x: cells.map(prettyCell), y: boot, type: 'bar', name: 'corpus luck (data draw)', marker: { color: '#d62728' } },
+  ];
+  Plotly.react('decomp-plot', traces, {
+    barmode: 'stack', margin: { l: 65, r: 20, t: 10, b: 40 },
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#fff',
+    yaxis: { title: 'variance of P10 tension reading' }, legend: { orientation: 'h', y: -0.18 },
+  }, { displayModeBar: false, responsive: true });
+}
+
+// ── 7. edge sweep ──────────────────────────────────────────────────────
+function drawEdge() {
+  const size = document.querySelector('input[name=edge-size]:checked').value;
+  const traces = [];
+  [['overlap', '#1f77b4'], ['rote_control', '#d62728']].forEach(([cell, color]) => {
+    const rows = DATA.edge[size][cell];
+    if (!rows) return;
+    traces.push({ x: rows.map(r => r.edge), y: rows.map(r => r.tension_frac),
+      mode: 'lines+markers', name: prettyCell(cell), line: { color, width: 2 }, marker: { color, size: 8 } });
+  });
+  Plotly.react('edge-plot', traces, {
+    margin: { l: 60, r: 20, t: 10, b: 50 }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#fff',
+    xaxis: { title: 'p10_edge (lower = more dwarf-like)' },
+    yaxis: { title: 'fraction of runs classified TENSION', range: [-0.03,1.03] },
+    legend: { orientation: 'h', y: -0.2 },
+  }, { displayModeBar: false, responsive: true });
+}
+
+// ── 8. baselines ───────────────────────────────────────────────────────
 function drawBaselines() {
   const enabled = new Set();
   document.querySelectorAll('input[name=bl]:checked').forEach(el => enabled.add(el.value));
   const showSmall = document.getElementById('bl-small').checked;
   const showLarge = document.getElementById('bl-large').checked;
   const traces = [];
-  const baselineLabels = {
-    logreg: 'logistic regression', gnb: 'Gaussian naive Bayes',
-    knn3: 'k-NN (k=3)', bayes: 'Bayes posterior (by hand)',
-  };
-  for (const name of ['logreg', 'gnb', 'knn3', 'bayes']) {
+  const labels = { logreg: 'logistic regression', gnb: 'Gaussian naive Bayes', knn3: 'k-NN (k=3)', bayes: 'Bayes posterior' };
+  for (const name of ['logreg','gnb','knn3','bayes']) {
     if (!enabled.has(name)) continue;
-    const rows = DATA.baselines[name];
-    if (!rows) continue;
-    traces.push({
-      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
-      mode: 'lines+markers', name: `${baselineLabels[name]}: P(planet)`,
-      line: { color: colors[name], width: 2 },
-      marker: { color: colors[name], size: 8 },
-    });
-    traces.push({
-      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
-      mode: 'lines+markers', name: `${baselineLabels[name]}: P(dwarf)`,
-      line: { color: colors[name], width: 2, dash: 'dash' },
-      marker: { color: colors[name], size: 8, symbol: 'square' },
-    });
+    const rows = DATA.baselines[name]; if (!rows) continue;
+    traces.push({ x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
+      mode: 'lines+markers', name: `${labels[name]}: P(planet)`, line: { color: colors[name], width: 2 }, marker: { color: colors[name], size: 8 } });
+    traces.push({ x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
+      mode: 'lines+markers', name: `${labels[name]}: P(dwarf)`, line: { color: colors[name], width: 2, dash: 'dash' }, marker: { color: colors[name], size: 8, symbol: 'square' } });
   }
   for (const [key, label, on] of [
-    ['d32l4_curriculum', 'transformer small (50K) cur', showSmall],
-    ['d64l6_curriculum', 'transformer large (200K) cur', showLarge],
+    ['d32l4_curriculum', 'transformer small cur', showSmall],
+    ['d64l6_curriculum', 'transformer large cur', showLarge],
   ]) {
     if (!on) continue;
-    const rows = DATA.transformer[key];
-    if (!rows) continue;
-    const c = (key.startsWith('d32')) ? colors.small_curriculum : colors.large_curriculum;
-    traces.push({
-      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
+    const rows = DATA.transformer[key]; if (!rows) continue;
+    const c = key.startsWith('d32') ? colors.small_curriculum : colors.large_curriculum;
+    traces.push({ x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_planet),
       error_y: { type: 'data', array: rows.map(r => r.P_planet_se), thickness: 1.2 },
-      mode: 'lines+markers', name: `${label}: P(planet)`,
-      line: { color: c, width: 2.4 },
-      marker: { color: c, size: 9, symbol: 'star' },
-    });
-    traces.push({
-      x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
+      mode: 'lines+markers', name: `${label}: P(planet)`, line: { color: c, width: 2.4 }, marker: { color: c, size: 9, symbol: 'star' } });
+    traces.push({ x: rows.map(r => r.n_eris_rote), y: rows.map(r => r.P_dwarf),
       error_y: { type: 'data', array: rows.map(r => r.P_dwarf_se), thickness: 1.2 },
-      mode: 'lines+markers', name: `${label}: P(dwarf)`,
-      line: { color: c, width: 2.4, dash: 'dash' },
-      marker: { color: c, size: 9, symbol: 'star' },
-    });
+      mode: 'lines+markers', name: `${label}: P(dwarf)`, line: { color: c, width: 2.4, dash: 'dash' }, marker: { color: c, size: 9, symbol: 'star' } });
   }
   Plotly.react('baseline-plot', traces, {
-    margin: { l: 60, r: 30, t: 20, b: 100 },
-    paper_bgcolor: 'rgba(0,0,0,0)',
-    plot_bgcolor: '#fff',
-    xaxis: { title: 'corner-mix (n_eris_rote, out of 6)', tickvals: [0, 2, 4, 6], range: [-0.3, 6.3] },
-    yaxis: { title: 'probability', range: [-0.05, 1.05] },
+    margin: { l: 60, r: 30, t: 20, b: 100 }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#fff',
+    xaxis: { title: 'corner-mix (dwarfs in the disjoint corner, of 6)', tickvals: [0,2,4,6], range: [-0.3,6.3] },
+    yaxis: { title: 'probability', range: [-0.05,1.05] },
     legend: { orientation: 'h', y: -0.22, font: { size: 10 } },
   }, { responsive: true });
 }
 
-// ── wire up controls ───────────────────────────────────────────────────
-function updateWorldCaption(n) {
-  const overlap = 6 - n;
-  const cap = document.getElementById('world-caption');
-  let summary;
-  if (n === 0) {
-    summary = `<strong>All 6 dwarfs sit on top of P10</strong> (mass=small, diameter=large, orbit=distant). Hover the cloud at the pink star &mdash; it contains P10 plus six red diamonds at the same nominal position.`;
-  } else if (n === 6) {
-    summary = `<strong>All 6 dwarfs sit in the disjoint corner</strong> (mass=huge, diameter=tiny, orbit=near). The cloud at the far corner contains six red diamonds; nothing is near P10 anymore.`;
-  } else {
-    summary = `<strong>${n} of 6 dwarfs in the disjoint corner; ${overlap} of 6 in P10's neighborhood.</strong> You should see <strong>${overlap}</strong> red diamond${overlap===1?'':'s'} clustered with P10, and <strong>${n}</strong> red diamond${n===1?'':'s'} at the far corner.`;
-  }
-  cap.innerHTML = summary;
-}
+// ── wire up ────────────────────────────────────────────────────────────
 function init() {
-  document.querySelectorAll('input[name=world-mix]').forEach(el => {
-    el.addEventListener('change', () => {
-      const n = parseInt(el.value);
-      drawWorld(n);
-      updateWorldCaption(n);
-    });
+  document.querySelectorAll('input[name=world-mix]').forEach(el =>
+    el.addEventListener('change', () => { const n = parseInt(el.value); drawWorld(n); updateWorldCaption(n); }));
+  drawWorld(0); updateWorldCaption(0);
+
+  document.getElementById('run-one').addEventListener('click', () => {
+    if (runState.shown < runDraws().length) runState.shown++; drawRunScatter();
   });
-  drawWorld(0);
-  updateWorldCaption(0);
+  document.getElementById('run-twenty').addEventListener('click', () => { runState.shown = runDraws().length; drawRunScatter(); });
+  document.getElementById('run-reset').addEventListener('click', () => { runState.shown = 0; drawRunScatter(); });
+  document.querySelectorAll('input[name=run-size]').forEach(el =>
+    el.addEventListener('change', () => { runState.size = el.value; runState.shown = 0; drawRunScatter(); }));
+  drawRunScatter();
 
-  document.querySelectorAll('input[name=sweep-size]').forEach(el =>
-    el.addEventListener('change', drawSweep));
-  document.getElementById('sweep-curriculum').addEventListener('change', drawSweep);
-  document.getElementById('sweep-mixed').addEventListener('change', drawSweep);
-  drawSweep();
+  document.querySelectorAll('input[name=decomp-size]').forEach(el => el.addEventListener('change', drawDecomp));
+  drawDecomp();
 
-  document.querySelectorAll('input[name=bl]').forEach(el =>
-    el.addEventListener('change', drawBaselines));
+  document.querySelectorAll('input[name=edge-size]').forEach(el => el.addEventListener('change', drawEdge));
+  drawEdge();
+
+  document.querySelectorAll('input[name=bl]').forEach(el => el.addEventListener('change', drawBaselines));
   document.getElementById('bl-small').addEventListener('change', drawBaselines);
   document.getElementById('bl-large').addEventListener('change', drawBaselines);
   drawBaselines();

@@ -14,7 +14,7 @@ conflicts with newly-introduced evidence.
 This is also a teaching artifact (Colab tutorial in `tutorial.ipynb`). Keep
 files short, operations visible, end-to-end runs under ~25 min on CPU/MPS.
 
-## Current focus (as of 2026-05-06)
+## Current focus (as of 2026-05-22)
 
 **Tension vs. rote distinction.** The April 28 three-probe writeup
 (`results/three-probes-2026-04-28.md`) hangs on probe disagreement and on a
@@ -35,6 +35,19 @@ The plan for adding this distinction is in
 3. Promoting the prototype-edge slider to the main sweep axis.
 
 **Pick up there.** Estimated 1–2 days for the full sweep + writeup.
+
+**Update (2026-05-22) — ensemble uncertainty.** The tension-vs-rote sweep shipped
+(May 7). A bootstrap-and-retrain follow-up, ported from `_RCDS/unstructured/`, now
+puts error bars on P10's tension and decomposes them into corpus-draw (epistemic)
+and init-seed (optimization) variance: see `ensemble_tension.py`,
+`plot_ensemble.py`, and `results/ensemble-uncertainty-2026-05-22.md`. Headline
+(B=20): the single-run sweep cells are *unrepresentative* (the overlap baseline
+reads canon, the ensemble mode is swap), the tension-vs-rote dissociation does
+*not* survive resampling at d32l4/edge1.0/curriculum (rote-control shows more
+tension than overlap), and the canon/mixed cell is a tight positive control.
+Strain at the prototype edge is bistable: it lives in the variance across runs.
+**Next:** sweep `--p10-edge` under `ensemble_tension.py` to test whether a
+robustly-positive TENSION cell exists anywhere in (edge, schedule, size) space.
 
 ## Repository state
 
@@ -61,6 +74,8 @@ The plan for adding this distinction is in
 | `plot_tension.py` | Three figures from `tension_summary.json`: cell-classification grid, prototype-edge curve, corner-mix curve. |
 | `baseline_classifier.py` | Traditional statistical baselines (logistic regression, Gaussian naive Bayes, k-NN, hand-derived Bayes posterior) on the same labeled feature data the transformer trains on. May 7 follow-up addition. |
 | `plot_baselines.py` | Comparison figure: baseline P(planet)/P(dwarf) vs transformer means across the corner-mix axis. |
+| `ensemble_tension.py` | **Bootstrap-and-retrain uncertainty.** Per headline cell, runs three B-sized ensembles — parametric MC (regen corpus per seed, own-world probe), nonparametric bootstrap (resample the realized corpus at statement-pair level, fixed seed-0 probe), optimization (fixed corpus, vary init) — then decomposes `Var_total = Var_epistemic(corpus) + Var_optimization(init)` on P10's tension. Ported from `_RCDS/unstructured/`'s epistemic-uncertainty move. May 22 addition. |
+| `plot_ensemble.py` | Three-panel figure from `ensemble_summary.json`: dual-label forest plot with percentile intervals, variance decomposition (optimization vs epistemic), and classification-vote composition. |
 | `build_site.py` | Render `docs/index.html` from `docs/template.html` by embedding the latest sweep summary + baseline values + entity tables as inline JSON. Re-run after any change to the sweep data. |
 | `docs/template.html` | Source for the interactive walkthrough (single self-contained page with Plotly.js plots). The string `/* __DATA__ */` is replaced with embedded JSON at build time. |
 | `build_tutorial_tension.py` | Render `tutorial-tension.ipynb` (the v2 follow-up notebook) from a Python cell-list. Re-run after editing the notebook structure. |

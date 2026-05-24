@@ -1,0 +1,2225 @@
+{
+  "overlap__e0.50": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 0,
+      "label": "overlap (curriculum, r0/6)"
+    },
+    "label": "overlap (curriculum, r0/6)",
+    "p10_edge": 0.5,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.34449276328086853,
+      "P_dwarf": 0.06120184808969498,
+      "tension_index": 0.062165493090344484,
+      "cell": "nothing",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.00033932289807125926,
+            "P_dwarf": 0.9258994460105896,
+            "tension_index": 0.015734917085425154,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.00020173458324279636,
+            "P_dwarf": 0.8995531797409058,
+            "tension_index": 0.016261922467507028,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.025338314473628998,
+            "P_dwarf": 0.7835922241210938,
+            "tension_index": 0.20610178311145494,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.6330665349960327,
+            "P_dwarf": 0.3090570271015167,
+            "tension_index": 0.3179430270669947,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.9199247360229492,
+            "P_dwarf": 0.02074769139289856,
+            "tension_index": 0.021170890493128966,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.28457656502723694,
+            "P_dwarf": 0.45701324939727783,
+            "tension_index": 0.479211022461639,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.046466678380966187,
+            "P_dwarf": 0.8663626313209534,
+            "tension_index": 0.47686245855310727,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.05222057178616524,
+            "P_dwarf": 0.5130733251571655,
+            "tension_index": 0.30222419150261265,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.9163545370101929,
+            "P_dwarf": 0.009738795459270477,
+            "tension_index": 0.0103815097513515,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.1200646311044693,
+            "P_dwarf": 0.7488377094268799,
+            "tension_index": 0.17558644413719737,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.0069512901827692986,
+            "P_dwarf": 0.9285051822662354,
+            "tension_index": 0.05238083029179557,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.014695350080728531,
+            "P_dwarf": 0.8518597483634949,
+            "tension_index": 0.03410289936116722,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 6.79146614857018e-05,
+            "P_dwarf": 0.9245260953903198,
+            "tension_index": 0.022421907510735705,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.12008305639028549,
+            "P_dwarf": 0.8132005929946899,
+            "tension_index": 0.7610342555713915,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.004602049943059683,
+            "P_dwarf": 0.8989033102989197,
+            "tension_index": 0.0518182970971585,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.08139969408512115,
+            "P_dwarf": 0.8063660264015198,
+            "tension_index": 0.5516075224530635,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.007509398274123669,
+            "P_dwarf": 0.6784610152244568,
+            "tension_index": 0.04176908419949866,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.20255465805530548,
+            "P_dwarf": 0.6660559177398682,
+            "tension_index": 0.6975361064705724,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.002094389870762825,
+            "P_dwarf": 0.9364776611328125,
+            "tension_index": 0.35738827050448085,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.03427770361304283,
+            "P_dwarf": 0.8885997533798218,
+            "tension_index": 0.27822312643556796,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.24348802332629252,
+          "sd": 0.23686397439908233,
+          "ci_lo": 0.012924378235036485,
+          "ci_hi": 0.7308726347485023,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.17363945657198201,
+          "sd": 0.28707579807395983,
+          "ci_lo": 0.00013147912432032172,
+          "ci_hi": 0.9182288914918899,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.6963415291160345,
+          "sd": 0.28238136548451226,
+          "ci_lo": 0.014968021027743816,
+          "ci_hi": 0.9326907336711884,
+          "n": 20
+        },
+        "cell_votes": {
+          "nothing": 15,
+          "canon": 5
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "swap_abs": 13,
+          "tension_abs": 5,
+          "canon_abs": 2
+        },
+        "tension_abs_frac": 0.25
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.05610454236812913
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.08241251383980096
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.0797392355728977
+      }
+    }
+  },
+  "rote_control__e0.50": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 6,
+      "label": "rote-control (curriculum, r6/6)"
+    },
+    "label": "rote-control (curriculum, r6/6)",
+    "p10_edge": 0.5,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.9732120633125305,
+      "P_dwarf": 0.0031115629244595766,
+      "tension_index": 0.003175899570730605,
+      "cell": "canon",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.008077354170382023,
+            "P_dwarf": 0.7508057355880737,
+            "tension_index": 0.059332785899634484,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.0019828989170491695,
+            "P_dwarf": 0.6007089018821716,
+            "tension_index": 0.037644533922289294,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.02593475952744484,
+            "P_dwarf": 0.8450937867164612,
+            "tension_index": 0.2197495965042654,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.8479025959968567,
+            "P_dwarf": 0.0957331582903862,
+            "tension_index": 0.0984998065127027,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.9160720109939575,
+            "P_dwarf": 0.0015387427993118763,
+            "tension_index": 0.001564518006530078,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.5589972734451294,
+            "P_dwarf": 0.19131748378276825,
+            "tension_index": 0.2001377636792756,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.39391544461250305,
+            "P_dwarf": 0.2675536572933197,
+            "tension_index": 0.28245187331281335,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.005180005915462971,
+            "P_dwarf": 0.8762132525444031,
+            "tension_index": 0.03565766440306325,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.9971103668212891,
+            "P_dwarf": 0.00010412985284347087,
+            "tension_index": 0.00011093057311067511,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.5051299333572388,
+            "P_dwarf": 0.2808842062950134,
+            "tension_index": 0.30214100087340584,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.036306899040937424,
+            "P_dwarf": 0.6948650479316711,
+            "tension_index": 0.24045238262069416,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.1602228581905365,
+            "P_dwarf": 0.5000826120376587,
+            "tension_index": 0.24975155851792688,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.7686425447463989,
+            "P_dwarf": 0.049527548253536224,
+            "tension_index": 0.051942187704937026,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.6842430233955383,
+            "P_dwarf": 0.06342080980539322,
+            "tension_index": 0.06506358026127217,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.07111445814371109,
+            "P_dwarf": 0.6412701606750488,
+            "tension_index": 0.44035172615108287,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.7025942802429199,
+            "P_dwarf": 0.12404942512512207,
+            "tension_index": 0.12974857228840656,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.007677856832742691,
+            "P_dwarf": 0.650082528591156,
+            "tension_index": 0.09563761024426536,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.3550456464290619,
+            "P_dwarf": 0.5108062028884888,
+            "tension_index": 0.531695709131338,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.008443815633654594,
+            "P_dwarf": 0.8393301367759705,
+            "tension_index": 0.19805793780191658,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.7424149513244629,
+            "P_dwarf": 0.06656817346811295,
+            "tension_index": 0.0696564621733504,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.16548241002911404,
+          "sd": 0.14167444352261876,
+          "ci_lo": 0.0008013846039848913,
+          "ci_hi": 0.4883073172157167,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.3898504488868639,
+          "sd": 0.3534341249092736,
+          "ci_lo": 0.003501524741295725,
+          "ci_hi": 0.9586171478033064,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.40249778502984557,
+          "sd": 0.3099275999364764,
+          "ci_lo": 0.0007855710024159635,
+          "ci_hi": 0.8614315062761306,
+          "n": 20
+        },
+        "cell_votes": {
+          "nothing": 9,
+          "canon": 11
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "swap_abs": 8,
+          "canon_abs": 6,
+          "tension_abs": 6
+        },
+        "tension_abs_frac": 0.3
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.020071647947443694
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.12491568065038403
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.09605511720238456
+      }
+    }
+  },
+  "overlap__e1.00": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 0,
+      "label": "overlap (curriculum, r0/6)"
+    },
+    "label": "overlap (curriculum, r0/6)",
+    "p10_edge": 1.0,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.4842216372489929,
+      "P_dwarf": 0.19400577247142792,
+      "tension_index": 0.1975357282836685,
+      "cell": "canon",
+      "abs_cell": "tension_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.01977691799402237,
+            "P_dwarf": 0.7083728313446045,
+            "tension_index": 0.05954974866949268,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.00017136803944595158,
+            "P_dwarf": 0.8628868460655212,
+            "tension_index": 0.018458405679120365,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.00037825823528692126,
+            "P_dwarf": 0.923885703086853,
+            "tension_index": 0.002626227346931733,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.05025375261902809,
+            "P_dwarf": 0.730177104473114,
+            "tension_index": 0.762186593967982,
+            "cell": "canon",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.8215139508247375,
+            "P_dwarf": 0.03560810536146164,
+            "tension_index": 0.0364564975682787,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.23790690302848816,
+            "P_dwarf": 0.642500638961792,
+            "tension_index": 0.6764038434476387,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.030894948169589043,
+            "P_dwarf": 0.8922498822212219,
+            "tension_index": 0.5203904863447995,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.007928434759378433,
+            "P_dwarf": 0.78574538230896,
+            "tension_index": 0.1963629535157678,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.850457489490509,
+            "P_dwarf": 0.0347745344042778,
+            "tension_index": 0.03726048595317315,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.20427025854587555,
+            "P_dwarf": 0.6223466396331787,
+            "tension_index": 0.3105314618807532,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.05159001424908638,
+            "P_dwarf": 0.8563949465751648,
+            "tension_index": 0.09146887212678008,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.027601659297943115,
+            "P_dwarf": 0.7849214673042297,
+            "tension_index": 0.06326154630789661,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.00023319975298363715,
+            "P_dwarf": 0.4882044494152069,
+            "tension_index": 0.0008891042753980089,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.010231459513306618,
+            "P_dwarf": 0.9188616871833801,
+            "tension_index": 0.0534744820698454,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.007867712527513504,
+            "P_dwarf": 0.8482481241226196,
+            "tension_index": 0.08428636477940006,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.4345005750656128,
+            "P_dwarf": 0.26525476574897766,
+            "tension_index": 0.27536263207639095,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.028462003916502,
+            "P_dwarf": 0.6578649282455444,
+            "tension_index": 0.1535297989297346,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.2343084067106247,
+            "P_dwarf": 0.6930461525917053,
+            "tension_index": 0.7231343164674042,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.00031760847195982933,
+            "P_dwarf": 0.9351558685302734,
+            "tension_index": 0.01389003490272928,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.0684475526213646,
+            "P_dwarf": 0.8394352197647095,
+            "tension_index": 0.8774984983616468,
+            "cell": "canon",
+            "abs_cell": "swap_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.2478511177335582,
+          "sd": 0.28610326254024426,
+          "ci_lo": 0.0017142377343765279,
+          "ci_hi": 0.8227253437746559,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.15435562369166292,
+          "sd": 0.2526545589779146,
+          "ci_lo": 0.00020073810337635224,
+          "ci_hi": 0.8367093086242675,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.6762967638671398,
+          "sd": 0.2660793849171253,
+          "ci_lo": 0.035170480608940125,
+          "ci_hi": 0.9298025399446487,
+          "n": 20
+        },
+        "cell_votes": {
+          "nothing": 13,
+          "canon": 7
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "swap_abs": 14,
+          "canon_abs": 2,
+          "tension_abs": 4
+        },
+        "tension_abs_frac": 0.2
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.08185507683617194
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.06383432617232453
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.07079823907787572
+      }
+    }
+  },
+  "rote_control__e1.00": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 6,
+      "label": "rote-control (curriculum, r6/6)"
+    },
+    "label": "rote-control (curriculum, r6/6)",
+    "p10_edge": 1.0,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.9865743517875671,
+      "P_dwarf": 0.003705465467646718,
+      "tension_index": 0.0037684554325825618,
+      "cell": "canon",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.19973626732826233,
+            "P_dwarf": 0.4602356255054474,
+            "tension_index": 0.28666407000075717,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.002820223104208708,
+            "P_dwarf": 0.8906619548797607,
+            "tension_index": 0.034770361182853086,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.0937415212392807,
+            "P_dwarf": 0.7972712516784668,
+            "tension_index": 0.3711698471170391,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.9527664184570312,
+            "P_dwarf": 0.013052649796009064,
+            "tension_index": 0.013634494627232544,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.9444714188575745,
+            "P_dwarf": 0.0007407621596939862,
+            "tension_index": 0.0007581977539163603,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.7706584334373474,
+            "P_dwarf": 0.17742086946964264,
+            "tension_index": 0.1849910347381477,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.24805529415607452,
+            "P_dwarf": 0.36282283067703247,
+            "tension_index": 0.38300135222982773,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.10356069356203079,
+            "P_dwarf": 0.05724431201815605,
+            "tension_index": 0.05870645088900095,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.9978668093681335,
+            "P_dwarf": 0.0002844428236130625,
+            "tension_index": 0.00030562028617238754,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.8188092112541199,
+            "P_dwarf": 0.04198458045721054,
+            "tension_index": 0.046013797507964437,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.7913281917572021,
+            "P_dwarf": 0.12653028964996338,
+            "tension_index": 0.13893818337107552,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.07677871733903885,
+            "P_dwarf": 0.5693491101264954,
+            "tension_index": 0.13148363184066764,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.6539393663406372,
+            "P_dwarf": 0.19080603122711182,
+            "tension_index": 0.20350647941000963,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.1832788735628128,
+            "P_dwarf": 0.09830965846776962,
+            "tension_index": 0.1015155730189357,
+            "cell": "nothing",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.09258875250816345,
+            "P_dwarf": 0.6059545874595642,
+            "tension_index": 0.5704529704756965,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.5572799444198608,
+            "P_dwarf": 0.21897362172603607,
+            "tension_index": 0.22841679533384496,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.011430330574512482,
+            "P_dwarf": 0.7381634712219238,
+            "tension_index": 0.2871957088808835,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.2669932246208191,
+            "P_dwarf": 0.6442375183105469,
+            "tension_index": 0.6697204339622492,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.02623852714896202,
+            "P_dwarf": 0.8383459448814392,
+            "tension_index": 0.21630151583575571,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.22478848695755005,
+            "P_dwarf": 0.6161640882492065,
+            "tension_index": 0.6429790627597725,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.2285262790610901,
+          "sd": 0.20253978177952933,
+          "ci_lo": 0.0005205945833507746,
+          "ci_hi": 0.6570182826410728,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.4008565352996811,
+          "sd": 0.3537095790481981,
+          "ci_lo": 0.006910024152603,
+          "ci_hi": 0.9764441236853599,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.37242768003925447,
+          "sd": 0.30649620793164795,
+          "ci_lo": 0.0005011945082515013,
+          "ci_hi": 0.865811850130558,
+          "n": 20
+        },
+        "cell_votes": {
+          "nothing": 10,
+          "canon": 10
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "tension_abs": 8,
+          "swap_abs": 6,
+          "canon_abs": 6
+        },
+        "tension_abs_frac": 0.4
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.04102236320329936
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.1251104663104535
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.09393992547647997
+      }
+    }
+  },
+  "overlap__e1.50": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 0,
+      "label": "overlap (curriculum, r0/6)"
+    },
+    "label": "overlap (curriculum, r0/6)",
+    "p10_edge": 1.5,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.8321837782859802,
+      "P_dwarf": 0.09429818391799927,
+      "tension_index": 0.09556979091839524,
+      "cell": "canon",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.027916550636291504,
+            "P_dwarf": 0.7443569302558899,
+            "tension_index": 0.06658876317464903,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.0009202776709571481,
+            "P_dwarf": 0.8468385338783264,
+            "tension_index": 0.04152512479773779,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.0008840920054353774,
+            "P_dwarf": 0.917973518371582,
+            "tension_index": 0.002831366325551828,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.3401709198951721,
+            "P_dwarf": 0.42882299423217773,
+            "tension_index": 0.450530039982539,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.021578781306743622,
+            "P_dwarf": 0.2946873605251312,
+            "tension_index": 0.2775188327067407,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.06438522040843964,
+            "P_dwarf": 0.852988064289093,
+            "tension_index": 0.472683706037885,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.07164619117975235,
+            "P_dwarf": 0.7814618349075317,
+            "tension_index": 0.17758720674053813,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.11146897077560425,
+            "P_dwarf": 0.5569155812263489,
+            "tension_index": 0.5706166392095436,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.8351902961730957,
+            "P_dwarf": 0.041246119886636734,
+            "tension_index": 0.04405218005863769,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.0017322627827525139,
+            "P_dwarf": 0.8886860609054565,
+            "tension_index": 0.014121282162167875,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.017217475920915604,
+            "P_dwarf": 0.9063720107078552,
+            "tension_index": 0.04783712479180138,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.19134274125099182,
+            "P_dwarf": 0.6018168926239014,
+            "tension_index": 0.27448842666211287,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.0004974300973117352,
+            "P_dwarf": 0.6069456934928894,
+            "tension_index": 0.0017994663775623455,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.002474525710567832,
+            "P_dwarf": 0.9399110078811646,
+            "tension_index": 0.015037172078066862,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.05158384516835213,
+            "P_dwarf": 0.39660829305648804,
+            "tension_index": 0.41542914270976494,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.5011709928512573,
+            "P_dwarf": 0.23260381817817688,
+            "tension_index": 0.2393032794882157,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.7849442958831787,
+            "P_dwarf": 0.1162620335817337,
+            "tension_index": 0.12215197038743832,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.17168079316616058,
+            "P_dwarf": 0.7288661599159241,
+            "tension_index": 0.24772875928221755,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.00804211013019085,
+            "P_dwarf": 0.9313740730285645,
+            "tension_index": 0.521947753484117,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.02639198862016201,
+            "P_dwarf": 0.9024993777275085,
+            "tension_index": 0.8357938727694272,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.24197860546133576,
+          "sd": 0.22943174936699823,
+          "ci_lo": 0.0022896188528573496,
+          "ci_hi": 0.7098346868284822,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.16156198808166664,
+          "sd": 0.2501287974518822,
+          "ci_lo": 0.0006810945036704652,
+          "ci_hi": 0.8113234460353851,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.6358618179336191,
+          "sd": 0.2838777050549744,
+          "ci_lo": 0.0768786788918078,
+          "ci_hi": 0.9358559638261795,
+          "n": 20
+        },
+        "cell_votes": {
+          "nothing": 16,
+          "canon": 4
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "swap_abs": 13,
+          "tension_abs": 6,
+          "canon_abs": 1
+        },
+        "tension_abs_frac": 0.3
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.05263892761760109
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.06256441531472472
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.08058655142727904
+      }
+    }
+  },
+  "rote_control__e1.50": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 6,
+      "label": "rote-control (curriculum, r6/6)"
+    },
+    "label": "rote-control (curriculum, r6/6)",
+    "p10_edge": 1.5,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.9912386536598206,
+      "P_dwarf": 0.002087856875732541,
+      "tension_index": 0.0021304158834872275,
+      "cell": "canon",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.21099957823753357,
+            "P_dwarf": 0.5404145121574402,
+            "tension_index": 0.29580999168075095,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.000902799831237644,
+            "P_dwarf": 0.8265613913536072,
+            "tension_index": 0.1132789296273163,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.1535545438528061,
+            "P_dwarf": 0.7494661808013916,
+            "tension_index": 0.6201644408382059,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.9657698273658752,
+            "P_dwarf": 0.007004881277680397,
+            "tension_index": 0.00733600670017382,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.34078916907310486,
+            "P_dwarf": 0.0019411043031141162,
+            "tension_index": 0.001996025969129671,
+            "cell": "nothing",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.901421070098877,
+            "P_dwarf": 0.06578971445560455,
+            "tension_index": 0.0690606976902818,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.41857507824897766,
+            "P_dwarf": 0.19109851121902466,
+            "tension_index": 0.19816970392450434,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.025389330461621284,
+            "P_dwarf": 0.047426775097846985,
+            "tension_index": 0.04882308393467266,
+            "cell": "nothing",
+            "abs_cell": "nothing_abs"
+          },
+          {
+            "P_planet": 0.9943576455116272,
+            "P_dwarf": 0.0018734470941126347,
+            "tension_index": 0.002010787184369591,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.017115110531449318,
+            "P_dwarf": 0.8495003581047058,
+            "tension_index": 0.10780739222460227,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.7319117188453674,
+            "P_dwarf": 0.20274195075035095,
+            "tension_index": 0.21928834450783782,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.3220771849155426,
+            "P_dwarf": 0.39113280177116394,
+            "tension_index": 0.43237267611001823,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.4080407917499542,
+            "P_dwarf": 0.13171331584453583,
+            "tension_index": 0.14070027528263862,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.09592141956090927,
+            "P_dwarf": 0.08724205195903778,
+            "tension_index": 0.09007028919856265,
+            "cell": "nothing",
+            "abs_cell": "nothing_abs"
+          },
+          {
+            "P_planet": 0.1592843234539032,
+            "P_dwarf": 0.4613482356071472,
+            "tension_index": 0.48253572483219903,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.04453448951244354,
+            "P_dwarf": 0.07628590613603592,
+            "tension_index": 0.0783205590870767,
+            "cell": "nothing",
+            "abs_cell": "nothing_abs"
+          },
+          {
+            "P_planet": 0.46582746505737305,
+            "P_dwarf": 0.17927709221839905,
+            "tension_index": 0.18829009544444555,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.14392618834972382,
+            "P_dwarf": 0.7424888014793396,
+            "tension_index": 0.3539616873431088,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.3480989634990692,
+            "P_dwarf": 0.13104590773582458,
+            "tension_index": 0.1352505885863179,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.3488685190677643,
+            "P_dwarf": 0.5468790531158447,
+            "tension_index": 0.5661909406393645,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.20757191204027886,
+          "sd": 0.18477698977682763,
+          "ci_lo": 0.002003037546368633,
+          "ci_hi": 0.5945270282437561,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.354868260861258,
+          "sd": 0.3081268344323293,
+          "ci_lo": 0.008603647413838188,
+          "ci_hi": 0.980778431892395,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.3115615996241104,
+          "sd": 0.291353055393964,
+          "ci_lo": 0.0019055842683883383,
+          "ci_hi": 0.8386043488979339,
+          "n": 20
+        },
+        "cell_votes": {
+          "nothing": 14,
+          "canon": 6
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "tension_abs": 11,
+          "swap_abs": 2,
+          "canon_abs": 4,
+          "nothing_abs": 3
+        },
+        "tension_abs_frac": 0.55
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.03414253595098586
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.09494214609728807
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.08488660288739826
+      }
+    }
+  },
+  "overlap__e2.00": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 0,
+      "label": "overlap (curriculum, r0/6)"
+    },
+    "label": "overlap (curriculum, r0/6)",
+    "p10_edge": 2.0,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.9798423647880554,
+      "P_dwarf": 0.0035247988998889923,
+      "tension_index": 0.0035899583405311,
+      "cell": "canon",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.009828093461692333,
+            "P_dwarf": 0.8476638793945312,
+            "tension_index": 0.8777562969396996,
+            "cell": "canon",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.005197413265705109,
+            "P_dwarf": 0.8124561905860901,
+            "tension_index": 0.057594843581957704,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.031574640423059464,
+            "P_dwarf": 0.8036709427833557,
+            "tension_index": 0.1506398962333309,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.08601513504981995,
+            "P_dwarf": 0.7791877388954163,
+            "tension_index": 0.6504496917370314,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.07617217302322388,
+            "P_dwarf": 0.18818913400173187,
+            "tension_index": 0.19387097456374836,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.03276917338371277,
+            "P_dwarf": 0.8526644110679626,
+            "tension_index": 0.21230664167855484,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.05413398891687393,
+            "P_dwarf": 0.8290786743164062,
+            "tension_index": 0.1417325384566646,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.0032534021884202957,
+            "P_dwarf": 0.8887249231338501,
+            "tension_index": 0.11089306813843257,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.7484189867973328,
+            "P_dwarf": 0.0019167728023603559,
+            "tension_index": 0.002018200450487102,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.0013774699764326215,
+            "P_dwarf": 0.9258394241333008,
+            "tension_index": 0.023301845262314342,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.45237091183662415,
+            "P_dwarf": 0.3316469192504883,
+            "tension_index": 0.3500892023677584,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.29709145426750183,
+            "P_dwarf": 0.48649799823760986,
+            "tension_index": 0.49172410270879685,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.014203302562236786,
+            "P_dwarf": 0.808268666267395,
+            "tension_index": 0.12629359719487937,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.034437187016010284,
+            "P_dwarf": 0.7869607210159302,
+            "tension_index": 0.265780117645669,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.04131689667701721,
+            "P_dwarf": 0.6084928512573242,
+            "tension_index": 0.6413980394592119,
+            "cell": "canon",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.4738147556781769,
+            "P_dwarf": 0.2520633637905121,
+            "tension_index": 0.25854721038032824,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.6375202536582947,
+            "P_dwarf": 0.17951548099517822,
+            "tension_index": 0.18801755753633043,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.13973742723464966,
+            "P_dwarf": 0.7310478091239929,
+            "tension_index": 0.6802812170272917,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.0040368493646383286,
+            "P_dwarf": 0.8888722062110901,
+            "tension_index": 0.7992443189437798,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.028967900201678276,
+            "P_dwarf": 0.9401811361312866,
+            "tension_index": 0.8891370561187467,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.3555538208212507,
+          "sd": 0.2883959244865059,
+          "ci_lo": 0.012127931736105041,
+          "ci_hi": 0.8837311955086993,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.15861187074915506,
+          "sd": 0.22612238041475055,
+          "ci_lo": 0.0022685377771267667,
+          "ci_hi": 0.6957420885562895,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.6471469621697906,
+          "sd": 0.28690235928795377,
+          "ci_lo": 0.08627615919394883,
+          "ci_hi": 0.9333688229322433,
+          "n": 20
+        },
+        "cell_votes": {
+          "canon": 6,
+          "nothing": 14
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "swap_abs": 14,
+          "canon_abs": 1,
+          "tension_abs": 5
+        },
+        "tension_abs_frac": 0.25
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.08317220926042643
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.051131330924433165
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.08231296376499411
+      }
+    }
+  },
+  "rote_control__e2.00": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 6,
+      "label": "rote-control (curriculum, r6/6)"
+    },
+    "label": "rote-control (curriculum, r6/6)",
+    "p10_edge": 2.0,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.9949511289596558,
+      "P_dwarf": 0.00032607789034955204,
+      "tension_index": 0.00033269794896068885,
+      "cell": "canon",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.1421860009431839,
+            "P_dwarf": 0.49703389406204224,
+            "tension_index": 0.5175101340843474,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.0005993616650812328,
+            "P_dwarf": 0.8214424252510071,
+            "tension_index": 0.07236498771771528,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.8749289512634277,
+            "P_dwarf": 0.08298861235380173,
+            "tension_index": 0.08731218072876408,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.7132450342178345,
+            "P_dwarf": 0.06446640193462372,
+            "tension_index": 0.06767621479599212,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.1136789545416832,
+            "P_dwarf": 0.0014524499420076609,
+            "tension_index": 0.0015041902650223186,
+            "cell": "nothing",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.17438921332359314,
+            "P_dwarf": 0.6881833076477051,
+            "tension_index": 0.3866156483685383,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.4424979090690613,
+            "P_dwarf": 0.2188083678483963,
+            "tension_index": 0.22744921172110316,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.019363785162568092,
+            "P_dwarf": 0.5925717353820801,
+            "tension_index": 0.6087215781716988,
+            "cell": "canon",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.9970809817314148,
+            "P_dwarf": 2.580570253485348e-05,
+            "tension_index": 2.7501806982140043e-05,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.023491645231842995,
+            "P_dwarf": 0.8450281620025635,
+            "tension_index": 0.12853356582557068,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.9184426665306091,
+            "P_dwarf": 0.02523747645318508,
+            "tension_index": 0.026438082773697625,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.19247284531593323,
+            "P_dwarf": 0.5400002002716064,
+            "tension_index": 0.42695667512934277,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.9924288392066956,
+            "P_dwarf": 0.0002000391250476241,
+            "tension_index": 0.0002118924511157284,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.16101202368736267,
+            "P_dwarf": 0.1519828736782074,
+            "tension_index": 0.15746264197546234,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.2948201596736908,
+            "P_dwarf": 0.38826367259025574,
+            "tension_index": 0.40447041531095157,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.0662919208407402,
+            "P_dwarf": 0.0561625212430954,
+            "tension_index": 0.05755885986621481,
+            "cell": "nothing",
+            "abs_cell": "nothing_abs"
+          },
+          {
+            "P_planet": 0.5177680253982544,
+            "P_dwarf": 0.1985114961862564,
+            "tension_index": 0.2090495250123887,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.4742678701877594,
+            "P_dwarf": 0.43649622797966003,
+            "tension_index": 0.45834388879905424,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.23432935774326324,
+            "P_dwarf": 0.5120567679405212,
+            "tension_index": 0.5311376511004791,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.8004696369171143,
+            "P_dwarf": 0.13198323547840118,
+            "tension_index": 0.13643568521759056,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.22528902655610156,
+          "sd": 0.1984466526493572,
+          "ci_lo": 0.0001150873629455945,
+          "ci_hi": 0.5718692128128693,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.4076882591325557,
+          "sd": 0.34466578071202464,
+          "ci_lo": 0.00951246282638749,
+          "ci_hi": 0.9948712140321732,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.31264478365364995,
+          "sd": 0.2777952359875563,
+          "ci_lo": 0.00010856657822841952,
+          "ci_hi": 0.8338249370455741,
+          "n": 20
+        },
+        "cell_votes": {
+          "canon": 12,
+          "nothing": 8
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "tension_abs": 10,
+          "swap_abs": 3,
+          "canon_abs": 6,
+          "nothing_abs": 1
+        },
+        "tension_abs_frac": 0.5
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.03938107394773463
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.11879450039382945
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.07717019313738209
+      }
+    }
+  },
+  "overlap__e3.00": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 0,
+      "label": "overlap (curriculum, r0/6)"
+    },
+    "label": "overlap (curriculum, r0/6)",
+    "p10_edge": 3.0,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.8494077920913696,
+      "P_dwarf": 0.020021909847855568,
+      "tension_index": 0.020259059878447536,
+      "cell": "canon",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.008159955032169819,
+            "P_dwarf": 0.928246259689331,
+            "tension_index": 0.0439701858173488,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.0004572744364850223,
+            "P_dwarf": 0.8931889533996582,
+            "tension_index": 0.6670275526285424,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.371690958738327,
+            "P_dwarf": 0.5405029654502869,
+            "tension_index": 0.5679911771513304,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.9574680328369141,
+            "P_dwarf": 0.018790915608406067,
+            "tension_index": 0.01950525374758402,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.12053415179252625,
+            "P_dwarf": 0.058095160871744156,
+            "tension_index": 0.060100007102181115,
+            "cell": "nothing",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.15542615950107574,
+            "P_dwarf": 0.7254655361175537,
+            "tension_index": 0.38723975866187776,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.12677395343780518,
+            "P_dwarf": 0.42263489961624146,
+            "tension_index": 0.4538143838837226,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.4538683295249939,
+            "P_dwarf": 0.285623699426651,
+            "tension_index": 0.29321904630481027,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.9745126962661743,
+            "P_dwarf": 0.00619012676179409,
+            "tension_index": 0.0065142671970056815,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.10707211494445801,
+            "P_dwarf": 0.6065649390220642,
+            "tension_index": 0.20797371918139065,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.1681385189294815,
+            "P_dwarf": 0.7066532969474792,
+            "tension_index": 0.41024448039402805,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.1775854378938675,
+            "P_dwarf": 0.6877584457397461,
+            "tension_index": 0.44200051825994746,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.007991614751517773,
+            "P_dwarf": 0.8977283239364624,
+            "tension_index": 0.3096576089901533,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.09237780421972275,
+            "P_dwarf": 0.7479360699653625,
+            "tension_index": 0.3770663219830853,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.01932702399790287,
+            "P_dwarf": 0.7565973997116089,
+            "tension_index": 0.692257429360091,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.7022781372070312,
+            "P_dwarf": 0.18052703142166138,
+            "tension_index": 0.1848891491408732,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.3894570469856262,
+            "P_dwarf": 0.34857505559921265,
+            "tension_index": 0.3646476985050422,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.044298287481069565,
+            "P_dwarf": 0.8731881976127625,
+            "tension_index": 0.4001203175311908,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.0029982170090079308,
+            "P_dwarf": 0.9209381341934204,
+            "tension_index": 0.500201714452814,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.6849311590194702,
+            "P_dwarf": 0.2132004052400589,
+            "tension_index": 0.2221691457550424,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.3305304868024031,
+          "sd": 0.19766054757376184,
+          "ci_lo": 0.012684985808530391,
+          "ci_hi": 0.6802732379126054,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.27826734370028133,
+          "sd": 0.30926983430963567,
+          "ci_lo": 0.0016642221584334037,
+          "ci_hi": 0.9664164811372756,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.5409202908165753,
+          "sd": 0.3144942854649659,
+          "ci_lo": 0.012175501463934778,
+          "ci_hi": 0.9247749000787735,
+          "n": 20
+        },
+        "cell_votes": {
+          "nothing": 15,
+          "canon": 5
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "swap_abs": 7,
+          "tension_abs": 10,
+          "canon_abs": 3
+        },
+        "tension_abs_frac": 0.5
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.039069692067159364
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.09564783041390951
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.09890665559011945
+      }
+    }
+  },
+  "rote_control__e3.00": {
+    "spec": {
+      "mode": "dwarf",
+      "schedule": "curriculum",
+      "n_eris_rote": 6,
+      "label": "rote-control (curriculum, r6/6)"
+    },
+    "label": "rote-control (curriculum, r6/6)",
+    "p10_edge": 3.0,
+    "B": 20,
+    "init_seed": 0,
+    "base_seed": 0,
+    "baseline": {
+      "P_planet": 0.9602101445198059,
+      "P_dwarf": 0.005535618867725134,
+      "tension_index": 0.005620727044004489,
+      "cell": "canon",
+      "abs_cell": "canon_abs"
+    },
+    "ensembles": {
+      "parametric": {
+        "n_draws": 20,
+        "draws": [
+          {
+            "P_planet": 0.16623994708061218,
+            "P_dwarf": 0.7280387878417969,
+            "tension_index": 0.330636606167951,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.00013727741315960884,
+            "P_dwarf": 0.7955692410469055,
+            "tension_index": 0.016561471429920444,
+            "cell": "nothing",
+            "abs_cell": "swap_abs"
+          },
+          {
+            "P_planet": 0.9192448854446411,
+            "P_dwarf": 0.017384925857186317,
+            "tension_index": 0.018192191381023542,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.9993749260902405,
+            "P_dwarf": 3.106823351117782e-05,
+            "tension_index": 3.25175315237678e-05,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.116309255361557,
+            "P_dwarf": 0.0005839799414388835,
+            "tension_index": 0.0006038081378885625,
+            "cell": "nothing",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.3424626588821411,
+            "P_dwarf": 0.3960210382938385,
+            "tension_index": 0.41689942675823316,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.4971255660057068,
+            "P_dwarf": 0.05926818028092384,
+            "tension_index": 0.0632643158589023,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.9616541266441345,
+            "P_dwarf": 0.010950231924653053,
+            "tension_index": 0.011219472115581133,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.9887929558753967,
+            "P_dwarf": 0.00032752015977166593,
+            "tension_index": 0.00034311999316690366,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.03521916642785072,
+            "P_dwarf": 0.033793505281209946,
+            "tension_index": 0.03772004057997966,
+            "cell": "nothing",
+            "abs_cell": "nothing_abs"
+          },
+          {
+            "P_planet": 0.897308349609375,
+            "P_dwarf": 0.039421629160642624,
+            "tension_index": 0.041703786484694354,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.6919325590133667,
+            "P_dwarf": 0.2053396999835968,
+            "tension_index": 0.21722388556682365,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.9903247356414795,
+            "P_dwarf": 0.0003002649755217135,
+            "tension_index": 0.000314273126889442,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.28294169902801514,
+            "P_dwarf": 0.43399375677108765,
+            "tension_index": 0.446031409152221,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.20343764126300812,
+            "P_dwarf": 0.14972345530986786,
+            "tension_index": 0.1571860904710669,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.722228467464447,
+            "P_dwarf": 0.1711011826992035,
+            "tension_index": 0.17473449908400482,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.20151735842227936,
+            "P_dwarf": 0.4931286871433258,
+            "tension_index": 0.5222677519997116,
+            "cell": "nothing",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.2293078452348709,
+            "P_dwarf": 0.4527445137500763,
+            "tension_index": 0.47452165773259664,
+            "cell": "canon",
+            "abs_cell": "tension_abs"
+          },
+          {
+            "P_planet": 0.8419368267059326,
+            "P_dwarf": 0.07942654192447662,
+            "tension_index": 0.0824689987828399,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          },
+          {
+            "P_planet": 0.7641705274581909,
+            "P_dwarf": 0.012754096649587154,
+            "tension_index": 0.013322860730513463,
+            "cell": "canon",
+            "abs_cell": "canon_abs"
+          }
+        ],
+        "tension_index": {
+          "mean": 0.15126240915427663,
+          "sd": 0.1788432744231103,
+          "ci_lo": 0.00016635143932246303,
+          "ci_hi": 0.49958835722283196,
+          "n": 20
+        },
+        "P_planet": {
+          "mean": 0.5425833387533203,
+          "sd": 0.35769224644701575,
+          "ci_lo": 0.016801174695137887,
+          "ci_hi": 0.9950760856270789,
+          "n": 20
+        },
+        "P_dwarf": {
+          "mean": 0.20399511536143108,
+          "sd": 0.24809144694978633,
+          "ci_lo": 0.00015893668596618225,
+          "ci_hi": 0.7634922757744789,
+          "n": 20
+        },
+        "cell_votes": {
+          "nothing": 8,
+          "canon": 12
+        },
+        "tension_frac": 0.0,
+        "abs_cell_votes": {
+          "tension_abs": 8,
+          "swap_abs": 1,
+          "canon_abs": 10,
+          "nothing_abs": 1
+        },
+        "tension_abs_frac": 0.4
+      }
+    },
+    "decomposition": {
+      "tension_index": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.03198491680637994
+      },
+      "P_planet": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.12794374316831264
+      },
+      "P_dwarf": {
+        "var_epistemic_boot": null,
+        "var_optimization": null,
+        "var_total": null,
+        "sd_total": null,
+        "var_epistemic_parametric": 0.06154936604963864
+      }
+    }
+  }
+}

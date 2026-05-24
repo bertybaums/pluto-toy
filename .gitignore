@@ -6,6 +6,7 @@ sweep_small/
 sweep_large/
 sweep_grid/
 sweep_edge/
+ensemble/
 *.log
 
 # Tooling state
